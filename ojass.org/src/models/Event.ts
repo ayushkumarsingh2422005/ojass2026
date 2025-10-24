@@ -11,6 +11,8 @@ export interface IPrizeWorth {
 export interface IEvent extends Document {
   title: string;
   bannerImage: string;
+  maxTeamSize: number;
+  isIndividual: boolean;
   description: string[];
   prizeWorth: IPrizeWorth;
   details: string[];
@@ -18,7 +20,6 @@ export interface IEvent extends Document {
   eventHeads: string[];
   contactNo: string[];
   winners: mongoose.Types.ObjectId[];
-  createdAt: Date;
 }
 
 const prizeWorthSchema = new Schema<IPrizeWorth>(
@@ -28,7 +29,7 @@ const prizeWorthSchema = new Schema<IPrizeWorth>(
     FirstRunnerUp: { type: String, required: true },
     SecondRunnerUp: { type: String, required: true },
   },
-  { _id: false } 
+  { _id: false }
 );
 
 const eventSchema = new Schema<IEvent>(
@@ -42,6 +43,14 @@ const eventSchema = new Schema<IEvent>(
       type: String,
       required: [true, "Banner image is required"],
       trim: true,
+    },
+    maxTeamSize: {
+      type: Number,
+      required: [true, "Team size is required"],
+    },
+    isIndividual: {
+      type: Boolean,
+      required:[true, "Specify if the event is an individual or team event"],
     },
     description: {
       type: [String],
@@ -97,7 +106,7 @@ const eventSchema = new Schema<IEvent>(
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
