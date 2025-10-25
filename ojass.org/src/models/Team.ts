@@ -100,8 +100,8 @@ teamSchema.pre<ITeam>("save", async function (next) {
     }
 
     next();
-  } catch (error: any) {
-    next(error);
+  } catch (error: unknown) {
+    next(error instanceof Error ? error : new Error(String(error)));
   }
 });
 

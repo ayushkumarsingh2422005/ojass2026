@@ -8,7 +8,7 @@ import { useRef, useState } from "react";
 
 export default function ClientLayout() {
   const { isDestructive, setIsDestructive } = useDestructive();
-  const [showGlitch, setShowGlitch] = useState(false);
+  const [, setShowGlitch] = useState(false);
   const glitchRef = useRef<HTMLDivElement>(null);
   const handleDestructiveClick = () => {
     setShowGlitch(true);
@@ -19,7 +19,7 @@ export default function ClientLayout() {
       glitchRef.current.style.transition = 'opacity 1s ease-in-out';
       
       // Force a reflow to ensure the initial opacity is applied
-      glitchRef.current.offsetHeight;
+      void glitchRef.current.offsetHeight;
       
       // Start fade in
       glitchRef.current.style.opacity = '1';
