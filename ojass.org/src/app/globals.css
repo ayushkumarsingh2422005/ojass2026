@@ -1,26 +1,248 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Aircraft Panel Glass Effects */
+.aircraft-panel {
+  background: rgba(0, 20, 40, 0.05);
+  backdrop-filter: blur(25px) saturate(200%);
+  -webkit-backdrop-filter: blur(25px) saturate(200%);
+  border: 2px solid rgba(0, 255, 255, 0.8);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.6),
+    inset 0 0 30px rgba(0, 255, 255, 0.2),
+    0 0 60px rgba(0, 100, 255, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.aircraft-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(0, 255, 255, 0.1) 50%, 
+    transparent 70%);
+  animation: scan 3s linear infinite;
+  pointer-events: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.aircraft-panel::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(0, 255, 255, 0.8), 
+    rgba(0, 100, 255, 0.8), 
+    rgba(0, 255, 255, 0.8));
+  border-radius: inherit;
+  z-index: -1;
+  animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+/* Blue Glowing Text */
+.aircraft-text {
+  color: #ffffff;
+  text-shadow: 
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 15px #00ffff,
+    0 0 20px #0080ff,
+    0 0 25px #ffffff;
+  animation: text-glow 2s ease-in-out infinite alternate;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+/* Animations */
+@keyframes scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes neon-pulse {
+  0% { 
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.4),
+      inset 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  100% { 
+    box-shadow: 
+      0 0 30px rgba(0, 255, 255, 0.8),
+      inset 0 0 30px rgba(0, 255, 255, 0.2);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes text-glow {
+  0% { 
+    text-shadow: 
+      0 0 5px #00ffff,
+      0 0 10px #00ffff,
+      0 0 15px #00ffff,
+      0 0 20px #0080ff,
+      0 0 25px #ffffff;
+  }
+  100% { 
+    text-shadow: 
+      0 0 10px #00ffff,
+      0 0 20px #00ffff,
+      0 0 30px #00ffff,
+      0 0 40px #0080ff,
+      0 0 50px #ffffff;
+  }
 }
+
+/* HUD Grid Lines */
+.hud-grid {
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Status Indicators */
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  background: #00ff00;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff00;
+  animation: status-blink 1s ease-in-out infinite alternate;
+}
+
+.status-indicator.warning {
+  background: #ff6400;
+  box-shadow: 0 0 10px #ff6400;
+  animation: warning-blink 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes status-blink {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@keyframes warning-blink {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+/* Warning/Destructive State */
+.aircraft-panel.warning {
+  background: rgba(40, 0, 0, 0.02);
+  border: 2px solid rgba(255, 100, 0, 0.8);
+  box-shadow: 
+    0 0 30px rgba(255, 100, 0, 0.6),
+    inset 0 0 30px rgba(255, 100, 0, 0.2),
+    0 0 60px rgba(255, 150, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.aircraft-panel.warning::after {
+  background: linear-gradient(45deg, 
+    rgba(255, 100, 0, 0.8), 
+    rgba(255, 150, 0, 0.8), 
+    rgba(255, 100, 0, 0.8));
+}
+
+.aircraft-text.warning {
+  color: #ffffff;
+  text-shadow: 
+    0 0 5px #ff6400,
+    0 0 10px #ff6400,
+    0 0 15px #ff6400,
+    0 0 20px #ff9600,
+    0 0 25px #ffffff;
+  animation: warning-glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes warning-glow {
+  0% { 
+    text-shadow: 
+      0 0 5px #ff6400,
+      0 0 10px #ff6400,
+      0 0 15px #ff6400,
+      0 0 20px #ff9600,
+      0 0 25px #ffffff;
+  }
+  100% { 
+    text-shadow: 
+      0 0 10px #ff6400,
+      0 0 20px #ff6400,
+      0 0 30px #ff6400,
+      0 0 40px #ff9600,
+      0 0 50px #ffffff;
+  }
+}
+
+/* Destructive Button */
+.destructive-button {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 100, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 100, 0, 0.6);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: 
+    0 0 20px rgba(255, 100, 0, 0.4),
+    inset 0 0 20px rgba(255, 100, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.destructive-button:hover {
+  background: rgba(255, 100, 0, 0.2);
+  box-shadow: 
+    0 0 30px rgba(255, 100, 0, 0.6),
+    inset 0 0 30px rgba(255, 100, 0, 0.2);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.destructive-button:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Broken Glass Effect */
+.broken-glass {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.broken-glass.visible {
+  opacity: 1;
+}
+
+/* Screen Shake Effect */
+@keyframes screen-shake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-2px); }
+  20% { transform: translateX(2px); }
+  30% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  50% { transform: translateX(-2px); }
+  60% { transform: translateX(2px); }
+  70% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+  90% { transform: translateX(-2px); }
+}
+
+.screen-shake {
+  animation: screen-shake 0.5s ease-in-out;
+}
+
+

@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.13.0",
     "mongoose": "^8.19.2",
     "next": "15.5.5",
     "react": "19.1.0",
