@@ -136,7 +136,7 @@ export default function Home() {
           marginLeft: '-10vw',
           marginTop: '-10vh',
           backgroundImage: 'url(/layers/bg.jpg)',
-          backgroundSize: 'cover',
+          backgroundSize: 'contain',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           filter: 'blur(2px)',
@@ -163,11 +163,11 @@ export default function Home() {
       ></div>
 
       <div 
-        className="absolute bottom-[7vh] left-0" 
+        className="absolute bottom-[10vh] left-0" 
         id="layer3"
         style={{
           width: '120vw',
-          height: '80vh',
+          height: '70vh',
           marginLeft: '-10vw',
           backgroundImage: 'url(/layers/layer3.png)',
           backgroundSize: 'cover',
@@ -183,7 +183,7 @@ export default function Home() {
         id="bottom"
         style={{
           width: '120vw',
-          height: '40vh',
+          height: '35vh',
           marginLeft: '-10vw',
           backgroundImage: 'url(/layers/bottom.svg)',
           backgroundSize: 'cover',
