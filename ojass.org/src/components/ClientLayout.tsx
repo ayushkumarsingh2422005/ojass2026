@@ -39,7 +39,7 @@ export default function ClientLayout() {
             setShowGlitch(false);
           }, 1000); // Match the transition duration
         }
-      }, 1000); // Brief pause before fade out
+      }, 4000); // Brief pause before fade out
     }, 1000); // Wait for fade in to complete
   };
 
@@ -153,7 +153,7 @@ export default function ClientLayout() {
         )}
       </button>
         <div className="fixed w-screen h-screen bg-black top-0 left-0 opacity-0" ref={glitchRef} style={{ transition: 'opacity 1s ease-in-out', pointerEvents: 'none' }}>
-          <video src="/glitch-effect.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+          <video src="/glitch-effect.mov" autoPlay muted loop playsInline className="w-full h-full object-cover" />
         </div>
     </>
   );
