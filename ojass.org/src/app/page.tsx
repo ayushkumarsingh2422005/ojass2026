@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from 'react';
-
+import EventCard from '@/components/OverlayLayout/EventCard';
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -197,7 +197,7 @@ export default function Home() {
             willChange: 'transform'
           }}
         ></div>
-
+<EventCard/>
         <div
           className="absolute bottom-[10vh] left-0"
           id="layer2"
