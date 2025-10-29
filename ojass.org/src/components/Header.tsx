@@ -1,10 +1,35 @@
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+
 interface HeaderProps {
   isDestructive: boolean;
 }
 
 export default function Header({ isDestructive }: HeaderProps) {
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        {
+          y: -20,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 2.5,
+        }
+      );
+    }
+  }, []);
+
   return (
-    <div className="fixed top-0 left-0 w-full flex items-center justify-center z-50">
+    <div
+      ref={headerRef}
+      className="fixed top-0 left-0 w-full flex items-center justify-center z-50"
+    >
       <div
         className={`relative px-8 py-3 text-2xl font-bold font-mono tracking-widest aircraft-panel ${
           isDestructive ? 'warning' : ''
