@@ -1,122 +1,58 @@
 "use client";
 
-import { useGSAP } from '@gsap/react';
-import { gsap } from "gsap";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const layer2Ref = useRef<HTMLDivElement>(null);
+  const layer3Ref = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
   
-  // Smooth mouse tracking without throttling
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        
-        // Normalize to -1 to 1 range, centered at 0
-        const normalizedX = (x - 0.5) * 2;
-        const normalizedY = (y - 0.5) * 2;
-        
-        setMousePosition({ x: normalizedX, y: normalizedY });
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollProgress = scrollY / maxScroll;
+      
+      // Vertical parallax with scale effect
+      const bgOffset = scrollY * 0.2;
+      const bgScale = 1 + scrollProgress * 0.15;
+      
+      const layer2Offset = scrollY * 0.45;
+      const layer2Scale = 1 + scrollProgress * 0.1;
+      
+      const layer3Offset = scrollY * 0.65;
+      const layer3Scale = 1 + scrollProgress * 0.08;
+      
+      const bottomOffset = scrollY * 0.85;
+      const bottomScale = 1 + scrollProgress * 0.05;
+      
+      // 3D rotation effect
+      const rotX = scrollProgress * 3;
+      
+      // Left-Right parallax effect (horizontal movement)
+      const bgHorizontal = scrollProgress * 100; // -100px to 100px
+      const layer2Horizontal = scrollProgress * 70;
+      const layer3Horizontal = scrollProgress * 50;
+      const bottomHorizontal = scrollProgress * 30;
+      
+      if (bgRef.current) {
+        bgRef.current.style.transform = `translateY(${bgOffset}px) translateX(${bgHorizontal}px) scale(${bgScale}) rotateX(${rotX}deg)`;
+      }
+      if (layer2Ref.current) {
+        layer2Ref.current.style.transform = `translateY(${layer2Offset}px) translateX(${layer2Horizontal}px) scale(${layer2Scale})`;
+      }
+      if (layer3Ref.current) {
+        layer3Ref.current.style.transform = `translateY(${layer3Offset}px) translateX(${layer3Horizontal}px) scale(${layer3Scale})`;
+      }
+      if (bottomRef.current) {
+        bottomRef.current.style.transform = `translateY(${bottomOffset}px) translateX(${bottomHorizontal}px) scale(${bottomScale})`;
       }
     };
-
-    const handleMouseLeave = () => {
-      // Smoothly reset to center when mouse leaves
-      setMousePosition({ x: 0, y: 0 });
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('mousemove', handleMouseMove);
-      container.addEventListener('mouseleave', handleMouseLeave);
-      
-      return () => {
-        container.removeEventListener('mousemove', handleMouseMove);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-      };
-    }
-  }, []);
-
-  // GSAP animations for parallax effect - moving the divs themselves
-  useGSAP(() => {
-    // Animate layers based on mouse position
-    const animateLayers = () => {
-      const { x, y } = mousePosition;
-      
-      // Different parallax speeds for each layer (closer layers move more)
-      const bgSpeed = 0.1;      // Background moves least (furthest)
-      const layer2Speed = 0.3;  // Layer 2 moves more
-      const layer3Speed = 0.5;  // Layer 3 moves even more
-      const bottomSpeed = 0.7;  // Bottom layer moves most (closest)
-      
-      // Calculate movement amounts for div positioning
-      const bgX = x * bgSpeed * 40;      // Max 40px movement
-      const bgY = y * bgSpeed * 30;      // Max 30px movement
-      
-      const layer2X = x * layer2Speed * 60;
-      const layer2Y = y * layer2Speed * 40;
-      
-      const layer3X = x * layer3Speed * 80;
-      const layer3Y = y * layer3Speed * 50;
-      
-      const bottomX = x * bottomSpeed * 100;
-      const bottomY = y * bottomSpeed * 60;
-      
-      // Subtle rotation for 3D effect (very small angles)
-      const bgRotateX = y * bgSpeed * 0.5;
-      const bgRotateY = x * bgSpeed * 0.5;
-      
-      const layer2RotateX = y * layer2Speed * 1;
-      const layer2RotateY = x * layer2Speed * 1;
-      
-      const layer3RotateX = y * layer3Speed * 1.5;
-      const layer3RotateY = x * layer3Speed * 1.5;
-      
-      // Move the actual divs instead of background position
-      gsap.to('#bg', {
-        x: bgX,
-        y: bgY,
-        rotationX: bgRotateX,
-        rotationY: bgRotateY,
-        transformOrigin: 'center center',
-        duration: 0.2,
-        ease: 'none'
-      });
-      
-      gsap.to('#layer2', {
-        x: layer2X,
-        y: layer2Y,
-        rotationX: layer2RotateX,
-        rotationY: layer2RotateY,
-        transformOrigin: 'center center',
-        duration: 0.2,
-        ease: 'none'
-      });
-      
-      gsap.to('#layer3', {
-        x: layer3X,
-        y: layer3Y,
-        rotationX: layer3RotateX,
-        rotationY: layer3RotateY,
-        transformOrigin: 'center center',
-        duration: 0.2,
-        ease: 'none'
-      });
-      
-      gsap.to('#bottom', {
-        x: bottomX,
-        y: bottomY,
-        duration: 0.2,
-        ease: 'none'
-      });
-    };
     
-    animateLayers();
-  }, [mousePosition]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div 
@@ -145,22 +81,29 @@ export default function Home() {
         }}
       ></div>
 
-      <div 
-        className="absolute bottom-[10vh] left-0" 
-        id="layer2"
-        style={{
-          width: '120vw',
-          height: '70vh',
-          marginLeft: '-10vw',
-          backgroundImage: 'url(/layers/layer2.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          filter: 'blur(1px)',
-          transformStyle: 'preserve-3d',
-          willChange: 'transform'
-        }}
-      ></div>
+        <div className="min-h-screen flex items-center justify-center border-b border-white/10">
+          <div className="max-w-3xl text-white px-8">
+            <h2 className="text-5xl font-bold mb-8">Day 1 Highlights</h2>
+            <div className="space-y-4">
+              <div className="border-l-4 border-blue-500 pl-6 py-2">
+                <h3 className="text-xl font-bold mb-1">Tech Events</h3>
+                <p className="text-gray-300">Robo Wars, Electrospection, Hack de Science, Cansys</p>
+              </div>
+              <div className="border-l-4 border-purple-500 pl-6 py-2">
+                <h3 className="text-xl font-bold mb-1">Management Events</h3>
+                <p className="text-gray-300">Mock Stock, Crypto Clash, Business Simulation Challenge</p>
+              </div>
+              <div className="border-l-4 border-green-500 pl-6 py-2">
+                <h3 className="text-xl font-bold mb-1">Gaming & Leisure</h3>
+                <p className="text-gray-300">BGMI Showdown, Chess Tournament, Wax Comb Challenge</p>
+              </div>
+              <div className="border-l-4 border-yellow-500 pl-6 py-2">
+                <h3 className="text-xl font-bold mb-1">Guest Lecture</h3>
+                <p className="text-gray-300">Dr. Yogesh N. Dhoble - Sustainable Innovation through Material Science</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
       <div 
         className="absolute bottom-[10vh] left-0" 
