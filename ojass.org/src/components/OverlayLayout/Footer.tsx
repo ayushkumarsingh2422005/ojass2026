@@ -44,128 +44,64 @@ export default function Footer() {
             className="fixed bottom-0 left-0 right-0 flex items-end justify-center z-40"
             style={{ opacity: 0, pointerEvents: "none" }}>
             <div
-                className={`relative layout-panel hud-grid w-[90vw] max-w-6xl px-12 py-6 backdrop-blur-md transition-all duration-700 bg-black/60 ${
+                className={`relative layout-panel hud-grid px-6 py-3 backdrop-blur-md transition-all duration-700 bg-black/60 ${
                     isDystopia ? "is-dystopia" : ""
                 }`}
                 style={{
-                    clipPath:
-                        "polygon(3% 28%, 18% 4%, 38% 4%, 40% 8%, 60% 8%, 62% 4%, 82% 4%, 97% 28%, 100% 100%, 0% 100%)",
+                        width: "fit-content",
+                        clipPath:
+                            "polygon(0% 100%, 100% 100%, 97% 35%, 80% 0%, 63% 0%, 60% 5%, 40% 5%, 37% 0%, 20% 0%, 3% 35%)",
                 }}>
-                <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                    {/* Left Section - About OJASS */}
-                    <div className="space-y-3 pt-6 md:pt-8">
-                        <h3
-                            className={`text-2xl font-bold font-mono tracking-widest layout-text ${
-                                isDystopia ? "is-dystopia" : ""
-                            }`}>
-                            OJASS &apos;26
-                        </h3>
-                        <p
-                            className={`text-xs font-mono tracking-wide layout-text ${
-                                isDystopia ? "is-dystopia" : ""
-                            } opacity-90`}>
-                            TECHNO-MANAGEMENT FESTIVAL
-                        </p>
-                        <div
-                            className={`text-xs font-mono layout-text ${
-                                isDystopia ? "is-dystopia" : ""
-                            } opacity-75`}>
-                            NIT JAMSHEDPUR | INSPIRING INNOVATION
-                        </div>
+                <div className="relative z-10 flex flex-col items-center justify-center gap-1 text-xs font-mono tracking-wider layout-text opacity-85 text-center">
+                    {/* Navigation Links */}
+                    <div className="flex flex-wrap items-center justify-center gap-6">
+                        {[
+                            { name: "OUR TEAM", href: "/team" },
+                            { name: "PRIVACY POLICY", href: "/privacy-policy" },
+                            { name: "EVENTS", href: "/events" },
+                        ].map((link) => (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                className={`flex items-center gap-1 cursor-pointer hover:scale-105 transition-transform hover:opacity-100 ${
+                                    isDystopia ? "is-dystopia" : ""
+                                } opacity-80`}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="10"
+                                    height="10"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="transition-transform duration-200 group-hover:translate-x-1">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                                {link.name}
+                            </a>
+                        ))}
                     </div>
 
-                    {/* Center Section - Quick Links */}
-                    <div className="space-y-3">
-                        <h3
-                            className={`text-lg font-bold font-mono tracking-widest layout-text ${
-                                isDystopia ? "is-dystopia" : ""
-                            }`}>
-                            NAVIGATION
-                        </h3>
-                        <div className="space-y-2">
-                            {["EVENTS", "WORKSHOPS", "SPONSORS", "TEAM"].map(
-                                (link) => (
-                                    <div
-                                        key={link}
-                                        className={`text-xs font-mono tracking-wider layout-text cursor-pointer hover:scale-105 transition-transform ${
-                                            isDystopia ? "is-dystopia" : ""
-                                        } opacity-80 hover:opacity-100`}>
-                                        → {link}
-                                    </div>
-                                ),
-                            )}
-                        </div>
-                    </div>
-
-                    {/* Right Section - Contact Info */}
-                    <div className="space-y-3">
-                        <h3
-                            className={`text-lg font-bold font-mono tracking-widest layout-text ${
-                                isDystopia ? "is-dystopia" : ""
-                            }`}>
-                            CONTACT
-                        </h3>
-                        <div className="space-y-2">
-                            <div
-                                className={`text-xs font-mono tracking-wide layout-text ${
-                                    isDystopia ? "is-dystopia" : ""
-                                } opacity-80 flex items-center gap-2`}>
-                                <svg
-                                    width="14"
-                                    height="14"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                                </svg>
-                                OJASS@NITJSR.AC.IN
-                            </div>
-                            <div
-                                className={`text-xs font-mono tracking-wide layout-text ${
-                                    isDystopia ? "is-dystopia" : ""
-                                } opacity-80 flex items-center gap-2`}>
-                                <svg
-                                    width="14"
-                                    height="14"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                                </svg>
-                                NIT JAMSHEDPUR, JHARKHAND
-                            </div>
-                            <div
-                                className={`text-xs font-mono tracking-wide layout-text ${
-                                    isDystopia ? "is-dystopia" : ""
-                                } opacity-80 flex items-center gap-2`}>
-                                <svg
-                                    width="14"
-                                    height="14"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-                                </svg>
-                                +91-XXXX-XXXXXX
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Bottom Copyright */}
-
-                <div
-                    className={`pt-4 border-t transition-all duration-700 ease-out mt-6 ${
-                        isDystopia
-                            ? "border-orange-500/30"
-                            : "border-cyan-500/30"
-                    }`}>
+                    {/* Design Credit Line */}
                     <div
-                        className={`text-center text-[10px] font-mono tracking-widest layout-text ${
+                        className={`text-[10px] uppercase opacity-60 mt-1 ${
                             isDystopia ? "is-dystopia" : ""
-                        } opacity-70 uppercase`}>
-                        © 2026 OJASS | NIT JAMSHEDPUR | ALL RIGHTS RESERVED |
-                        WEB TEAM
+                        }`}>
+                        © 2026 OJASS | DESIGN & DEVELOPED BY{" "}
+                        <a
+                            href="https://digicraft.tech"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline hover:opacity-100 opacity-70">
+                            DIGICRAFT
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+
+
     );
 }
