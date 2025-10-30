@@ -1,6 +1,7 @@
 import { useTheme } from "@/contexts/ThemeContext";
 import { NavItems } from "@/lib/constants";
 import gsap from "gsap";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 export default function LeftPanel() {
@@ -34,14 +35,16 @@ export default function LeftPanel() {
             <div className="flex flex-col items-center justify-between h-full py-2">
                 {/* Navigation Icons */}
                 {NavItems.map((item, idx) => (
-                    <div
+                    <Link
                         key={idx}
+                        href={item.title.toLowerCase().replace(" ", "-")}
                         className={`layout-text cursor-pointer hover:scale-110 transition-transform ${
                             isDystopia ? "is-dystopia" : ""
                         }`}
-                        title={item.title}>
+                        title={item.title}
+                    >
                         <item.element className="size-6" />
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

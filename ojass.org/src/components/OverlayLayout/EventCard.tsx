@@ -44,7 +44,7 @@ export default function EventCard() {
                 allElements,
                 { opacity: 0, scale: 0.9 },
                 {
-                    fill: "#dc143c  ",
+                    fill: "#0000ff",
                     opacity: 1,
                     scale: 1,
                     duration: 1.2,
@@ -60,7 +60,7 @@ export default function EventCard() {
 
             // Looping breathing effect
             gsap.to(allElements, {
-                fill: "#dc143c ",
+                fill: "#0000ff",
 
                 scale: 1.03,
                 duration: 1.5,
@@ -76,7 +76,7 @@ export default function EventCard() {
                 allElements,
                 { opacity: 0, scale: 0.9 },
                 {
-                    fill: "#00bfff ",
+                    fill: "#0000ff ",
                     opacity: 1,
                     scale: 1,
                     duration: 1.2,
@@ -92,7 +92,7 @@ export default function EventCard() {
 
             // Looping breathing effect
             gsap.to(allElements, {
-                fill: "#00bfff ",
+                fill: "#0000ff ",
                 scale: 1.03,
                 duration: 1.5,
                 repeat: 0,

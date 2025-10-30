@@ -40,7 +40,9 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 }
-
+*{
+    box-sizing: border-box;
+}
 :root {
     --radius: 0.625rem;
     --background: oklch(1 0 0);
