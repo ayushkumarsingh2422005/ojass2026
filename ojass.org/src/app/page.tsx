@@ -4,7 +4,6 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from 'react';
-import EventCard from '@/components/OverlayLayout/EventCard';
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +46,7 @@ export default function Home() {
       };
     }
   }, []);
-  
+
 
   // GSAP animations for parallax effect - moving the divs themselves
   useGSAP(() => {
@@ -162,7 +161,7 @@ export default function Home() {
         });
 
         gsap.set('#bottom', {
-          y: scrollY * 0.85,
+          y: scrollY * 0.25,
           scale: 1 + progress * 0.05,
         });
       }
@@ -197,7 +196,6 @@ export default function Home() {
             willChange: 'transform'
           }}
         ></div>
-<EventCard/>
         <div
           className="absolute bottom-[10vh] left-0"
           id="layer2"
@@ -232,7 +230,7 @@ export default function Home() {
         ></div>
 
         <div
-          className="absolute -bottom-[10vh] left-0"
+          className="absolute -bottom-[12vh] left-0"
           id="bottom"
           style={{
             width: '120vw',
@@ -246,8 +244,20 @@ export default function Home() {
           }}
         ></div>
       </div>
-      <div className='h-screen'>
-        hjsgfjhghsefg
+      <div className='w-full h-screen bg-white relative overflow-hidden'>
+        <div
+          className="absolute -top-30 left-0"
+          // id="bottom"
+          style={{
+            width: '100vw',
+            height: '35vh',
+            backgroundImage: 'url(/layers/top.svg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'top left',
+            backgroundRepeat: 'no-repeat',
+            willChange: 'transform'
+          }}
+        ></div>
       </div>
     </>
   );

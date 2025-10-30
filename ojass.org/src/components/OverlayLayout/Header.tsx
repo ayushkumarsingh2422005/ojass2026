@@ -30,9 +30,7 @@ export default function Header() {
                         "polygon(0% 0%, 100% 0%, 97% 65%, 80% 100%, 63% 100%, 60% 95%, 40% 95%, 37% 100%, 20% 100%, 3% 65%)",
                 }}>
                 <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-green-400 dystopia:bg-red-400 rounded-full animate-pulse" />
                     <span>OJASS 2026</span>
-                    <div className="w-2 h-2 bg-green-400 dystopia:bg-red-400 rounded-full animate-pulse" />
                 </div>
             </div>
         </div>
