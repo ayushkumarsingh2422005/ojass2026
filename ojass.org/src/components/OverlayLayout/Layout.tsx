@@ -7,6 +7,9 @@ import LeftPanel from "@/components/OverlayLayout/LeftPanel";
 import RightPanel from "@/components/OverlayLayout/RightPanel";
 import ThemeToggleButton from "@/components/OverlayLayout/ThemeToggleButton";
 import { useTheme } from "@/contexts/ThemeContext";
+import CursorEffect from "@/components/cursor/CursorEffect";
+// import CursorEffect from "../cursor/CursorEffect";
+
 // ------------------------------------------------------------
 // import { useState } from "react";
 // import GlitchTransition from "@/components/OverlayLayout/GlitchTransition";
@@ -50,8 +53,9 @@ export default function OverlayLayout() {
                 <GlitchTransition
                     isVisible={showGlitch}
                     src={"glitch-effect.mov"}
-                /> 
-            */}
+                    /> 
+                    */}
+            {/* Cursor Effect */}
         </>
     );
 }
