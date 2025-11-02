@@ -138,8 +138,7 @@ useEffect(() => {
   return (
     <div ref={containerRef} className='w-full h-screen relative overflow-hidden'>
 
-      {/* Background/Foreground Images (NO CHANGES) */}
-      <div id="events-bg" className="w-full h-full absolute bottom-10 left-0" style={{
+      <div id="events-bg" className="w-full h-full absolute bottom-10 left-0 scale-150 md:scale-80" style={{
         pointerEvents: 'none',
       }}>
         <Image
