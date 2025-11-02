@@ -67,7 +67,8 @@ export default function Header() {
   return (
     <div
       ref={headerRef}
-      className="fixed top-0 left-0 w-full flex items-center justify-center z-50 px-2 sm:px-4"
+      className="fixed top-0 left-0 w-full flex items-center justify-center z-50 px-2 sm:px-4 "
+      style={{pointerEvents:"none"}}
     >
       <div
         className={`layout-panel layout-text font-bold relative px-4 sm:px-6 md:px-9 py-2 sm:py-3 ${
@@ -123,5 +124,6 @@ export default function Header() {
         </div>
       </div>
     </div>
+
   );
 }
