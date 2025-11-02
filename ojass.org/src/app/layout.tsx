@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import "./globals.css";
+import CursorEffect from "@/components/cursor/CursorEffect";
 
 const metaDataDescription =
     "Join us for OJASS 2026, the premier annual techno-management festival featuring cutting-edge technology, innovation, and exciting competitions.";
@@ -47,6 +48,7 @@ export default function RootLayout({
                 <ThemeProvider>
                     {children}
                     <OverlayLayout />
+                    <CursorEffect />
                 </ThemeProvider>
             </body>
         </html>
