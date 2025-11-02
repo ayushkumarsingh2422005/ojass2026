@@ -253,14 +253,6 @@ useEffect(() => {
           />
         </div>
       </div>
-
-      <div className="absolute left-[400px] top-12 z-30 pointer-events-auto">
-        <Dropdown
-          options={dropdownOptions}
-          selectedValue={selectedEventIndex}
-          onChange={handleDropdownChange}
-        />
-      </div>
     </div>
   )
 }

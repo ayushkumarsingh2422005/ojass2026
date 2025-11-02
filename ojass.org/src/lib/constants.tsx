@@ -13,7 +13,7 @@ import { MdMail } from "react-icons/md";
 
 export type Theme = "utopia" | "dystopia";
 
-export type Icons = { title: string; element: IconType }[];
+export type Icons = { title: string; element: IconType; }[];
 
 export const NavItems: Icons = [
     { title: "Home", element: FaHome },
