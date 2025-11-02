@@ -1,0 +1,1461 @@
+[
+    [
+        {
+            "id": "0-1",
+            "name": "HACK-DE-SCIENCE",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1Sqx-1ewV_iQELXFRG8lwnFJcu5tSotsL",
+            "redirect": "events/0/0",
+            "organizer": "Coding Chronicles",
+            "description": "HACK DE SCIENCE, where creativity meets innovation! This event is designed to challenge your development skills and inspire you to create amazing projects while you compete with the brightest minds in the field.",
+            "prizes": {
+                "total": "₹50,000",
+                "winner": "₹25,000",
+                "first_runner_up": "₹15,000",
+                "second_runner_up": "₹10,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+               " Round 1(Day 1): Progress Evaluation",
+                "This round will track the progress of the project and assess the initial development and approach.",
+                "Round 2(Day 2): Functionality Testing",
+                "In this round, the complete functionality of the projects will be thoroughly tested.",
+                "Round 3(Final Round): Presentation",
+                "Teams will present their projects to the jury, showcasing the utility and impact of their solution.", 
+                "Weightage of the rounds will be: 25% - 25% - 50%",
+                "Duration: 36 hours"
+            ],
+            "rules": [
+                "Teams of 2 to 4 participants are allowed.",
+                "All submitted work must be original. Plagiarism will lead to disqualification",
+                "The judges’ decision will be final and binding.",
+                "Participants Must bring their own Laptops or other requirements.",
+                "OJASS Team are liable to provide Charging Points and stable Internet Connection.",
+                "One of the members should be available at the allotted place throughout the event."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Ayush Kumar & Himanshu Pathak",
+                "Phone": "9334795115 & 9006699775"
+            }
+        },
+
+        {
+            "id": "0-2",
+            "name": "VISHWA-CODE-MANIA",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "3",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1rMX1Rb0-VeHalfK-1tT5KM0L7X7XUzqR",
+            "redirect": "events/0/1",
+            "description": "If you love competitive coding, or problem-solving in general, then this is THE event for you! Code Mania is the flagship competitive programming event of our prestigious institute. This is a team event where the size of a team can vary from 1 member to 3 members. So, this event will not only help you hone your problem-solving skills but also contribute to your capacity to work with a team under pressure!",
+            "prizes": {
+                "total": "₹25,000",
+                "winner": "₹12,000",
+                "first_runner_up": "₹8,000",
+                "second_runner_up": "₹5,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Prelims: A 2-hour contest with six programming problems.",
+                "Finals: A 2-hour contest with six advanced problems to solve."             
+            ],
+            "rules": [
+                "Teams of 1 to 3 participants are allowed.",
+                "All submitted solutions must be original. Any violation will lead to disqualification.",
+                "The decision of the organizing team is final and binding."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Hitanshu Gavri",
+                "Phone": "8601103675"
+            }
+        },
+
+        {
+            "id": "0-3",
+            "name": "TENSORENCODED",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "3",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1R-daEP8r5y5pMwtHak-KKjovnt9eJKbR/",
+            "redirect": "events/0/2",
+            "organizer": "Coding Chronicles",
+            "description": "TensorsEncoded!, where Python and Artificial Intelligence converge! This event is designed to help you explore the fascinating world of Artificial Intelligence and its powerful applications in solving real-world problems.",
+            "prizes": {
+                "total": "₹25,000",
+                "winner": "₹12,000",
+                "first_runner_up": "₹8,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details":  [
+                "Pre-process the data, Select and apply appropriate machine learning algorithms, Tune their models for optimal performance.",
+                "Additionally, participants will be required to prepare a report that presents.",
+                "The approach used, Dataset handling,",
+                "Model selection and performance evaluation, Challenges faced during model building.",
+                "The time duration for this is 12 hours. "               
+             ],
+            "rules": [
+                "Team participation is allowed with a maximum of 3 participants.",
+                "There will be no penalties or negative markings in any rounds.",
+                "Any form of unfair means will lead to disqualification.",
+                "The decision of judges will be final and cannot be further questioned."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Himanshu Pathak",
+                "Phone": "9006699775"
+            }
+        },
+
+        {
+            "id": "0-4",
+            "name": "MODELMAYHEM",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "3",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1bfv-GJQ5NovFi6VwYR0ebvjHfoLskvcw/",
+            "redirect": "events/0/3",
+            "description": "ModelMayhem, an extraordinary event by OJASS designed to immerse participants in the ever-evolving realm of Machine Learning and Artificial Intelligence. Whether you're a budding enthusiast or a seasoned practitioner, ModelMayhem is your platform to showcase skills, solve challenging problems, and innovate with cutting-edge technologies.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Round 1: Predictive Modelling Contest",
+                "Duration: 2 hours",
+                "Top 5 performers will qualify for Round 2",
+                "Round 2: Advanced Deep Learning & Generative AI",
+                "Participants will choose one of two complex problem statements.",
+                "Expected deliverables include a well-documented solution and a brief presentation of the methodology."           
+            ],
+            "rules": [
+                "The decision of the organizing team is final and binding.",
+                "Usage of any wrong means will lead to immediate disqualification."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Aanchal Shikarwar & Neha Singh",
+                "Phone": "9380690526 & 9431751248"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "1-0",
+            "name": "UNDERWATER TRACING",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/12AMaNXjA-98ecWXqqRGMU_brh5JH6RLQ",
+            "redirect": "events/1/0",
+            "organizer": "AquaBots Arena",
+            "description": "This event challenges participants to design and operate underwater robots capable of navigating a submerged course, scanning QR codes placed underwater, and decoding the information to complete specific tasks. The event tests engineering, navigation, and automation skills under water.",
+            "prizes": {
+                "total": "₹60,000",
+                "winner": "₹30,000",
+                "first_runner_up": "₹20,000",
+                "second_runner_up": "₹10,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Preparation Phase: Teams will have 30 minutes to test and calibrate their bots in the water before the race begins.",
+                "Task Phase: Bots must, Navigate the pool to locate QR codes, Scan and decode each QR code, Perform the actions described in the decoded QR code."
+            ],
+            "rules": [
+                "Fair Play: Teams must not interfere with other bots during the competition.",
+                "QR Code Visibility: Teams cannot manually adjust or move QR codes during the event.",
+                "Bot Retrieval: In case of malfunction, teams may retrieve and repair bots but will incur a 2-minute penalty."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Vishal Raj",
+                "Phone": "8863832703"
+            }
+        },
+
+        {
+            "id": "1-1",
+            "name": "AQUA RACE",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1YabuwJIOmCGaNneiNlsxJ8NUlVh6ruyn/",
+            "redirect": "events/1/1",
+            "description": "Participants will design and build miniature boats that must navigate a zigzag course filled with obstacles from a designated starting point to the finish line. The boats can be either manually controlled (via ropes, wind, or sticks) or autonomous (using pre-designed mechanisms). The event tests creativity, engineering, and precision in steering through the course.",
+            "prizes": {
+                "total": "₹30,000",
+                "winner": "₹15,000",
+                "first_runner_up": "₹10,000",
+                "second_runner_up": "₹5,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Track Dimensions: 12*12 feet (l*b), width 1.5 feet per lane.",
+                "The course includes a zigzag pattern marked by floating buoys.",
+                "Boats must navigate in a serpentine path around the buoys without skipping any turns."
+            ],
+            "rules": [
+                "Fastest Completion Time: The boat that completes the course in the shortest time wins, adjusted for penalties.",
+                "Bonus Points: Creativity and innovation in design.",
+                "Smooth navigation through obstacles (no penalties)."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Priyanshu Raj",
+                "Phone": "9155360718"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "2-0",
+            "name": "BIZZTHALON (BUISNESS QUIZ)",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "2",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1LC6lOMEGnN26-Fx6xI00CPpkk4t_g46P/",
+            "redirect": "events/2/0",
+            "organizer": "Brain Busters",
+            "description": "BIZZTHALON is a business quizzing event organized as part of OJASS’25, the techno-management fest of NIT Jamshedpur. The event challenges participants to demonstrate their knowledge of business, startups, economics, and related domains through a series of competitive quiz rounds.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Multiple rounds covering various aspects of the business genre.",
+                "Questions will test knowledge, teamwork, and problem-solving skills.",
+                "The team with the best cumulative performance across rounds will be declared the winner.",
+                "Each team must consist of 2 members.",
+                "Participants must present valid identification for on-campus verification.",
+                "Teams are prohibited from bringing study materials or electronic devices into the quiz venue."
+            ],
+            "rules": [
+                "Only registered team members are allowed to participate. Substitution of team members is not permitted.",
+                "Teams must adhere to principles of fair play and sportsmanship.",
+                "Any form of cheating, including plagiarism or use of unauthorized materials, will result in immediate disqualification.",
+                "Decisions made by the organizers and Quiz Masters are final and binding.",
+                "Teams must report on time for each stage. Late entries will not be accommodated."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Ishita Dey & Srinjoy Chakraborty",
+                "Phone": "9369442703 & 6287750834"
+            }
+        },
+
+        {
+            "id": "2-1",
+            "name": "SCI-FI QUIZ (TECHNICAL QUIZ)",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "2",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/12S2aGC4XwPWm8nDVGJ0SOIyX3hLyn-S2/",
+            "redirect": "events/2/1",
+            "description": "SCI-FI QUIZ is a Sci-Tech quizzing event organized under OJASS’25, the techno-management fest of NIT Jamshedpur. This event challenges participants to demonstrate their knowledge in the fields of science, technology, business, and related domains through a series of competitive quiz rounds.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Stage 1: Prelims :",
+                "Duration: 2 hours.",
+                "Details: Number of Questions: 16-25 (final number determined by the Quiz Master).",
+                "Theme: Science and Technology.",
+                "Selection Criteria: Based on performance, the top 6-8 teams will advance to the Finals.",
+                "The number of advancing teams depends on total participation.",
+                "Stage 2: Finals :",
+                "Duration: 2 hours.",
+                "Details: Multiple rounds focusing on the sci-tech genre.",
+                "Questions will test knowledge, teamwork, and problem-solving skills in areas such as emerging technologies, scientific breakthroughs, and tech innovations.",
+                "The team with the best cumulative performance across rounds will be declared the winner."
+            ],
+            "rules": [
+                "Only registered team members are allowed to participate. Substitution of team members is not permitted.",
+                "Teams must adhere to principles of fair play and sportsmanship.",
+                "Any form of cheating, including plagiarism or use of unauthorized materials, will result in immediate disqualification.",
+                "Decisions made by the organizers and Quiz Masters are final and binding.",
+                "Teams must report on time for each stage. Late entries will not be accommodated."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Sandeep Shaw & Rohit Parashar",
+                "Phone": "8252073605 & 7488068474"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "3-0",
+            "name": "CASE STUDY CHALLENGE",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1G2wuNEgO2hxAwn5IKIiAmOVj0R8bmvvp/",
+            "redirect": "events/3/0",
+            "organizer": "Case Quest",
+            "description": "The Data Analytics Case Competition is a unique platform for students to demonstrate their analytical prowess, creative thinking, and strategic problem-solving abilities. Participants will analyse real-world business problems, derive actionable insights, and present innovative solutions to industry experts. This event aims to bridge the gap between academic knowledge and practical application in the field of data analytics.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Round 1: Problem Analysis :",
+                "Teams will receive a detailed case study and dataset via email upon registration confirmation.",
+                "Deliverables: A structured report (in PDF format) summarizing insights, methodology, and actionable recommendations.",
+                "Round 2: Presentation & Solution Pitch : Shortlisted teams from Round 1 will present their solutions to an expert panel. Format: 10-minute presentation followed by a 5-minute Q&A session."
+            ],
+            "rules": [
+               " Originality: All submissions must be original and adhere to ethical guidelines. Plagiarism will lead to disqualification.",
+                "Use of Resources: Teams may use publicly available tools, software, and datasets for reference, provided they properly cite all external sources.",
+                "Deadlines: Teams must adhere to submission timelines. Late submissions will not be entertained.",
+                "Confidentiality: Teams must treat the given case study and dataset as confidential and refrain from sharing them externally.",
+                "Communication: Teams can interact only with the event organizers for clarifications. External consultations are not allowed."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Amarjeet Kumar",
+                "Phone": "9162540040"
+            }
+        },
+
+        {
+            "id": "3-1",
+            "name": "CONSULTING NEXUS",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "3",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1je11ou_JJHRcHkB8s4oW986ZuLd7vQ1Q/",
+            "redirect": "events/3/1",
+            "description": "Consulting Nexus challenges participants to think critically and solve real-world business problems. Participants will engage in analyzing case studies, solving guesstimates, tackling business puzzles, and presenting structured solutions to complex challenges in the field of management consulting.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Round 1: Business Problem Solving :",
+                "Format: Participants will solve real-world business challenges through case studies, guesstimates, and puzzles.",
+                "Task: Each participant will be given a set of questions or cases to analyze and solve within a limited time frame.",
+                "Submission: All answers must be written legibly and submitted within the given time frame. Late submissions will not be accepted.",
+                "Round 2: Personal Interview (PI) :",
+                "Format: Shortlisted participants from Round 1 will proceed to a Personal Interview."
+            ],
+            "rules": [
+                "Eligibility: Team up to 3 participants is allowed.",
+                "Question Type: Questions will test participants' analytical, logical, and business acumen.",
+                "Time Management: Participants must adhere to the time limits specified for each round."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Arpan Sarkar",
+                "Phone": "9798245587"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "4-0",
+            "name": "CRYPTO CLASH",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "2",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1AVlet6tv_StEZyKVtPRGfNjpRLgf7bKk/",
+            "redirect": "events/4/0",
+            "organizer": "Crypto Craft",
+            "description": "Test participants' knowledge of cryptocurrency markets and trading strategies by managing a virtual crypto portfolio over a specific time period.",
+            "prizes": {
+                "total": "₹25,000",
+                "winner": "₹12,000",
+                "first_runner_up": "₹8,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Phase 1: Registration :",
+                "Participants must register individually or in teams (maximum of 2 members per team).",
+                "They will be provided with access to the virtual trading platform and guidelines for participation.",
+                "Phase 2: Trading Period :",
+                "Participants will trade using a pre-defined virtual capital (e.g., $100,000 in virtual currency).",
+                "Trades must be conducted on the assigned platform.",
+                "A leaderboard will track portfolio performance in real-time, showing gains/losses.",
+                "Phase 3: Evaluation and Final Round :",
+                "The trading period will last 2 days.",
+                "At the end of the trading period, top-performing participants/teams will present their strategies to the judges.",
+                "Judges will evaluate based on portfolio performance, strategy creativity, and risk management."
+
+            ],
+            "rules": [
+                "Eligibility: Open to individuals or teams of up to 2 members.",
+                "Trading Platform: Participants must use the assigned virtual trading platform.",
+                "Use of real money or external platforms is prohibited.",
+                "Initial Capital: Each participant/team starts with the same virtual capital (e.g., $100,000).",
+                "The initial capital cannot be reset or modified after trading begins.",
+                "Trading Rules: Participants may trade any available cryptocurrency on the platform.",
+                "Trades are subject to platform rules, such as trading fees and minimum trade sizes.",
+                "No external assistance or tools (e.g., bots or algorithms) are allowed."
+                
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Anurag Das",
+                "Phone": "8340671871"
+            }
+        },
+        
+        {
+            "id": "4-1",
+            "name": "MINT & BID: NFT SHOWDOWN",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "3",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1wQZg9DJFhvbQVZT7qCwuVDFIVOQtvsfo/",
+            "redirect": "events/4/1",
+            "organizer": "Crypto Craft",
+            "description": "Participants will design, mint, and auction their own NFTs, showcasing creativity, technical skills, and market strategy.",
+            "prizes": {
+                "total": "₹25,000",
+                "winner": "₹12,000",
+                "first_runner_up": "₹8,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Phase 1: Registration",
+                "Team Size: Individual or teams of up to 3 members.",
+                "Participants will be provided with access to a blockchain test network (e.g., Ethereum Testnet, Polygon Testnet) or a simulated NFT platform.",
+                "Phase 2: NFT Creation and Submission",
+                "Participants must design and mint an original NFT using the provided platform.",
+                "Phase 3: NFT Auction",
+                "All minted NFTs will be showcased on an auction platform.",
+                "Participants will sell their NFTs to event bidders (using virtual tokens).",
+                "Bidding will be open for a fixed duration (e.g., 1–2 hours)."
+            ],
+            "rules": [
+                "All NFTs must be original and created during the event.",
+                "Use of pre-made or plagiarized content will result in disqualification.",
+                "Participants must use the assigned blockchain platform/testnet.",
+                "Real-money transactions are prohibited; only virtual tokens will be used.",
+                "Participants may set a base price for their NFT.",
+                "Bids will be made using the virtual tokens provided by the event.",
+                "The highest bid at the end of the auction wins the NFT. "
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Vishal Raj",
+                "Phone": "8863832703"
+            }
+        },
+
+        {
+            "id": "4-2",
+            "name": "HACK IT (ETHICAL HACKING)",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/17tYVF9Jx30RYdrQrAL1hLMdidYWkXYFr/",
+            "redirect": "events/4/2",
+            "description": "The Ethical Hacking Event at OJASS’25 challenges participants to demonstrate their hacking skills in a safe and controlled environment. Participants will solve real-world cybersecurity challenges, including penetration testing, vulnerability exploitation, and defence mechanisms, while adhering to ethical practices.",
+            "prizes": {
+                "total": "₹30,000",
+                "winner": "₹15,000",
+                "first_runner_up": "₹10,000",
+                "second_runner_up": "₹5,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Round 1: Preliminary Capture-the-Flag (CTF) Challenge :",
+                "Objective: Solve a series of CTF challenges, including cryptography, web exploitation, reverse engineering, and forensics.",
+                "Format: Teams will be provided with a set of challenges to solve within a fixed time.",
+                "Each challenge carries a specific score based on difficulty.",
+                "Duration: 3 hours.",
+                "Selection Criteria: Top-performing teams based on cumulative scores will qualify for Round 2.",
+
+                "Round 2: Advanced Exploit and Defence Challenge :",
+                "Objective: Teams must identify and exploit vulnerabilities in a provided system and simultaneously secure their own system against attacks.",
+                "Format: Teams will be given a virtual environment with a vulnerable machine.",
+                "They must report the vulnerabilities they exploit and the steps taken to secure their system.",
+                "Duration: 4 hours."
+            ],
+            "rules": [
+                "Teams must consist of 2-4 members.",
+                "Eligibility: Participants must have basic knowledge of ethical hacking concepts and tools.",
+                "Ethical Practices: Participants must adhere to ethical hacking principles; any attempt to cause real harm will result in disqualification.",
+                "External Assistance: Use of unauthorized tools, scripts, or third-party help is prohibited.",
+                "Reporting: All exploits and defences must be documented and reported to the event coordinators."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Ankit Kumar",
+                "Phone": "7209774090"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "5-0",
+            "name": "ELECTROSPECTION",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "2",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1m3iOBnY3qF3uRNSov8Ij2D1laKDkPbyr",
+            "redirect": "events/5/0",
+            "organizer": "Department Events",
+            "description": "Electrospcection is a two-round event that challenges participants on both theoretical knowledge and practical circuit design skills. The first round tests your understanding of electrical and electronic components, while the final round requires you to apply your knowledge by constructing a functional circuit.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+               " Round 1(Day 1): Progress Evaluation",
+                "This round will track the progress of the project and assess the initial development and approach.",
+                "Round 2(Day 2): Functionality Testing",
+                "In this round, the complete functionality of the projects will be thoroughly tested.",
+                "Round 3(Final Round): Presentation",
+                "Teams will present their projects to the jury, showcasing the utility and impact of their solution.", 
+                "Weightage of the rounds will be: 25% - 25% - 50%",
+                "Duration: 36 hours"
+            ],
+            "rules": [
+                "Teams of 2 to 4 participants are allowed.",
+                "All submitted work must be original. Plagiarism will lead to disqualification",
+                "The judges’ decision will be final and binding.",
+                "Participants Must bring their own Laptops or other requirements.",
+                "OJASS Team are liable to provide Charging Points and stable Internet Connection.",
+                "One of the members should be available at the allotted place throughout the event."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Gangadhar & Ritisha ",
+                "Phone": "8677981857 & 93411 07928"
+            }
+        },
+
+        {
+            "id": "5-1",
+            "name": "WAXCOMBS",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "3",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1B0PXQ1eE45Cgr4GNM1NbuAaCJH70Nx9f/",
+            "redirect": "events/5/1",
+            "description": "WaxCombs challenges participants to demonstrate precision, patience, and creativity. Teams will first create an irregular wax shape using materials provided by the organizers. Then, each team will draw a token with a specific shape to carve from their wax casting. This task, inspired by the Squid Game concept, tests skill and teamwork. The fastest team to complete the task wins, but breaking the wax shape results in elimination.",
+            "prizes": {
+                "total": "₹15,000",
+                "winner": "₹8,000",
+                "first_runner_up": "₹5,000",
+                "second_runner_up": "₹2,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Wax Casting: Teams will use wax and clay to create an irregular shape, guided by the organizing team.",
+                "Shape Selection: Each team will randomly pick a token with a specific shape (e.g., star, circle, triangle).",
+                "Carving Challenge: Teams must carve the chosen shape from their wax casting using a pin or similar tools provided.",
+                "Teams that break their wax shape are immediately eliminated.",
+                "Time Limit and Judging: The fastest team to carve the shape successfully without breaking wins the challenge."
+            ],
+            "rules": [
+                "All teams must use only the materials and tools provided.",
+                "Once a shape is selected, it cannot be changed.",
+                "No external assistance is allowed.",
+                "Breaking the wax shape results in immediate disqualification."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Sumit Gupta & Om Diwan ",
+                "Phone": "9304553584 & 86691 60769"
+            }
+        },
+
+        {
+            "id": "5-2",
+            "name": "SANRACHNA (BRIDGE BUILDING)",
+            "teamSizeMin" : "4",
+            "teamSizeMax" : "5",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1iPxuOWjpbDRCr_rMTPnCoNu3PQ6LnyLp/",
+            "redirect": "events/5/2",
+            "organizer": "Coding Chronicles",
+            "description": "This is a hands-on event that combines theoretical knowledge with practical application. Participants will construct a simply supported bridge using ice-cream sticks provided on the spot. The event emphasizes creativity, resourcefulness, and problem-solving skills. Teams will first participate in a engineering and aptitude quiz, and those who qualify will move on to the bridge-building round.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details":  [
+                "Round 1: Online Quiz :",
+                "Format: A quiz focused on civil engineering concepts and aptitude.",
+                "Eligibility: Teams scoring above a pre-determined threshold will qualify for Round 2.",
+                "Platform: Online or on-site (to be specified by organizers).",
+                "Round 2: Bridge Construction :",
+                "Objective: Build a simply supported bridge using the materials provided.",
+                "Use of trusses is allowed",
+                "Only materials provided by the organizers may be used.",
+                "Time Limit: To be declared at time of event"
+             ],
+            "rules": [
+                "Team Composition:  Teams must consist of 4-5 members.",
+                "Material Usage:  Smart and efficient use of resources is critical. Teams will receive limited quantities of ice-cream sticks and thread.",
+                "Design Constraints:  The structure must adhere to the specified dimensions.",
+                "Use of adhesives, other than those provided, is prohibited.",
+                "Fair Play:  Teams must work independently without external assistance.",
+                "Any form of cheating will result in immediate disqualification.",
+                "Changes:  Organizers reserve the right to make changes to the rules, event format, or materials provided, if necessary."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Aman Raj",
+                "Phone": "8340464538"
+            }
+        },
+
+        {
+            "id": "5-3",
+            "name": "CANSYS (CAD-CAE)",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "2",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1SdJPkWDutuz48vocZ93DGsdoiY7x-L8K/",
+            "redirect": "events/5/3",
+            "description": "This event focuses on the design and analysis of structural and mechanical components using advanced software tools like CATIA/SolidWorks for modelling and ANSYS for simulation. Participants will explore the feasibility of designs through visualization, drafting, assembly, and performance analysis.",
+            "prizes": {
+                "total": "₹15,000",
+                "winner": "₹8,000",
+                "first_runner_up": "₹5,000",
+                "second_runner_up": "₹2,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Round 1: 3D Part Modelling and Drafting",
+                "Format: Participants will create a 3D part model and generate its drafting views using CATIA/SolidWorks.",
+                "Objective: Showcase proficiency in part modelling and technical drafting.",
+                "Round 2: 3D Modelling, Assembly, and Analysis",
+                "Format: Participants will design and assemble 3D mechanical components in CATIA/SolidWorks.",
+                "Perform structural analysis of the assembled model using ANSYS.",
+                "Objective: Evaluate design feasibility and functionality through simulation."
+            ],
+            "rules": [
+                "Team Size: Teams must consist of 1-2 members.",
+                "Equipment: Teams are required to bring their own laptop with charger. The laptop must have CATIA/SolidWorks and ANSYS pre-installed and ready to use.",
+                "Fair Play: Any use of unfair means, including plagiarism or external assistance, will result in immediate disqualification.",
+                "Decision Authority: The decision of the judges or event coordinators will be final and binding.",
+                "Time Management: Participants must adhere to the time limits specified for each round."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Paras Parimal & Shrajjal Prakash",
+                "Phone": "8877023130 & 7004867971"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "6-0",
+            "name": "BGMI",
+            "teamSizeMin" : "4",
+            "teamSizeMax" : "5",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1Tzw2e0WE3QON95Jxt2Anqh9PyZCwn4G8/",
+            "redirect": "events/6/0",
+            "organizer": "Game Crafts",
+            "description": "The BGMI Tournament is an exhilarating e-sports event organized as a part of OJASS’25, the annual techno-management fest of NIT Jamshedpur. This competition invites participants to showcase their strategic, tactical, and gaming skills in an engaging battle royale format.",
+            "prizes": {
+                "total": "₹15,000",
+                "winner": "₹8,000",
+                "first_runner_up": "₹5,000",
+                "second_runner_up": "₹2,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Stage 1: Qualifiers :",
+                "Duration: 45 minutes per match  ",
+                "Details:  ",
+                "Map: Erangel (Classic Mode).  ",
+                "Format: Squad mode (4 players per team).  ",
+                "Selection Criteria: Based on cumulative points from kills, placement, and other performance metrics, the top teams will advance to the finals.  ",
+                "Number of advancing teams will depend on total participation.  ",
+                "Stage 2: Finals :",
+                "Duration: 45 minutes per match",
+                "Details:",
+                "Multiple matches across different maps (Erangel, Miramar, Sanhok).  ",
+                "Scoring based on kills, placement, and bonus objectives (if applicable).  ",
+                "The team with the highest cumulative score across all matches will be declared the winner."
+            ],
+            "rules": [
+                "Device: Players must use their own devices (smartphones/tablets).  ",
+                "Emulators: Use of emulators is strictly prohibited.  ",
+                "Network: Players are responsible for their internet connectivity; organizers will not be liable for disconnections. However, wi-fi would be available in the venue. ",
+                "Game Settings: All in-game settings will be default unless specified otherwise."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Lokesh Aryan",
+                "Phone": "8602834901"
+            }
+        },
+
+        {
+            "id": "6-1",
+            "name": "ENDGAME",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "1",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1l0igrNWK4WbmaxFJgQ8oVm2D_A_u6sZd",
+            "redirect": "events/6/1",
+            "description": "The Endgame is an on-board rapid chess combat designed to test the strategic and tactical prowess of participants. Each match is played in a rapid format, ensuring dynamic and thrilling gameplay.",
+            "prizes": {
+                "total": "₹15,000",
+                "winner": "₹8,000",
+                "first_runner_up": "₹5,000",
+                "second_runner_up": "₹2,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Stage 1: Qualifiers :",
+                "Duration: 15 minutes per match  ",
+                "Format: Individual (1v1 matches).",
+                "Time Control: 10 minutes per player, with a 5-second increment per move.",
+                "Selection Criteria: Based on cumulative points (win = 2, draw = 1, loss = 0). The top players advance to the finals.",
+                "Number of advancing players depends on total participation.",
+                "Stage 2: Finals :",
+                "Duration: 15 minutes per match  ",
+                "Multiple matches in a knockout format.",
+                "Tiebreakers (if applicable): Blitz (5+3) followed by Armageddon (5 vs 4 minutes).",
+                "The winner will be determined by cumulative victories in the finals."
+            ],
+            "rules": [
+                "Time Control: All matches follow the 10+5 rapid time control.",
+                "Fair Play: All moves must adhere to FIDE rules of chess. Cheating (e.g., external help) will result in immediate disqualification.",
+                "Chess Clock: Players must press the clock after completing each move.",
+                "Illegal Moves: Any illegal move, once made, must be corrected. Repeated illegal moves may result in penalties."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Ankit Singh",
+                "Phone": "9128631228"
+            }
+        },
+
+        {
+            "id": "6-2",
+            "name": "VALORANT",
+            "teamSizeMin" : "5",
+            "teamSizeMax" : "6",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1MW6Vhn0G5wcEUVlR18iwjYI0RTi6wCGY/",
+            "redirect": "events/6/2",
+            "organizer": "Coding Chronicles",
+            "description": "The Valorant Tournament is an electrifying e-sports event organized as a part of OJASS’25, the annual techno-management fest of NIT Jamshedpur. This competition invites participants to showcase their strategic, tactical, and aiming skills in Riot Games' popular 5v5 tactical shooter.",
+            "prizes": {
+                "total": "₹15,000",
+                "winner": "₹8,000",
+                "first_runner_up": "₹5,000",
+                "second_runner_up": "₹2,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details":  [
+                "Stage 1: Qualifiers",
+                "Duration: Best of 1 (Bo1) per match  ",
+                "Format: Standard Competitive Mode (5 players per team) . ",
+                "Selection Criteria: Based on match outcomes. Teams will be eliminated in a knockout format until a predetermined number of teams advance to the finals.",
+                "Stage 2: Finals",
+                "Duration: Best of 3 (Bo3) per match  ",
+                "Details: The finals will feature the top teams from the qualifiers. The team that wins two out of three maps will be crowned the winner.  ",
+                "Map Pool: Ascent, Bind, Haven, Lotus, Pearl, Split."
+             ],
+            "rules": [
+                "Platform: PC-only tournament. Players must bring their own laptops.  ",
+                "Game Version: The latest version of Valorant will be used.  ",
+                "Network: Internet connectivity will be provided by the organizers via wi-fi. "
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Anurag Das",
+                "Phone": "8340671871"
+            }
+        },
+
+        {
+            "id": "6-3",
+            "name": "FIFA",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "1",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1ZLVbFqqdBaEWIAqO59QdgTDmE3iT6myW",
+            "redirect": "events/6/3",
+            "description": "The FIFA Tournament is a thrilling e-sports event organized as a part of OJASS’25, the annual techno-management fest of NIT Jamshedpur. This competition invites participants to showcase their skills in football simulation, focusing on strategy, precision, and gameplay tactics.",
+            "prizes": {
+                "total": "₹15,000",
+                "winner": "₹8,000",
+                "first_runner_up": "₹5,000",
+                "second_runner_up": "₹2,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Stage 1: Qualifiers",
+                "Duration: 12 minutes per match (6 minutes per half)  ",
+                "Details:  ",
+                "Platform: Laptop or mobile phone (Specified version of the FIFA game to be announced).",
+                "Format: Single-player matches.",
+                "Selection Criteria: Based on match outcomes, goal difference, and fair play points, the top players will advance to the finals.",
+                "The number of advancing players will depend on total participation.",
+                "Stage 2: Finals",
+                "Duration: 12 minutes per match (6 minutes per half)",
+                "Details:",
+                "Multiple knockout rounds leading to a final match.",
+                "Scoring based on match wins and, in case of ties, penalty shootouts.",
+                "The player with the most wins or, in the case of the final, the highest scorer will be declared the champion."
+            ],
+            "rules": [
+                "Devices: Only laptops or mobile phones with default FIFA settings are allowed.",
+                "Controllers: Players are permitted to use external controllers if compatible with their device.",
+                "Network: Players are responsible for their internet connectivity; however, organizers will provide a stable Wi-Fi connection at the venue."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Anurag Das",
+                "Phone": "8340671871"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "7-0",
+            "name": "CineScript",
+            "teamSizeMin" : "3",
+            "teamSizeMax" : "5",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/197zqQK8_xfhmxUm7nn634hqpyPFkiQEt/",
+            "redirect": "events/7/0",
+            "organizer": "Lens Craft",
+            "description": "Event Type: Filmmaking - CineSprint challenges participants to create a 5–10-minute short film within a limited timeframe. This event combines the technical aspects of filmmaking, including camera work, editing, and sound design, with storytelling and creativity.",
+            "prizes": {
+                "total": "₹35,000",
+                "winner": "₹18,000",
+                "first_runner_up": "₹10,000",
+                "second_runner_up": "₹7,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Open theme (A general theme in which all categories are allowed )",
+                "Filmmaking Process: Teams can prepare or present a short film filmed after January 2024",
+                "Submission: Completed short films must be submitted in a specific format by the deadline.",
+                "Screening & Judging: Short films will be screened for an audience and judged by a panel of experts."
+            ],
+            "rules": [
+                "No abusive language, explicit violence, or offensive material.",
+                "No discriminatory or sensitive content targeting race, religion, gender, or sexuality.",
+                "All content must be original, and plagiarism will lead to disqualification.",
+                "Films should align with the provided theme."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Shubham & Harshit Raj",
+                "Phone": "9570053383 & 7014425052"
+            }
+        },
+
+        {
+            "id": "7-1",
+            "name": "FRAMES & TALES",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "3",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1HxrbQ3o9c57blLt3kUkgUAC1d0BIK3Wm",
+            "redirect": "events/7/1",
+            "description": "Frames & Tales is a photography event where participants create a photo story based on a specific theme or genre. The event integrates technical photography skills with the art of storytelling.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Theme Release: Themes/genres will be revealed at the beginning of the event.",
+                "Photo Story Creation: Participants will be given a time period within which they will conceptualize and shoot a series of 5-10 photos that narrate a cohesive story based on the given theme.",
+                "Submission/Presentation: participants need to present the story in front of the judges on the scheduled time. (Photos must be submitted with a short caption for each image and a title for the story.)"
+
+            ],
+            "rules": [
+                "Only registered team members are allowed to participate. Substitution of team members is not permitted.",
+                "Teams must adhere to principles of fair play and sportsmanship.",
+                "Any form of cheating, including plagiarism or use of unauthorized materials, will result in immediate disqualification.",
+                "Decisions made by the organizers are final and binding."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Gourav Kumar & Pratyush Gupta",
+                "Phone": "7667835972 & 9199396460"
+            }
+        },
+
+        {
+            "id": "7-2",
+            "name": "LIGHT, CAMERA, OJASS",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "2",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1gGCU00Q7FovT73QQtrpUyneQxEeD5I4R",
+            "redirect": "events/7/2",
+            "organizer": "Coding Chronicles",
+            "description": "Light, Camera is a reel-making competition where participants craft engaging short videos based on a specific theme or concept. The event combines creative filmmaking techniques with the art of impactful storytelling to captivate and inspire audiences.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details":  [
+                "You will have to make a reel of OJASS which will have to be shot in the fest itself.",
+                "This is an on-spot event.",
+                "You will have to cover the events throughout the three days. You will be given three more days to edit and submit the video.",
+                "The length of the reel must be 30 seconds to 1 minute Deadline to submit the video is 3 days after the completion of the fest.",
+                "The top 3 winners will be declared for the reel section subject to the relevant number of participants."
+             ],
+            "rules": [
+                "A team can consist of a maximum of 2 members.",
+                "The final video is to be submitted along with Ojass ID and personal details to the mail ID: phocus_nit@nitjsr.ac.in ",
+                "You can shoot using any camera.",
+                "Decision of the organizing team is final and binding.",
+                "Team Phocus and OJASS will have all the rights to upload the after-movie and the reel on official handles (Phocus & OJASS official Instagram (ojass.nitjsr), Facebook, youtube handles etc)."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Siddharth Sharma & Subhomoy Maji",
+                "Phone": "7808220898 & 6297119117"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "8-0",
+            "name": "BUSINESS SIMULATION",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1cHDaTTyeijwyFaxEVOA8YPSUJ42h3bMk/",
+            "redirect": "events/8/0",
+            "organizer": "Market Mavericks",
+            "description": "Participants will be randomly assigned a brand name and product, and they will need to create a complete brand identity, including designing the logo, product, tagline, and motto. They will then present their creative work to the judges.",
+            "prizes": {
+                "total": "₹30,000",
+                "winner": "₹15,000",
+                "first_runner_up": "₹10,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Brand and Product Assignment:",
+                "Before the start of the event, each team will receive their brand name and the product they need to work on. This assignment will be done randomly.",
+                "Designing Phase:",
+                "Logo Design, Product Design, Tagline and Motto",
+                "Presentation: After completing the designs, teams will have to present their work to the judges,",
+                "Eligibility :",
+                "The event is open to all participants, with a maximum of 4 members per team.",
+                "Each participant can only be part of one team."
+            ],
+            "rules": [
+                "Participants must maintain a professional and respectful attitude throughout the event.",
+                "Any form of plagiarism or unethical behaviour will result in immediate disqualification."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Rohit Mahanand",
+                "Phone": "8709737116"
+            }
+        },
+
+        {
+            "id": "8-1",
+            "name": "MOCK STOCK",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "1",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1CNQ5eMKciV8Euwi8diU7LXPmTrCcMO4H",
+            "redirect": "events/8/1",
+            "description": "A mock stock is a simulated investment in a publicly traded company, allowing participants to experience the buying and selling of stocks without any real financial risk. This event enables participants to learn about the stock market, practice investment strategies, and gain experience before investing real money.",
+            "prizes": {
+                "total": "₹20,000",
+                "winner": "₹10,000",
+                "first_runner_up": "₹6,000",
+                "second_runner_up": "₹4,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Download the Preferred Platform App:  Participants need to download the app on their devices.",
+                "Registration: bComplete a one-time registration process at the platform's Virtual Stock Market Game homepage (free of cost).",
+                "Referral Code:  Fill in the provided referral code to activate the account.",
+                "Trading:  Once logged in, players can view their standings, account balance, and trade stocks by navigating through the app’s tabs."
+            ],
+            "rules": [
+                "Individual Participation:",
+                "Each participant will trade stocks individually.",
+                "Decision of the Judge/Coordinator:",
+                "The decision of the judge/coordinator shall be final and binding."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Ammar Adil",
+                "Phone": "9122246709"
+            }
+        },
+
+        {
+            "id": "8-2",
+            "name": "STARTUP IDEATHON",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1_9aaNapuVZqonOXfgBgRQO0tE-WFKEgj/",
+            "redirect": "events/8/2",
+            "organizer": "Coding Chronicles",
+            "description": "The Startup Ideathon at OJASS’25 offers aspiring entrepreneurs a platform to present their innovative startup ideas, refine their business plans, and gain access to potential investors and seed funding. This event empowers participants to showcase their creativity, strategic thinking, and business acumen in front of an esteemed panel of judges and investors.",
+            "prizes": {
+                "total": "₹25,000",
+                "winner": "₹12,000",
+                "first_runner_up": "₹8,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details":  [
+                "Round 1: Pitch Deck Submission (Online)",
+                "Participants must submit their detailed pitch decks by the specified deadline.",
+                "The pitch deck should provide a comprehensive overview of the startup idea, addressing key aspects such as the problem statement, solution, and business model.",
+                "Submissions will be evaluated, and shortlisted teams will proceed to the final round.",
+                "Format: PDF",
+                "Maximum Slides: 12 (excluding title and thank-you slides)",
+                "Round 2: Offline Presentation",
+                "Shortlisted teams will present their startup ideas at OJASS’25 in front of a live audience and a panel of judges."
+             ],
+            "rules": [
+                "Teams can consist of 1-4 members.",
+                "Members can be from different institutions.",
+                "All submissions must be original. Plagiarism will result in immediate disqualification.",
+                "Ideas must not infringe on intellectual property rights.",
+                "Submissions and presentations must be in English.",
+                "The pitch deck must follow the specified format and be submitted by the deadline."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Sonu Kumar Chaudhary",
+                "Phone": "9708731471"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "9-0",
+            "name": "KURUSHETRA (ROBO WAR)",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1-ZAvwIunDOKHQflxilcF7xMTLG7By0EY/",
+            "redirect": "events/9/0",
+            "organizer": "Robo Realm",
+            "description": "Robo War is an adrenaline-pumping robotics competition where participants design and build robots to battle it out in a specially designed arena. The goal is to showcase engineering prowess, strategy, and innovation as robots clash in intense, high-energy combat until one emerges victorious.",
+            "prizes": {
+                "total": "₹60,000",
+                "winner": "₹30,000",
+                "first_runner_up": "₹20,000",
+                "second_runner_up": "₹10,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "There will be no restrictions on the dimensions of the bot(s). ",
+                "The weight of the machine should not exceed 15 Kg (33.07 Lbs.), which includes the weight of any pneumatic source/tank. All pneumatic tanks/ sources and batteries should be on board. Only the weight of the remote controller will not be counted.",
+                "Robots with pneumatic or hydraulic mechanisms or electric lifters are allowed. ",
+                "Only active weapon bots are allowed."
+            ],
+            "rules": [
+                "Remote control systems must comply with wireless frequency standards.",
+                "Automated functions must include manual override options.",
+                "Binding and pairing processes for controllers should be completed before matches."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Vishal Raj",
+                "Phone": "8863832703"
+            }
+        },
+
+        {
+            "id": "9-1",
+            "name": "MAZE MARATHON (MICRO MOUSE)",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "5",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/17D4cl3HiLxGHx93kyra4Ire9TpjpDenN/",
+            "redirect": "events/9/1",
+            "description": "In this competition, the mission of the autonomous robot is to negotiate a maze from specified corner to its centre in the shortest possible time.",
+            "prizes": {
+                "total": "₹40,000",
+                "winner": "₹20,000",
+                "first_runner_up": "₹15,000",
+                "second_runner_up": "₹5,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Both an individual and a team can register for the maze solving competition.",
+                "A team may consist of up to five people."
+
+            ],
+            "rules": [
+                "The robot must be autonomous (no remote controls allowed).",
+                "The robot must not leave any part of its body behind whilst solving the maze.",
+                "The maze is composed of 18 cm × 18 cm unit squares and comprises up to 16 × 16 squares. The walls of the maze are 5 cm high and 1.2 cm thick (assume 5 % tolerance).",
+                "The distance from wall to wall within a square is 16.8 cm. The outside wall encloses the entire maze."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Ankit Singh & Prince Agastya Jaiswal",
+                "Phone": "9128631228 & 8436144396"
+            }
+        },
+
+        {
+            "id": "9-2",
+            "name": "ROBO SOCCER",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1TobBSf9RhwyHiYIql2EgBQ9nStrpS6h2",
+            "redirect": "events/9/2",
+            "description": "Design a wired or wireless robot. This bot must navigate the arena, carrying a ball of diameter 5-10 cm, and skilfully score by pushing or throwing it into the opponent's goalpost.",
+            "prizes": {
+                "total": "₹40,000",
+                "winner": "₹25,000",
+                "first_runner_up": "₹10,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "The robot has to begin from its respective D and reach the opponent’s goalpost with the ball either by dragging or hitting the ball.",
+                "The aim is to achieve the maximum number of goals, where picking of the ball is not allowed.",
+                "There will be a knockout league match between every team and the winner of each match qualifies for the next round.",
+                "The team scoring more goals will be selected for the next round."
+            ],
+            "rules": [
+                "Each team can have a maximum of 4 members.",
+                "Each team must declare the name of their team at the time of registration.",
+                "The robots will be checked for their size and weight.",
+                "Robots that can harm the arena are not allowed.",
+                "The organizers have the right to disqualify the robot whose working mechanism or game strategy seems hazardous anyway."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Ankit Aryan & Ayush Kumar ",
+                "Phone": "7739113119 & 7903058172"
+            }
+        },
+
+        {
+            "id": "9-3",
+            "name": "ROBO RUMBLE (ATV BOT)",
+            "teamSizeMin" : "2",
+            "teamSizeMax" : "5",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1cunjXs4zWyfbjuzA_zcAwEp49_KsTD-f/",
+            "redirect": "events/9/3",
+            "description": "Robo Rumble is an adrenaline-pumping All-Terrain Vehicle (ATV) Robotics Challenge. Participants must design and build a robot capable of traversing a challenging obstacle course featuring bridges, mud pits, uneven terrain, and potholes. This event tests the engineering creativity and technical prowess of participants in overcoming real-world engineering challenges.",
+            "prizes": {
+                "total": "₹40,000",
+                "winner": "₹25,000",
+                "first_runner_up": "₹10,000",
+                "second_runner_up": "₹5,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Bridges: Narrow pathways of varying heights.",
+                "Mud Pits: Slippery sections requiring high traction.",
+                "Potholes: Uneven surfaces simulating real-world conditions.",
+                "Inclined Slopes: Angled surfaces up to 30°.",
+                "Rock Gardens: Loose stones requiring balance and agility."
+            ],
+            "rules": [
+                "Each team can consist maximum of 5 members.",
+                "Robots must start from the designated starting zone.",
+                "Touching or interfering with the robot during a run will result in penalties.",
+                "A maximum of 3 runs per robot is allowed. The best score will be considered."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "prakash kumar & Adarsh Gupta & Mithilesh ",
+                "Phone": "7462995602 & 6207785102 & 9631622505"
+            }
+        },
+
+        {
+            "id": "9-4",
+            "name": "TRACEBOT CHALLENGE (LINE TRACING)",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/19HKcyYW9OjHO5RLUQSEZG61b1C3xLko8/",
+            "redirect": "events/9/4",
+            "description": "Teams are challenged to design and build a line-following robot capable of autonomous operation. The robot must navigate a predefined track featuring straight paths, sharp turns, curves, and intersections. Additionally, the robot should demonstrate its ability to detect and follow the shortest path efficiently.",
+            "prizes": {
+                "total": "₹25,000",
+                "winner": "₹12,000",
+                "first_runner_up": "₹8,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details":  [
+                "Round 1 :",
+                "The track dimensions will be 8 x 12 feet.",
+                "Each team will be evaluated individually based on predefined rules and criteria.",
+                "Qualified teams will be allowed for 2nd round.",
+                "Round 2 :",
+                "The track dimensions will be 8 x 25 feet.",
+                "Qualified teams will be divided into two pools.",
+                "The track will feature a symmetrical design, enabling two teams to compete simultaneously.",
+                "One team from each pool will run their robots simultaneously in a head-to-head competition."
+
+             ],
+            "rules": [
+                "The bot should not damage or leave any marks on the track. Such activities will lead to immediate disqualification.",
+                "The judge’s decision will be the final one.",
+                "The exchange of bots among teams is not allowed.",
+                "Explicit physical contact with the bot during the event is not allowed without the organizer’s permission. "
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Amit",
+                "Phone": "8210839665"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "10-0",
+            "name": "DRONE RACE CHALLENGE",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1YZVO-AQXlj1IJ959kKKaciHmGnyTtXSO/",
+            "redirect": "events/10/0",
+            "organizer": "Skyward Bound",
+            "description": "The Drone Race Challenge is a thrilling test of piloting skills, precision, and speed. Participants will navigate their drones through a challenging obstacle course, racing against time to achieve the fastest completion. The event focuses on control, agility, and strategic navigation.",
+            "prizes": {
+                "total": "₹50,000",
+                "winner": "₹25,000",
+                "first_runner_up": "₹15,000",
+                "second_runner_up": "₹10,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Qualifying Round :",
+                "Participants will complete a simplified version of the course.",
+                "The top performers based on time and accuracy will qualify for the final round.",
+                "Final Round :",
+                "Qualifiers will race against each other in the full obstacle course.",
+                "The fastest drone to complete the course with the least penalties wins.",
+                "Maximum of 2 chances per team."
+            ],
+            "rules": [
+                "Team Composition: Teams can have 1-4  members.",
+                "Equipment: Teams must bring their own drones, remote controllers, batteries, and repair tools.",
+                "Backup batteries are allowed and encouraged.",
+                "Race Format: Each drone will race individually or in heats based on the number of participants."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Vishal Raj",
+                "Phone": "8863832703"
+            }
+        },
+
+        {
+            "id": "10-1",
+            "name": "GLIDE IT!",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "3",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1tXCGlIyp3estC1NVXEKEOXh0dcGflJpr/",
+            "redirect": "events/10/1",
+            "description": "Participants will design, build, and test a glider using provided materials, aiming for maximum flight distance, stability, and creativity.",
+            "prizes": {
+                "total": "₹15,000",
+                "winner": "₹8,000",
+                "first_runner_up": "₹4,000",
+                "second_runner_up": "₹3,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "Phase 1: QUIZ",
+                "Quiz of 30 basic questions will take place, 10 top teams will move towards next round.",
+                "Team Size: Maximum of 3 participants per team.",
+                "Teams must register prior to the event and will be provided with a unique team ID.",
+                "Phase 2: Glider Construction",
+                "Teams will design and construct their glider using the provided materials.",
+                "Materials Provided: ",
+                "Lightweight materials like balsa wood, paper, tape, glue, and rubber bands.",
+                "Any additional materials must be approved by the organizers.",
+                "Time Limit: Teams will have 2-3 hours to complete their glider.",
+                "Phase 3: Testing and Flight Trials",
+                "Each team will test their glider in an open field or designated launch area.",
+                "Each team gets 3 attempts to launch their glider.",
+                "The best performance from the 3 attempts will be recorded."
+            ],
+            "rules": [
+                "Construction Rules : Only materials provided or approved by the organizers can be used.",
+                "Pre-made or pre-assembled components are not allowed.",
+                "Gliders must meet size restrictions (e.g., wingspan or length limits, if specified).",
+                "Flight Rules : Gliders must be launched manually without any external propulsion mechanisms.",
+                "Teams are responsible for retrieving their gliders after each attempt.",
+                "The glider's flight distance will be measured from the launch point to the first point of contact with the ground."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Ankit Kumar",
+                "Phone": "7209774090"
+            }
+        },
+
+        {
+            "id": "10-2",
+            "name": "NO GROUND ZONE",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1kDKdQ_3OqGEQvXFJZ_mdAXaikQ5rdhRv/",
+            "redirect": "events/10/2",
+            "description": "No Ground Zone is a competition for aviation enthusiasts. Want to put your aviation knowledge into reality and get exciting prizes for it? Then get ready for OJASS, as in its NO Ground Zone, it has plenty of opportunities waiting.",
+            "prizes": {
+                "total": "₹35,000",
+                "winner": "₹20,000",
+                "first_runner_up": "₹10,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details":  [
+                "The technical presentation shall last ten (10) minutes, followed by a five-minute question and answer (Q&A) period. ",
+                "The technical presentation shall be delivered in English only. ",
+                "The technical presentation is limited to student team members only. ",
+                "Assistance in the use of visual aids is advisable. Film clips, if used, may not exceed one minute in total duration. Film clips may not be accompanied by recorded narration."
+             ],
+            "rules": [
+                "Each round will be of 4 minutes, 2 minutes for each halve. ",
+                "In case of a tie, additional 1 minute round will be played.",
+                "Each round will be of 6 minutes, 3 minutes for each halve. ",
+                "In case of a tie, additional 2-minute round will be played."
+            ],
+            "event_head": {
+                "description": "Photo of event head will be here",
+                "name": "Deepak Kumar ",
+                "Phone": "7004194315"
+            }
+        }
+    ],
+
+    [
+        {
+            "id": "11-0",
+            "name": "DEBATE THE UN",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "1",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2FQv8sgXQ%2FVISHWA-CODE-GENESIS.png%20&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1j_8SLuBpazINA18ZQ04CScLUXVFUFYVT/",
+            "redirect": "events/11/0",
+            "organizer": "Verse Voyage",
+            "description": "Debate the UN, organized by the Literary and Debating Society of OJASS’25, invites individuals to showcase their analytical, debating, and diplomacy skills in a simulated United Nations environment. Participants will engage in structured discussions, representing countries or stakeholders to address global issues.",
+            "prizes": {
+                "total": "₹30,000",
+                "winner": "₹15,000",
+                "first_runner_up": "₹10,000",
+                "second_runner_up": "₹5,000",
+                "participants": "Certificates to all Participants"
+            },
+            "details": [
+                "Round 1: Abstract Submission (Online)",
+                "Participants will submit a written abstract (maximum 500 words) on a topic announced by the organizing team.",
+                "The abstract must outline their stance, arguments, and proposed solutions.",
+                "Round 2: Guided Discussion (Offline)",
+                "Participants will represent assigned countries or stakeholders and engage in a debate following the Model United Nations (MUN) format.",
+                "Guides and rules will be explained prior to the session to ensure fair participation.",
+                "The event will be chaired by an experienced MUN moderator."
+            ],
+            "rules": [
+                "Participation is strictly individual; teams are not allowed.",
+                "Participants must adhere to deadlines for abstract submission and attendance for Round 2.",
+                "Judges’ and coordinators’ decisions are final and binding."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Priyanshu Raj, Pranjal Misra & Aanchal Sikarwar",
+                "Phone": "6283174615, 8858641124 & 9380690526"
+            }
+        },
+
+        {
+            "id": "11-1",
+            "name": "MOCK IPL AUCTION",
+            "teamSizeMin" : "1",
+            "teamSizeMax" : "4",
+            "img": "https://ojass-2024.vercel.app/_next/image?url=https%3A%2F%2Fi.ibb.co%2F6tbmCP7%2F3.png&w=384&q=75",
+            "rulebookurl": "https://docs.google.com/document/d/1fRnHHgWt7tNUN7leiavOnp7WMukHvAHW/",
+            "redirect": "events/11/1",
+            "description": "The Mock IPL Auction is an engaging and strategic event designed for cricket enthusiasts to simulate the experience of building their dream team through a real-time auction. Participants will step into the role of team owners and bidders, managing a fixed budget of virtual money to compete for international T20 players.",
+            "prizes": {
+                "total": "₹25,000",
+                "winner": "₹12,000",
+                "first_runner_up": "₹8,000",
+                "second_runner_up": "₹5,000",
+                "participationCertificates": "Certificates to all Participants."
+            },
+            "details": [
+                "The Mock IPL Auction promises to be a dynamic and intellectually stimulating experience.",
+                "Blending the thrill of cricket with the challenge of strategic decision-making."
+            ],
+            "rules": [
+                "It is a team event. A team can consist of a maximum of 4 members and a minimum of 1 member.",
+                "Only one of the team members should register and the team leader.",
+                "The team structure is inflexible once the registration is complete.",
+                "Every team will get a specific amount of virtual cash.",
+                "They need to utilize it for making their team.",
+                "Teams can start bidding from a base price. In case of a tie, the first bid will be considered.",
+                "Each time the player can raise a certain amount of bid that the event coordinators will declare.",
+                "The team with the most team value will be declared the winner."
+            ],
+            "event_head": {
+                "photoPlaceholder": "HERE WE WILL HAVE A PHOTO OF EVENT HEAD",
+                "name": "Neha Singh & Arin choudhary ",
+                "Phone": " 9431751248 & 8949004861"
+            }
+        }
+    ]
+]
