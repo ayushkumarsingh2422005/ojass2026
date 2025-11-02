@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-// Fake data
+// Fake data hello
 const initialEvents = [
   { id: 1, name: 'Tech Fest 2024', date: '2024-03-15', participants: 150, status: 'Active', description: 'A comprehensive technology festival showcasing the latest innovations in tech industry.' },
   { id: 2, name: 'Hackathon', date: '2024-04-20', participants: 89, status: 'Active', description: '48-hour coding competition where teams build innovative solutions to real-world problems.' },
