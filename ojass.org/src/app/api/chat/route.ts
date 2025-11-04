@@ -1,7 +1,7 @@
 // /app/api/chat/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { MongoClient, Collection } from "mongodb";
-import clientPromise from "@/lib/mongodb";
+import clientPromise from "@/lib/mongodb_chatbot";
 import * as cheerio from "cheerio";
 import { findBestMatch } from "string-similarity";
 import { unstable_cache as cache } from "next/cache";
