@@ -19,7 +19,6 @@ const UtopianCoinFullToss: React.FC<UtopianCoinFullTossProps> = ({
     const svg = wrapperRef.current?.querySelector("svg");
     if (!svg) return;
 
-    // ensure coin always visible
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
@@ -31,32 +30,28 @@ const UtopianCoinFullToss: React.FC<UtopianCoinFullTossProps> = ({
       position: "relative",
     });
 
-    // 🪙 Toss animation — smaller vertical range for corner placement
-   tossTimeline.current = gsap.timeline({ paused: true });
-tossTimeline.current
-  .set(svg, { zIndex: 99999 }) // bring to front before toss
-  .to(svg, {
-    y: -window.innerHeight + 200, // 👈 full-screen upward flight
-    rotationX: 1080,
-    duration: 1.2,                // slower, smoother ascent
-    ease: "power2.out",
-  })
-  .to(svg, {
-    y: 0,
-    rotationX: 2160,              // more spins for a cinematic fall
-    duration: 1.1,
-    ease: "power2.in",
-    onComplete: () => {
-      if (typeof onTossComplete === "function") onTossComplete();
-    },
-  })
-
-      // subtle bounce
+    tossTimeline.current = gsap.timeline({ paused: true });
+    tossTimeline.current
+      .set(svg, { zIndex: 99999 })
+      .to(svg, {
+        y: -window.innerHeight + 200,
+        rotationX: 1080,
+        duration: 1.2,
+        ease: "power2.out",
+      })
+      .to(svg, {
+        y: 0,
+        rotationX: 2160,
+        duration: 1.1,
+        ease: "power2.in",
+        onComplete: () => {
+          if (typeof onTossComplete === "function") onTossComplete();
+        },
+      })
       .to(svg, { y: -15, duration: 0.2, ease: "power1.out" })
       .to(svg, { y: 0, duration: 0.2, ease: "power1.in" })
-      .set(svg, { zIndex: 1000 }); // restore z-index after toss
+      .set(svg, { zIndex: 1000 });
 
-    // ✨ Continuous cyan glow
     glowTimeline.current = gsap.to(svg, {
       keyframes: [
         { filter: "drop-shadow(0 0 10px #00ffff)" },

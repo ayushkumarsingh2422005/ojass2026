@@ -22,7 +22,6 @@ const DystopianCoinFullToss: React.FC<DystopianCoinFullTossProps> = ({
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
-    // 🔴 Red glow setup
     gsap.set(svg, {
       filter: "drop-shadow(0 0 25px #ff0000)",
       transformOrigin: "50% 50%",
@@ -31,32 +30,28 @@ const DystopianCoinFullToss: React.FC<DystopianCoinFullTossProps> = ({
       position: "relative",
     });
 
-    // 🪙 Toss animation — smaller range for corner coin
     tossTimeline.current = gsap.timeline({ paused: true });
-tossTimeline.current
-  .set(svg, { zIndex: 99999 }) // bring to front before toss
-  .to(svg, {
-    y: -window.innerHeight + 200, // 👈 full-screen upward flight
-    rotationX: 1080,
-    duration: 1.2,                // slower, smoother ascent
-    ease: "power2.out",
-  })
-  .to(svg, {
-    y: 0,
-    rotationX: 2160,              // more spins for a cinematic fall
-    duration: 1.1,
-    ease: "power2.in",
-    onComplete: () => {
-      if (typeof onTossComplete === "function") onTossComplete();
-    },
-  })
-
-      // bounce
+    tossTimeline.current
+      .set(svg, { zIndex: 99999 })
+      .to(svg, {
+        y: -window.innerHeight + 200,
+        rotationX: 1080,
+        duration: 1.2,
+        ease: "power2.out",
+      })
+      .to(svg, {
+        y: 0,
+        rotationX: 2160,
+        duration: 1.1,
+        ease: "power2.in",
+        onComplete: () => {
+          if (typeof onTossComplete === "function") onTossComplete();
+        },
+      })
       .to(svg, { y: -15, duration: 0.2, ease: "power1.out" })
       .to(svg, { y: 0, duration: 0.2, ease: "power1.in" })
-      .set(svg, { zIndex: 1000 }); // restore after landing
+      .set(svg, { zIndex: 1000 });
 
-    // 🔥 Red glow pulsing
     glowTimeline.current = gsap.to(svg, {
       keyframes: [
         { filter: "drop-shadow(0 0 10px #ff1a1a)" },
