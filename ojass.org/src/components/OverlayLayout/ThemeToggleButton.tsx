@@ -1,23 +1,26 @@
+"use client";
+import React from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { FaMoon, FaSun } from "react-icons/fa";
 
-export default function ThemeToggleButton({
-    onToggle,
-}: {
-    onToggle: () => Promise<void>;
-}) {
-    const { theme } = useTheme();
-    const isDystopia = theme === "dystopia";
+import DystopianCoinFullToss from "../themeSwitcherCoin/DystopianCoin/DystopianCoinFullToss";
+import UtopianCoinFullToss from "../themeSwitcherCoin/UtopianCoin/UtopianCoinFullToss";
 
-    return (
-        <button
-            onClick={onToggle}
-            className={`fixed top-4 right-4 px-4 py-2 text-white rounded-md shadow-lg transition-all duration-200 hover:scale-110 z-[9999] cursor-pointer ${
-                isDystopia
-                    ? "bg-red-600 hover:bg-red-700"
-                    : "bg-green-600 hover:bg-green-700"
-            }`}>
-            {!isDystopia ? <FaMoon /> : <FaSun />}
-        </button>
-    );
-}
+const CoinSwitcher: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
+
+  const handleTossComplete = () => {
+    toggleTheme(); // switch between utopia ↔ dystopia
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-[9999] cursor-pointer">
+      {theme === "utopia" ? (
+        <UtopianCoinFullToss onTossComplete={handleTossComplete} />
+      ) : (
+        <DystopianCoinFullToss onTossComplete={handleTossComplete} />
+      )}
+    </div>
+  );
+};
+
+export default CoinSwitcher;
