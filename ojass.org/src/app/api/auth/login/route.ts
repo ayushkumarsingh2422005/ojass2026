@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import connectToDatabase from '@/lib/mongodb';
-import User from '@/models/User';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { NextRequest, NextResponse } from "next/server";
+import connectToDatabase from "@/lib/mongodb";
+import User from "@/models/User";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export async function POST(request: NextRequest) {
     try {
@@ -12,19 +12,29 @@ export async function POST(request: NextRequest) {
         // Validate input
         if (!password) {
             return NextResponse.json(
-                { error: 'Password is required' },
-                { status: 400 }
+                { error: "Password is required" },
+                { status: 400 },
             );
         }
 
         if (!email && !phone) {
             return NextResponse.json(
-                { error: 'Either email or phone number is required' },
-                { status: 400 }
+                { error: "Either email or phone number is required" },
+                { status: 400 },
+            );
+        }
+        
+        try {
+            await connectToDatabase();
+        } catch (connErr) {
+            console.error("Forgot password: DB connection error", connErr);
+            return NextResponse.json(
+                { error: "Database connection error" },
+                { status: 500 },
             );
         }
 
-    // DB connection is initialized on module import (see src/lib/mongodb.ts)
+        // DB connection is initialized on module import (see src/lib/mongodb.ts)
 
         // Find user by email or phone
         let user;
@@ -36,8 +46,8 @@ export async function POST(request: NextRequest) {
 
         if (!user) {
             return NextResponse.json(
-                { error: 'Invalid credentials' },
-                { status: 401 }
+                { error: "Invalid credentials" },
+                { status: 401 },
             );
         }
 
@@ -46,8 +56,8 @@ export async function POST(request: NextRequest) {
 
         if (!isPasswordValid) {
             return NextResponse.json(
-                { error: 'Invalid credentials' },
-                { status: 401 }
+                { error: "Invalid credentials" },
+                { status: 401 },
             );
         }
 
@@ -58,27 +68,33 @@ export async function POST(request: NextRequest) {
         // Create JWT
         const JWT_SECRET = process.env.JWT_SECRET;
         if (!JWT_SECRET) {
-            console.error('JWT_SECRET not set');
-            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+            console.error("JWT_SECRET not set");
+            return NextResponse.json(
+                { error: "Server configuration error" },
+                { status: 500 },
+            );
         }
 
-        const token = jwt.sign({ userId: user._id.toString(), email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+        const token = jwt.sign(
+            { userId: user._id.toString(), email: user.email },
+            JWT_SECRET,
+            { expiresIn: "7d" },
+        );
 
         // Return token in response body (client should store it and send in Authorization header)
         return NextResponse.json(
             {
-                message: 'Login successful',
+                message: "Login successful",
                 user: userObject,
-                token
+                token,
             },
-            { status: 200 }
+            { status: 200 },
         );
     } catch (error) {
-        console.error('Login error:', error);
+        console.error("Login error:", error);
         return NextResponse.json(
-            { error: 'Internal server error' },
-            { status: 500 }
+            { error: "Internal server error" },
+            { status: 500 },
         );
     }
 }
-
