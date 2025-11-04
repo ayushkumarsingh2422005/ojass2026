@@ -19,8 +19,8 @@ const UtopianCoinFullToss: React.FC<UtopianCoinFullTossProps> = ({
     const svg = wrapperRef.current?.querySelector("svg");
     if (!svg) return;
 
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
+    // document.documentElement.style.overflow = "hidden";
 
     gsap.set(svg, {
       filter: "drop-shadow(0 0 25px #00ffff)",
