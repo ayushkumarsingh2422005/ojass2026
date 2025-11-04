@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     idCardImageUrl: {
-        type: String // Cloudinary URL
+        type: String, // Cloudinary URL
     },
     idCardCloudinaryId: {
         type: String,
@@ -62,6 +62,9 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     razorpaySignature: {
+        type: String,
+    },
+    notificationToken: {
         type: String,
     }
 
