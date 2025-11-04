@@ -1,0 +1,131 @@
+.layout-panel {
+    background: rgba(0, 20, 40, 0.05);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: 2px solid rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6),
+        inset 0 0 30px rgba(0, 255, 255, 0.2), 0 0 60px rgba(0, 100, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.layout-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(0, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    animation: scan 3s linear infinite;
+    pointer-events: none;
+}
+
+.layout-panel::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+        45deg,
+        rgba(0, 255, 255, 0.321),
+        rgba(0, 102, 255, 0.255),
+        rgba(0, 255, 255, 0.226)
+    );
+    border-radius: inherit;
+    z-index: -1;
+    animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+.layout-text {
+    color: #ffffff;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff,
+        0 0 20px #0080ff, 0 0 25px #ffffff;
+    animation: text-glow 2s ease-in-out infinite alternate;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+@keyframes scan {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes neon-pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.4),
+            inset 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.8),
+            inset 0 0 30px rgba(0, 255, 255, 0.2);
+    }
+}
+
+@keyframes text-glow {
+    0% {
+        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff,
+            0 0 20px #0080ff, 0 0 25px #ffffff;
+    }
+    100% {
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff,
+            0 0 40px #0080ff, 0 0 50px #ffffff;
+    }
+}
+
+.hud-grid {
+    background-image: linear-gradient(
+            rgba(0, 255, 255, 0.1) 1px,
+            transparent 1px
+        ),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.layout-panel.is-dystopia {
+    background: rgba(40, 0, 0, 0.02);
+    border: 2px solid rgba(255, 100, 0, 0.8);
+    box-shadow: 0 0 30px rgba(255, 100, 0, 0.6),
+        inset 0 0 30px rgba(255, 100, 0, 0.2), 0 0 60px rgba(255, 150, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.layout-panel.is-dystopia::after {
+    background: linear-gradient(
+        45deg,
+        rgba(255, 100, 0, 0.321),
+        rgba(255, 150, 0, 0.255),
+        rgba(255, 100, 0, 0.226)
+    );
+}
+
+.layout-text.is-dystopia {
+    color: #ffffff;
+    text-shadow: 0 0 5px #ff6400, 0 0 10px #ff6400, 0 0 15px #ff6400,
+        0 0 20px #ff9600, 0 0 25px #ffffff;
+    animation: is-dystopia-text-glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes is-dystopia-text-glow {
+    0% {
+        text-shadow: 0 0 5px #ff6400, 0 0 10px #ff6400, 0 0 15px #ff6400,
+            0 0 20px #ff9600, 0 0 25px #ffffff;
+    }
+    100% {
+        text-shadow: 0 0 10px #ff6400, 0 0 20px #ff6400, 0 0 30px #ff6400,
+            0 0 40px #ff9600, 0 0 50px #ffffff;
+    }
+}

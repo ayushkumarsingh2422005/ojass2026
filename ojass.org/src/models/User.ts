@@ -19,8 +19,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    idCardImage: {
+    idCardImageUrl: {
         type: String // Cloudinary URL
+    },
+    idCardCloudinaryId: {
+        type: String,
+    },
+    isNitJsrStudent: {
+        type: Boolean,
+        default: false
     },
 
     isEmailVerified: {
