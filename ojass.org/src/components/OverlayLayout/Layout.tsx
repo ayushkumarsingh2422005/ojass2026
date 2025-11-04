@@ -8,6 +8,8 @@ import RightPanel from "@/components/OverlayLayout/RightPanel";
 import ThemeToggleButton from "@/components/OverlayLayout/ThemeToggleButton";
 import { useTheme } from "@/contexts/ThemeContext";
 import CursorEffect from "@/components/cursor/CursorEffect";
+import { NavItems } from "@/lib/constants";
+import { usePathname } from "next/navigation";
 // import CursorEffect from "../cursor/CursorEffect";
 
 // ------------------------------------------------------------
@@ -17,6 +19,7 @@ import CursorEffect from "@/components/cursor/CursorEffect";
 
 export default function OverlayLayout() {
     const { toggleTheme } = useTheme();
+    const path = usePathname();
 
     // ------------------------------------------------------------
     // const [showGlitch, setShowGlitch] = useState(false);
@@ -32,19 +35,15 @@ export default function OverlayLayout() {
         await toggleTheme("glitch");
     };
 
+    const matched = NavItems.find((item) => item.title.toLowerCase() == path || path == "/");
+    console.log(matched);
     return (
         <>
-            {/* Top Hud */}
-            <Header />
 
-            {/* Right Flap */}
+            {matched && <Header />}
             <RightPanel />
-
-            {/* Left Flap */}
             <LeftPanel />
-
-            {/* Footer */}
-            <Footer />
+            {matched && <Footer />}
 
             {/* ThemeToggle Button */}
             <ThemeToggleButton onToggle={handleThemeChange} />
