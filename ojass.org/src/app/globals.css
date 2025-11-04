@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 @custom-variant dystopia (&:is(.dystopia *));
 
 @theme inline {
@@ -40,8 +41,30 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 }
-*{
+* {
     box-sizing: border-box;
+    cursor: none !important;
+}
+
+html,
+body,
+body * {
+    cursor: none !important;
+}
+
+/* Override any cursor styles that might be applied */
+a,
+button,
+input,
+select,
+textarea,
+[role="button"],
+.cursor-pointer,
+[style*="cursor"],
+[style*="cursor: pointer"],
+[style*="cursor: grab"],
+[style*="cursor: grabbing"] {
+    cursor: none !important;
 }
 :root {
     --radius: 0.625rem;

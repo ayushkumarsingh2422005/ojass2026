@@ -1,5 +1,6 @@
 "use client";
 
+import TimelineDial from '@/components/OverlayLayout/TimelineDial';
 import { useGSAP } from '@gsap/react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -196,6 +197,7 @@ export default function Home() {
             willChange: 'transform'
           }}
         ></div>
+      
         <div
           className="absolute bottom-[10vh] left-0"
           id="layer2"
@@ -228,7 +230,7 @@ export default function Home() {
             willChange: 'transform'
           }}
         ></div>
-
+  
         <div
           className="absolute -bottom-[12vh] left-0"
           id="bottom"
