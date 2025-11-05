@@ -24,7 +24,7 @@
 
 - **POST** `/api/auth/reset-password`
   - Methods: POST
-  - Purpose: Reset password with token
+  - Purpose: Reset password with otp
 
 ### Email Verification
 - **POST** `/api/auth/send-email-verification`

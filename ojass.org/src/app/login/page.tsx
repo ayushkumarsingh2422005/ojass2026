@@ -110,8 +110,8 @@ export default function LoginPage({ }: Props) {
         />
       </div>
 
- 
-     <div className={`fixed inset-0 flex items-center justify-center transition-all duration-1000 ${showForm ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
+
+      <div className={`fixed inset-0 flex items-center justify-center transition-all duration-1000 ${showForm ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
         <div className="relative">
           <div className="absolute -inset-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-[3rem] blur-3xl opacity-50 animate-pulse"></div>
           <div className="absolute -inset-4 bg-cyan-400/30 rounded-[3rem] blur-2xl"></div>

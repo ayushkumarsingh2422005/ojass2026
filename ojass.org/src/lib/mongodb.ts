@@ -1,34 +1,71 @@
-// /lib/mongodb.ts
-import { MongoClient } from "mongodb";
+import mongoose from 'mongoose';
 
-if (!process.env.MONGO_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGO_URI"');
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-const uri = process.env.MONGO_URI;
-const options = {};
+interface MongooseCache {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+}
 
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+declare global {
+  var mongoose: MongooseCache | undefined;
+}
 
-if (process.env.NODE_ENV === "development") {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
-  };
+let cached: MongooseCache = global.mongoose || { conn: null, promise: null };
 
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    globalWithMongo._mongoClientPromise = client.connect();
+if (!global.mongoose) {
+  global.mongoose = cached;
+}
+
+async function connectToDatabase() {
+  if (cached.conn) {
+    return cached.conn;
   }
-  clientPromise = globalWithMongo._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
+      return mongoose;
+    });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
+
+  return cached.conn;
 }
 
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
-export default clientPromise;
+// Kick off initial connection when this module is imported so routes don't need to
+// call `connectToDatabase()` on every request. This starts the connection once
+// per Node process. Keep exporting the function for compatibility.
+// Start initial connection and export the connection promise so routes can await it
+const _connectPromise = connectToDatabase().then((conn) => {
+  if (process.env.NODE_ENV !== 'test') {
+    // eslint-disable-next-line no-console
+    console.log('MongoDB: initial connection established');
+  }
+  return conn;
+}).catch((err) => {
+  // Log but do not crash the import — route handlers may handle transient errors.
+  // eslint-disable-next-line no-console
+  console.error('MongoDB: initial connection error', err);
+  // rethrow so awaiting code can handle it
+  throw err;
+});
+
+// Export the promise so callers can await the initial connection if needed
+export const connectPromise = _connectPromise;
+
+export default connectToDatabase;
+
