@@ -181,7 +181,7 @@ export default function Home() {
         }}
       >
         <div
-          className="absolute top-0 left-0"
+          className="absolute top-0 left-0 "
           id="bg"
           style={{
             width: '120vw',
