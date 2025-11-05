@@ -1,9 +1,9 @@
+import CursorEffect from "@/components/cursor/CursorEffect";
 import OverlayLayout from "@/components/OverlayLayout/Layout";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import "./globals.css";
-import CursorEffect from "@/components/cursor/CursorEffect";
 
 const metaDataDescription =
     "Join us for OJASS 2026, the premier annual techno-management festival featuring cutting-edge technology, innovation, and exciting competitions.";
@@ -31,10 +31,7 @@ export const metadata: Metadata = {
         title: "OJASS 2026 | NIT Jamshedpur",
         description: metaDataDescription,
     },
-    robots: {
-        index: true,
-        follow: true,
-    },
+    robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

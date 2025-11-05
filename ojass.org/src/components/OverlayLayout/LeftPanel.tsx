@@ -37,7 +37,7 @@ export default function LeftPanel() {
                 {NavItems.map((item, idx) => (
                     <Link
                         key={idx}
-                        href={item.title.toLowerCase().replace(" ", "-")}
+                        href={item.title==="Home"? "/":item.title.toLowerCase().replace(" ", "-")}
                         className={`layout-text cursor-pointer hover:scale-110 transition-transform ${
                             isDystopia ? "is-dystopia" : ""
                         }`}
