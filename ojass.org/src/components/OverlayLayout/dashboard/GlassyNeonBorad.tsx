@@ -51,13 +51,7 @@ export default function GlassyNeonBoard({
         </svg>
       </div>
 
-      {/* Corner borders */}
-      <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-400/50 pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-400/50 pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyan-400/50 pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-400/50 pointer-events-none"></div>
-
-      <div className="relative z-10 p-8">
+      <div className="relative z-10 p-4">
         {title && (
           <div className="text-cyan-400 text-sm font-mono mb-6 tracking-widest">
             {title}

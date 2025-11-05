@@ -5,7 +5,7 @@ import { User, Code, Users, Zap, Mail, Phone, CreditCard, Shield } from "lucide-
 
 export default function Profile({ profileData }: { profileData: any }) {
   return (
-    <div className="space-y-6 relative">
+    <div className="space-y-4 relative">
       {/* Animated background glow */}
       <div
         className="absolute inset-0 opacity-30 blur-3xl"
@@ -54,7 +54,7 @@ export default function Profile({ profileData }: { profileData: any }) {
 
       {/* Name and ID Section */}
       <div className="text-center relative">
-        <h2 className="text-3xl font-bold text-white mb-2 tracking-wide"
+        <h2 className="text-2xl font-bold text-white mb-2 tracking-wide"
           style={{
             textShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
           }}
@@ -181,7 +181,7 @@ export default function Profile({ profileData }: { profileData: any }) {
         
         <div className="relative flex items-center justify-center gap-3">
           <CreditCard size={20} className="text-cyan-300" />
-          <span className="text-white font-bold text-lg tracking-wide uppercase">
+          <span className="text-white font-bold text-3xm tracking-wide uppercase">
             Pay Registration Fee
           </span>
         </div>

@@ -82,24 +82,10 @@ export default function OjassDashboard() {
 
   return (
     <div className=" bg-black relative ">
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
 
-      <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
-        backgroundImage: 'linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, .05) 25%, rgba(0, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, .05) 75%, rgba(0, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, .05) 25%, rgba(0, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, .05) 75%, rgba(0, 255, 255, .05) 76%, transparent 77%, transparent)',
-        backgroundSize: '50px 50px'
-      }}></div>
-
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-0 left-1/3 w-1 h-full bg-gradient-to-b from-cyan-400 to-transparent opacity-20 transform -skew-x-12"></div>
-        <div className="absolute top-0 right-1/3 w-1 h-full bg-gradient-to-b from-cyan-400 to-transparent opacity-20 transform skew-x-12"></div>
-      </div>
-
-      <div className="relative min-h-screen flex items-center justify-center p-4 py-12 ">
-        <div className="w-full max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-12 ">
+      <div className="relative min-h-screen flex items-center justify-center p-4  ">
+        <div className="w-full max-w-[90rem] xl:max-w-[110rem] 2xl:max-w-[130rem]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-3 ">
 
             <GlassyNeonBoard title="PROFILE">
               <Profile profileData={profileData} />
@@ -124,7 +110,7 @@ export default function OjassDashboard() {
                 ))}
               </div>
 
-              <div className=" overflow-y-auto pr-2">
+              <div className=" overflow-y-auto">
                 {activeTab === 'receipt' && <Receipt />}
 
                 {activeTab === 'events' && (

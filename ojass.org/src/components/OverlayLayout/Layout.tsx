@@ -40,10 +40,10 @@ export default function OverlayLayout() {
     return (
         <>
 
-            {matched && <Header />}
-            <RightPanel />
-            <LeftPanel />
-            {matched && <Footer />}
+            {matched && <><Header /> <RightPanel />
+                <LeftPanel /> <Footer /></>}
+
+
 
             {/* ThemeToggle Button */}
             <ThemeToggleButton onToggle={handleThemeChange} />
