@@ -110,8 +110,8 @@ export default function LoginPage({ }: Props) {
         />
       </div>
 
-
-      <div className={`fixed inset-0 flex items-center justify-center transition-all duration-1000 ${showForm ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
+ 
+     <div className={`fixed inset-0 flex items-center justify-center transition-all duration-1000 ${showForm ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
         <div className="relative">
           <div className="absolute -inset-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-[3rem] blur-3xl opacity-50 animate-pulse"></div>
           <div className="absolute -inset-4 bg-cyan-400/30 rounded-[3rem] blur-2xl"></div>
@@ -120,7 +120,8 @@ export default function LoginPage({ }: Props) {
             style={{
               boxShadow: '0 0 60px rgba(34, 211, 238, 0.4), inset 0 0 60px rgba(34, 211, 238, 0.05)',
               clipPath: 'polygon(3% 0, 97% 0, 100% 3%, 100% 97%, 97% 100%, 3% 100%, 0 97%, 0 3%)',
-            }}>
+            }}
+            >
             <div className="flex gap-8">
 
 
@@ -129,7 +130,8 @@ export default function LoginPage({ }: Props) {
                   style={{
                     boxShadow: '0 0 30px rgba(34, 211, 238, 0.2), inset 0 0 30px rgba(34, 211, 238, 0.03)',
                     clipPath: 'polygon(8% 0, 92% 0, 100% 8%, 100% 100%, 0 100%, 0 8%)',
-                  }}>
+                  }}
+                  >
 
                   <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/10 to-transparent"></div>
 
