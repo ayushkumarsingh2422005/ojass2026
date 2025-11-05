@@ -142,50 +142,8 @@ export default function Profile({ profileData }: { profileData: any }) {
           </div>
         ))}
       </div>
-
-      {/* Payment Button */}
-      <button
-        className="w-full py-4 px-6 rounded relative overflow-hidden group transition-all duration-300"
-        style={{
-          clipPath:
-            "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
-          background:
-            "linear-gradient(135deg, rgba(0, 255, 255, 0.25), rgba(0, 150, 255, 0.15))",
-          border: "2px solid rgba(0, 255, 255, 0.5)",
-          boxShadow:
-            "0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1)",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow =
-            "0 0 40px rgba(0, 255, 255, 0.6), inset 0 0 30px rgba(0, 255, 255, 0.2)";
-          e.currentTarget.style.background =
-            "linear-gradient(135deg, rgba(0, 255, 255, 0.35), rgba(0, 150, 255, 0.25))";
-          e.currentTarget.style.transform = "translateY(-2px)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow =
-            "0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1)";
-          e.currentTarget.style.background =
-            "linear-gradient(135deg, rgba(0, 255, 255, 0.25), rgba(0, 150, 255, 0.15))";
-          e.currentTarget.style.transform = "translateY(0)";
-        }}
-      >
-        {/* Animated shimmer effect */}
-        <div
-          className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)",
-          }}
-        />
-        
-        <div className="relative flex items-center justify-center gap-3">
-          <CreditCard size={20} className="text-cyan-300" />
-          <span className="text-white font-bold text-3xm tracking-wide uppercase">
-            Pay Registration Fee
-          </span>
-        </div>
-      </button>
+      
     </div>
+    
   );
 }
