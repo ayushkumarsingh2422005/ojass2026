@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from 'next/image';
 import { useTheme } from "@/contexts/ThemeContext";
-import TimelineDial from "./TimelineDial";
+
 gsap.registerPlugin(ScrollTrigger);
 
 // Interface (Aapka code sahi tha, JSON se match karta hai)
