@@ -32,6 +32,7 @@ export function adminMiddleware(request: NextRequest) {
 
         }
         const response = NextResponse.next();
+
         response.headers.set("x-admin-data", JSON.stringify(decoded));
 
         return response;
