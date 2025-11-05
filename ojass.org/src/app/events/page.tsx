@@ -12,7 +12,7 @@ import EventCard from '@/components/OverlayLayout/EventCard';
 import Link from 'next/link';
 import Dropdown from '@/components/OverlayLayout/Dropdown';
 
-
+import { EventModal } from './[num]/[subnum]/page';
 
 interface CardData {
   id: string;
@@ -20,6 +20,7 @@ interface CardData {
   description: string;
   img: string;
   redirect:string;
+  cardposition:string
 }
 type Props = {}
 
@@ -28,8 +29,10 @@ export default function Page({ }: Props) {
   const [allEvents, setAllEvents] = useState<CardData[][]>([]);
   const [selectedEventIndex, setSelectedEventIndex] = useState<number>(0);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
-
-  
+const [selectedEvent, setSelectedEvent] = useState<CardData | null>(null);
+const [user, setUser] = useState<any>(null);
+  const [cardPosition, setCardPosition] = useState<{ x: number; y: number; width: number; height: number } | undefined>();
+  const [animationType, setAnimationType] = useState<'fade' | 'slide' | 'flip'>('fade');
 useEffect(() => {
   let styleElement = document.getElementById('events-swiper-styles') as HTMLStyleElement;
   
@@ -58,7 +61,7 @@ useEffect(() => {
       z-index: 2;
     }
   `;
-  
+   
   return () => {
     styleElement?.remove();
   };
@@ -207,7 +210,16 @@ useEffect(() => {
           {currentEventCards.map((card) => (
         <SwiperSlide key={card.id}>
           <div className="w-full h-full flex items-center justify-center">
-        <Link href={card.redirect}>
+        <div   onClick={(e) => {
+          // Card ki position capture karo
+          const rect = e.currentTarget.getBoundingClientRect();
+          setCardPosition({
+            x: rect.left,
+            y: rect.top,
+            width: rect.width,
+            height: rect.height,
+          });
+          setSelectedEvent(card);}}>
           <div className="card-wrap w-[260px] md:w-[320px] lg:w-[360px] h-full">
         <EventCard
           id={card.id}
@@ -216,7 +228,7 @@ useEffect(() => {
           img={card.img}
         />
           </div>
-        </Link>
+        </div>
           </div>
         </SwiperSlide>
           ))}
@@ -253,6 +265,16 @@ useEffect(() => {
           />
         </div>
       </div>
+      {selectedEvent && (
+  <EventModal
+    isOpen={!!selectedEvent}
+    onClose={() => setSelectedEvent(null)}
+    eventData={selectedEvent as any} // Your event.json should have full data
+    user={user}
+        cardPosition={cardPosition}
+         animationType="flip"
+  />
+)}
     </div>
   )
 }
