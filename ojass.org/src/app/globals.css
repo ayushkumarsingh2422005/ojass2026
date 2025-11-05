@@ -46,6 +46,21 @@
     cursor: none !important;
 }
 
+/* ✅ Hide scrollbar globally across browsers */
+html, body {
+  overflow: -moz-scrollbars-none; /* Firefox (legacy) */
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox modern */
+}
+
+/* Chrome, Safari, Opera */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+
 html,
 body,
 body * {
