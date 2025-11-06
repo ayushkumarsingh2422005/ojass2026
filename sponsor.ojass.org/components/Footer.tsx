@@ -17,22 +17,19 @@ const Footer = () => {
   return (
     <footer id="contact" className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Logo & Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Image 
                 src="/logo.webp" 
                 alt="OJASS Logo" 
-                width={40} 
-                height={40}
+                width={70} 
+                height={70}
                 className="object-contain"
               />
               <h3 className="text-2xl font-bold">
-                <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
-                  OJASS
-                </span>
-                <span className="text-gray-400"> | Sponsorship</span>
+                <span className="text-gray-400">Sponsorship</span>
               </h3>
             </div>
             <p className="text-gray-400 leading-relaxed">
@@ -64,15 +61,49 @@ const Footer = () => {
                   Past Sponsors
                 </a>
               </li>
+            </ul>
+          </div>
+
+          {/* Important Links */}
+          <div>
+            <h4 className="font-semibold mb-4">Important Links</h4>
+            <ul className="space-y-2">
               <li>
-                <a href="#faq" className="text-gray-400 hover:text-blue-400 transition-colors">
-                  FAQ
+                <Link 
+                  href="https://ojass.org" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Main OJASS Website
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="https://ojass.org/campus-ambassador" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Campus Ambassador
+                </Link>
+              </li>
+              <li>
+                <a 
+                  href="mailto:sponsorship@ojass.org"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Sponsorship Inquiry
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-gray-400 hover:text-blue-400 transition-colors">
-                  Contact
-                </a>
+                <Link 
+                  href="/SCSE_brochure.pdf" 
+                  download
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Download Brochure
+                </Link>
               </li>
             </ul>
           </div>
@@ -87,6 +118,8 @@ const Footer = () => {
                   <motion.a
                     key={social.label}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
                     className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition-all duration-200"
                     whileHover={{ scale: 1.1 }}
