@@ -121,7 +121,7 @@ export default function LoginPage({ }: Props) {
               boxShadow: '0 0 60px rgba(34, 211, 238, 0.4), inset 0 0 60px rgba(34, 211, 238, 0.05)',
               clipPath: 'polygon(3% 0, 97% 0, 100% 3%, 100% 97%, 97% 100%, 3% 100%, 0 97%, 0 3%)',
             }}
-            >
+          >
             <div className="flex gap-8">
 
 
@@ -131,7 +131,7 @@ export default function LoginPage({ }: Props) {
                     boxShadow: '0 0 30px rgba(34, 211, 238, 0.2), inset 0 0 30px rgba(34, 211, 238, 0.03)',
                     clipPath: 'polygon(8% 0, 92% 0, 100% 8%, 100% 100%, 0 100%, 0 8%)',
                   }}
-                  >
+                >
 
                   <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/10 to-transparent"></div>
 

@@ -9,7 +9,7 @@ import clsx from "clsx";
 import { useTheme } from "@/contexts/ThemeContext";
 import button from '@/components/general/button'
 import Button from "@/components/general/button";
-// ... (Interface definitions: PrizeData, EventHead, EventData, User, etc. - कोई बदलाव नहीं)
+
 interface PrizeData {
   total: string;
   winner: string;
