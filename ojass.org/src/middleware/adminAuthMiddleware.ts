@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 
+// Verifies admin_token and also checks if the role is "admin"
 export function adminMiddleware(request: NextRequest) {
     try {
         const adminToken = request.cookies.get("admin_token")?.value;
