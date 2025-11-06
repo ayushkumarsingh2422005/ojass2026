@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Users, TrendingUp, Award } from "lucide-react";
+import Image from "next/image";
 
 const About = () => {
   const stats = [
@@ -28,10 +29,19 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            ABOUT <span className="text-[#FF8C00]">OJASS</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] mx-auto"></div>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <Image 
+              src="/logo.webp" 
+              alt="OJASS Logo" 
+              width={60} 
+              height={60}
+              className="object-contain"
+            />
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
+              ABOUT <span className="text-blue-600">OJASS</span>
+            </h2>
+          </div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-700 mx-auto"></div>
         </motion.div>
 
         {/* Description */}
@@ -66,7 +76,7 @@ const About = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
               >
-                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#FF8C00] to-[#FF6B00] rounded-xl mb-4 mx-auto">
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl mb-4 mx-auto">
                   <Icon className="w-8 h-8 text-white" />
                 </div>
                 <div className="text-center">

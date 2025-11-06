@@ -56,9 +56,9 @@ const Perks = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Why <span className="text-[#FF8C00]">Sponsor</span>
+            Why <span className="text-blue-600">Sponsor</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] mx-auto mb-4"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-700 mx-auto mb-4"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Drive awareness, engagement, and conversions with India’s most energetic student audience.
           </p>
@@ -75,14 +75,14 @@ const Perks = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-[#FF8C00] transition-all duration-300 hover:shadow-xl"
+                className="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 border border-gray-200 hover:border-blue-600 transition-all duration-300 hover:shadow-xl"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#FF8C00] to-[#FF6B00] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <Icon className="w-7 h-7 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#FF8C00] transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                       {perk.title}
                     </h3>
                     <p className="text-gray-600 leading-relaxed">{perk.description}</p>
