@@ -1,62 +1,72 @@
 "use client";
 
 import React from "react";
-import { User, Code, Users, Zap, Mail, Phone, CreditCard, Shield } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { User, Code, Users, Zap, Mail, Phone, Shield } from "lucide-react";
 
 export default function Profile({ profileData }: { profileData: any }) {
+  const { theme } = useTheme();
+
+  const isUtopia = theme === "utopia";
+  const glow = isUtopia ? "#00ffff" : "#cc7722";
+  const textColor = isUtopia ? "text-cyan-300" : "text-amber-400";
+  const subTextColor = isUtopia ? "text-gray-400" : "text-amber-200/80";
+  const borderColor = isUtopia ? "border-cyan-400" : "border-amber-500";
+  const bgGradient = isUtopia
+    ? "linear-gradient(135deg, rgba(0,255,255,0.15), rgba(0,100,200,0.08))"
+    : "linear-gradient(135deg, rgba(255,180,0,0.15), rgba(180,90,0,0.08))";
+
   return (
-    <div className="space-y-4 relative">
-      {/* Animated background glow */}
+    <div className="space-y-5 relative px-3 pb-8 overflow-y-auto">
+      {/* Background Glow */}
       <div
         className="absolute inset-0 opacity-30 blur-3xl"
         style={{
-          background:
-            "radial-gradient(circle at 50% 0%, rgba(0, 255, 255, 0.3), transparent 70%)",
+          background: `radial-gradient(circle at 50% 0%, ${glow}55, transparent 70%)`,
         }}
       />
 
-      {/* Profile Avatar Section */}
-      <div className="relative flex items-center justify-center mb-8">
-        {/* Outer rotating ring */}
+      {/* Avatar */}
+      <div className="relative flex items-center justify-center mb-6">
         <div
           className="absolute w-28 h-28 rounded-full animate-spin"
           style={{
             border: "2px solid transparent",
-            borderTopColor: "rgba(0, 255, 255, 0.6)",
-            borderRightColor: "rgba(0, 150, 255, 0.3)",
+            borderTopColor: `${glow}99`,
+            borderRightColor: `${glow}66`,
             animationDuration: "3s",
           }}
         />
-        
-        {/* Inner avatar container */}
         <div
-          className="relative w-24 h-24 flex items-center justify-center bg-gradient-to-br from-cyan-500/30 to-blue-500/20 backdrop-blur-sm border-2 border-cyan-400 transition-all duration-300 hover:scale-110"
+          className={`relative w-24 h-24 flex items-center justify-center backdrop-blur-sm border-2 ${borderColor} transition-all duration-300 hover:scale-110`}
           style={{
             clipPath: "circle(50%)",
-            boxShadow:
-              "0 0 40px rgba(0, 255, 255, 0.5), inset 0 0 30px rgba(0, 255, 255, 0.15)",
+            background: isUtopia
+              ? "linear-gradient(135deg, rgba(0,255,255,0.3), rgba(0,100,200,0.1))"
+              : "linear-gradient(135deg, rgba(255,180,0,0.3), rgba(120,60,0,0.1))",
+            boxShadow: `0 0 40px ${glow}80, inset 0 0 30px ${glow}30`,
           }}
         >
-          <User size={36} className="text-cyan-300" />
-          
-          {/* Corner accent */}
+          <User size={36} className={textColor} />
           <div
-            className="absolute -top-1 -right-1 w-6 h-6 bg-cyan-400 flex items-center justify-center"
+            className="absolute -top-1 -right-1 w-6 h-6 flex items-center justify-center"
             style={{
+              background: glow,
               clipPath: "polygon(0 0, 100% 0, 100% 100%)",
-              boxShadow: "0 0 10px rgba(0, 255, 255, 0.8)",
+              boxShadow: `0 0 10px ${glow}`,
             }}
           >
-            <Shield size={10} className="text-gray-900 absolute top-0 right-0" />
+            <Shield size={10} className="text-black absolute top-0 right-0" />
           </div>
         </div>
       </div>
 
-      {/* Name and ID Section */}
+      {/* Name + Ojass ID */}
       <div className="text-center relative">
-        <h2 className="text-2xl font-bold text-white mb-2 tracking-wide"
+        <h2
+          className={`text-2xl font-bold mb-2 tracking-wide ${textColor}`}
           style={{
-            textShadow: "0 0 20px rgba(0, 255, 255, 0.5)",
+            textShadow: `0 0 20px ${glow}`,
           }}
         >
           {profileData.name}
@@ -64,11 +74,13 @@ export default function Profile({ profileData }: { profileData: any }) {
         <div
           className="inline-block px-4 py-1 rounded-sm"
           style={{
-            background: "linear-gradient(90deg, rgba(0, 255, 255, 0.2), rgba(0, 150, 255, 0.1))",
-            border: "1px solid rgba(0, 255, 255, 0.3)",
+            background: isUtopia
+              ? "linear-gradient(90deg, rgba(0,255,255,0.25), rgba(0,150,255,0.1))"
+              : "linear-gradient(90deg, rgba(255,200,0,0.25), rgba(180,90,0,0.1))",
+            border: `1px solid ${glow}55`,
           }}
         >
-          <p className="text-cyan-400 font-mono text-xs tracking-wider">
+          <p className={`${textColor} font-mono text-xs tracking-widest`}>
             {profileData.ojassId}
           </p>
         </div>
@@ -76,28 +88,26 @@ export default function Profile({ profileData }: { profileData: any }) {
 
       {/* Info Grid */}
       <div
-        className="space-y-3 p-5 rounded relative overflow-hidden"
+        className={`grid sm:grid-cols-1 lg:grid-cols-2 gap-3 p-5 rounded relative overflow-hidden border ${borderColor}`}
         style={{
           clipPath:
             "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)",
-          background:
-            "linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(0, 100, 200, 0.08))",
-          border: "1px solid rgba(0, 255, 255, 0.3)",
-          boxShadow: "0 0 30px rgba(0, 255, 255, 0.2), inset 0 0 30px rgba(0, 255, 255, 0.05)",
+          background: bgGradient,
+          boxShadow: `0 0 30px ${glow}40, inset 0 0 20px ${glow}15`,
         }}
       >
-        {/* Corner decorations */}
+        {/* corner glow */}
         <div
           className="absolute top-0 right-0 w-8 h-8"
           style={{
-            background: "linear-gradient(135deg, rgba(0, 255, 255, 0.4), transparent)",
+            background: `linear-gradient(135deg, ${glow}66, transparent)`,
             clipPath: "polygon(100% 0, 100% 100%, 0 0)",
           }}
         />
         <div
           className="absolute bottom-0 left-0 w-8 h-8"
           style={{
-            background: "linear-gradient(135deg, transparent, rgba(0, 255, 255, 0.4))",
+            background: `linear-gradient(135deg, transparent, ${glow}66)`,
             clipPath: "polygon(0 100%, 100% 100%, 0 0)",
           }}
         />
@@ -108,42 +118,48 @@ export default function Profile({ profileData }: { profileData: any }) {
           { icon: Zap, label: "College", value: profileData.college },
           { icon: Mail, label: "Email", value: profileData.email },
           { icon: Phone, label: "Phone", value: profileData.phone },
-        ].map((item, index) => (
+        ].map(({ icon: Icon, label, value }, i) => (
           <div
-            key={index}
-            className="flex items-center gap-3 p-2 rounded transition-all duration-200 hover:bg-cyan-500/10"
+            key={i}
+            className="flex items-center gap-3 p-2 rounded transition-all duration-200 hover:bg-opacity-10"
             style={{
-              borderLeft: "2px solid transparent",
+              background: `${glow}10`,
+              borderLeft: `2px solid transparent`,
+              boxShadow: `inset 0 0 10px ${glow}15`,
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderLeftColor = "rgba(0, 255, 255, 0.6)";
+              e.currentTarget.style.borderLeftColor = glow;
+              e.currentTarget.style.boxShadow = `0 0 20px ${glow}66, inset 0 0 15px ${glow}22`;
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderLeftColor = "transparent";
+              e.currentTarget.style.boxShadow = `inset 0 0 10px ${glow}15`;
             }}
           >
             <div
               className="p-2 rounded"
               style={{
-                background: "rgba(0, 255, 255, 0.1)",
-                boxShadow: "0 0 10px rgba(0, 255, 255, 0.2)",
+                background: `${glow}20`,
+                boxShadow: `0 0 10px ${glow}40`,
               }}
             >
-              <item.icon size={16} className="text-cyan-400" />
+              <Icon size={16} className={textColor} />
             </div>
             <div className="flex-1">
-              <span className="text-gray-400 text-xs uppercase tracking-wider">
-                {item.label}
+              <span
+                className={`${subTextColor} text-xs uppercase tracking-wider`}
+              >
+                {label}
               </span>
-              <p className="text-cyan-300 text-sm font-medium">
-                {item.value}
+              <p
+                className={`${textColor} text-sm font-medium break-words leading-tight`}
+              >
+                {value}
               </p>
             </div>
           </div>
         ))}
       </div>
-      
     </div>
-    
   );
 }
