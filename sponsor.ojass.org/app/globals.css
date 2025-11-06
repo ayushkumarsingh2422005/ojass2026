@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --accent-orange: #FF8C00;
+  }
+
+  body {
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-poppins), sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-sans {
+    font-family: var(--font-inter), sans-serif;
+  }
+}
+
