@@ -1,7 +1,6 @@
-
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 import GlassyNeonBoard from "@/components/OverlayLayout/dashboard/GlassyNeonBorad";
 import Profile from "@/components/OverlayLayout/dashboard/Profile";
 import Receipt from "@/components/OverlayLayout/dashboard/Reciept";
@@ -10,9 +9,24 @@ import Team from "@/components/OverlayLayout/dashboard/Team";
 import Certificate from "@/components/OverlayLayout/dashboard/Certificate";
 
 export default function OjassDashboard() {
+  const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState("profile");
   const currentUserId = "u1";
 
+  // 🌗 Theme-based color mapping (same concept as StarfleetContact)
+  const glow = theme === "utopia" ? "#00ffff" : "#cc7722";
+  const borderColor =
+    theme === "utopia" ? "border-cyan-400" : "border-amber-500";
+  const accentText =
+    theme === "utopia" ? "text-cyan-300" : "text-amber-400";
+  const buttonActiveBg =
+    theme === "utopia" ? "bg-cyan-400/20" : "bg-amber-500/20";
+  const buttonInactiveBorder =
+    theme === "utopia" ? "border-cyan-400/30" : "border-amber-500/30";
+  const buttonInactiveHover =
+    theme === "utopia"
+      ? "hover:border-cyan-400/60 hover:bg-cyan-400/10"
+      : "hover:border-amber-500/60 hover:bg-amber-500/10";
 
   const profileData = {
     name: "Rahul Kumar",
@@ -56,8 +70,9 @@ export default function OjassDashboard() {
     },
   ];
 
-  const userTeams = teamData.filter(team => team.teamMembers.some(member => member._id == currentUserId));
-
+  const userTeams = teamData.filter(team =>
+    team.teamMembers.some(member => member._id === currentUserId)
+  );
 
   const registeredEvents = [
     { id: 1, name: "Hackathon", date: "Nov 16, 2024", time: "9:00 AM", status: "Confirmed", team: "Code Warriors" },
@@ -70,95 +85,104 @@ export default function OjassDashboard() {
     { id: 2, event: "Coding Competition 2023", type: "Winner - 2nd Place", date: "Nov 5, 2023" },
   ];
 
-  const stars = React.useMemo(() =>
-    [...Array(20)].map((_, i) => ({
-      id: i,
-      top: Math.random() * 100,
-      left: Math.random() * 100,
-      delay: Math.random() * 3,
-      opacity: Math.random() * 0.7 + 0.3
-    }))
-    , []);
+  const stars = useMemo(
+    () =>
+      [...Array(20)].map((_, i) => ({
+        id: i,
+        top: Math.random() * 100,
+        left: Math.random() * 100,
+        delay: Math.random() * 3,
+        opacity: Math.random() * 0.7 + 0.3,
+      })),
+    []
+  );
 
   return (
-    <div className=" bg-black relative ">
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
-
-      <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
-        backgroundImage: 'linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, .05) 25%, rgba(0, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, .05) 75%, rgba(0, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, .05) 25%, rgba(0, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, .05) 75%, rgba(0, 255, 255, .05) 76%, transparent 77%, transparent)',
-        backgroundSize: '50px 50px'
-      }}></div>
-
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-0 left-1/3 w-1 h-full bg-gradient-to-b from-cyan-400 to-transparent opacity-20 transform -skew-x-12"></div>
-        <div className="absolute top-0 right-1/3 w-1 h-full bg-gradient-to-b from-cyan-400 to-transparent opacity-20 transform skew-x-12"></div>
-      </div>
-
-      <div className="relative min-h-screen flex items-center justify-center p-4 py-12 ">
-        <div className="w-full max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-12 ">
-
-            <GlassyNeonBoard title="PROFILE">
-              <Profile profileData={profileData} />
-            </GlassyNeonBoard>
-
-            <GlassyNeonBoard title="DASHBOARD">
-              <div className="flex gap-3 mb-8 flex-wrap">
-                {['RECIEPT', 'EVENTS', 'TEAMS', 'CERTIFICATES'].map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab.toLowerCase())}
-                    className={`px-4 py-2 text-xs font-mono transition-all backdrop-blur-sm border ${activeTab === tab.toLowerCase()
-                      ? 'border-cyan-400 bg-cyan-400/20 text-cyan-200'
-                      : 'border-cyan-400/30 text-cyan-400/60 hover:border-cyan-400/60 hover:bg-cyan-400/10'
-                      }`}
-                    style={{
-                      clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-                    }}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-
-              <div className=" overflow-y-auto pr-2">
-                {activeTab === 'receipt' && <Receipt />}
-
-                {activeTab === 'events' && (
-                  <RegisteredEvent registeredEvents={registeredEvents} />
-                )}
-
-                {activeTab === 'teams' && (
-                  <Team teamData={userTeams} currentUserId={currentUserId} />
-                )}
-
-
-                {activeTab === 'certificates' && (
-                  <Certificate certificates={certificates} />
-                )}
-              </div>
-            </GlassyNeonBoard>
-
-          </div>
-        </div>
-      </div>
-
+    <div className="bg-black relative overflow-hidden">
+      {/* ✨ Star Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {stars.map((star) => (
           <div
             key={star.id}
-            className="absolute w-1 h-1 bg-cyan-300 rounded-full animate-pulse"
+            className="absolute w-1 h-1 rounded-full animate-pulse"
             style={{
+              backgroundColor: glow,
               top: `${star.top}%`,
               left: `${star.left}%`,
               animationDelay: `${star.delay}s`,
-              opacity: star.opacity
+              opacity: star.opacity,
             }}
-          ></div>
+          />
         ))}
+      </div>
+
+      {/* 🪩 Dashboard Layout */}
+      <div className="relative h-full flex items-center justify-center px-2 sm:px-6 md:px-8 lg:px-12 py-12">
+        <div className="w-full max-w-[90rem] xl:max-w-[110rem] 2xl:max-w-[130rem] 4xl:max-w-[150rem]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            {/* PROFILE CARD */}
+            <GlassyNeonBoard title="PROFILE">
+              <div
+                className="
+                  overflow-y-auto
+                  h-[60vh] sm:h-[70vh] md:h-[70vh] lg:h-[70vh] 
+                  xl:h-[78vh] 2xl:h-[80vh] 4xl:h-[82vh]
+                  scrollbar-thin scrollbar-thumb-cyan-500/40 scrollbar-track-transparent
+                "
+              >
+                <Profile profileData={profileData} />
+              </div>
+            </GlassyNeonBoard>
+
+            {/* DASHBOARD CARD */}
+            <GlassyNeonBoard title="DASHBOARD">
+              {/* Tabs */}
+              <div className="flex gap-3 mb-8 flex-wrap">
+                {["RECIEPT", "EVENTS", "TEAMS", "CERTIFICATES"].map((tab) => {
+                  const isActive = activeTab === tab.toLowerCase();
+                  return (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab.toLowerCase())}
+                      className={`px-4 py-2 text-xs font-mono transition-all backdrop-blur-sm border ${buttonInactiveBorder} ${isActive
+                        ? `${buttonActiveBg} ${accentText} border-2`
+                        : `${accentText} opacity-70 ${buttonInactiveHover}`
+                      }`}
+                      style={{
+                        clipPath:
+                          "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)",
+                      }}
+                    >
+                      {tab}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Tab Content */}
+              <div
+                className="
+                  overflow-y-auto
+                  h-[55vh] sm:h-[60vh] md:h-[65vh] lg:h-[70vh]
+                  xl:h-[73vh] 2xl:h-[75vh] 4xl:h-[77vh]
+                  scrollbar-thin scrollbar-thumb-cyan-500/40 scrollbar-track-transparent
+                "
+              >
+                {activeTab === "receipt" && <Receipt />}
+                {activeTab === "events" && (
+                  <RegisteredEvent registeredEvents={registeredEvents} />
+                )}
+                {activeTab === "teams" && (
+                  <Team teamData={userTeams} currentUserId={currentUserId} />
+                )}
+                {activeTab === "certificates" && (
+                  <Certificate certificates={certificates} />
+                )}
+              </div>
+            </GlassyNeonBoard>
+          </div>
+        </div>
       </div>
     </div>
   );
