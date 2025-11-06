@@ -34,14 +34,11 @@ export default function OverlayLayout() {
 
     return (
         <>
-            {matched && (
-                <>
-                    <Header />
-                    <Footer />
-                </>
-            )}
-            <RightPanel />
-            <LeftPanel />
+
+            {matched && <><Header /> <RightPanel />
+                <LeftPanel /> <Footer /></>}
+
+
 
             <ThemeToggleButton onToggle={handleThemeChange} />
 

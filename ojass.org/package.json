@@ -20,6 +20,7 @@
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.23.24",
     "gsap": "^3.13.0",
     "jsonwebtoken": "^9.0.2",
     "langchain": "^0.2.10",

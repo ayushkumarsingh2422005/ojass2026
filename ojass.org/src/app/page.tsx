@@ -181,58 +181,77 @@ export default function Home() {
         }}
       >
         <div
-          className="absolute top-0 left-0"
+          className="absolute top-0 left-0 "
           id="bg"
           style={{
             width: '120vw',
             height: '120vh',
             marginLeft: '-10vw',
             marginTop: '-10vh',
-            backgroundImage: 'url(/layers/bg.jpg)',
-            backgroundSize: 'contain',
+            backgroundImage: 'url(/layers/bg_new_2.jpg)',
+            backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            filter: 'blur(2px)',
+            filter: 'blur(0px)',
             transformStyle: 'preserve-3d',
             willChange: 'transform'
           }}
         ></div>
       
         <div
-          className="absolute bottom-[10vh] left-0"
+          className="absolute bottom-[5vh] left-0"
           id="layer2"
           style={{
             width: '120vw',
-            height: '70vh',
+            height: '90vh',
             marginLeft: '-10vw',
-            backgroundImage: 'url(/layers/layer2.png)',
-            backgroundSize: 'cover',
+            backgroundImage: 'url(/layers/layer2_new_2.png)',
+            backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            filter: 'blur(1px)',
+            filter: 'blur(1.5px) brightness(1.2)',
             transformStyle: 'preserve-3d',
             willChange: 'transform'
           }}
         ></div>
 
         <div
-          className="absolute bottom-[10vh] left-0"
+          className="absolute bottom-[2vh] left-0 flex flex-row justify-between"
           id="layer3"
           style={{
             width: '120vw',
-            height: '70vh',
+            height: '90vh',
             marginLeft: '-10vw',
-            backgroundImage: 'url(/layers/layer3.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
             transformStyle: 'preserve-3d',
             willChange: 'transform'
           }}
-        ></div>
+        >
+          <div
+            style={{
+              height: '100%',
+              width: 'auto',
+              minWidth: '40vw',
+              backgroundImage: 'url(/layers/layer3_1.png)',
+              backgroundSize: 'contain',
+              backgroundPosition: 'left',
+              backgroundRepeat: 'no-repeat'
+            }}
+          ></div>
+          <div
+            style={{
+              height: '100%',
+              width: 'auto',
+              minWidth: '40vw',
+              backgroundImage: 'url(/layers/layer3_2.png)',
+              backgroundSize: 'contain',
+              backgroundPosition: 'right',
+              backgroundRepeat: 'no-repeat'
+            }}
+          ></div>
+        </div>
   
         <div
-          className="absolute -bottom-[12vh] left-0"
+          className="absolute -bottom-[17vh] left-0"
           id="bottom"
           style={{
             width: '120vw',
