@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Event from "@/models/Event";
-import { verifyAdminToken } from "../../../lib/auth";
-import {cookies} from "next/headers";
 
 export async function GET() {
   await connectToDatabase();
@@ -13,10 +11,6 @@ export async function GET() {
 export async function POST(req: Request) {
   await connectToDatabase();
   try {
-    const cookieStore = cookies();
-    const tokenCookie  = (await cookieStore).get('admin_token');
-
-    verifyAdminToken(tokenCookie?.value);
   
     const body = await req?.json()
 

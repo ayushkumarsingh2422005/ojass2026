@@ -13,8 +13,6 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
   await connectToDatabase();
   try {
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    verifyAdminToken(token);
 
     const body = await req.json();
     const updatedEvent = await Event.findByIdAndUpdate(params.id, body, { new: true });
@@ -27,8 +25,6 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
   await connectToDatabase();
   try {
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    verifyAdminToken(token);
 
     await Event.findByIdAndDelete(params.id);
     return NextResponse.json({ success: true });
