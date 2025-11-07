@@ -1,5 +1,3 @@
-import { TransactionalEmailsApi, SendSmtpEmail } from "@getbrevo/brevo";
-
 // Template imports (typed as functions returning string)
 import getEmailVerificationTemplateUtopia from "../templates/utopia/email-verification.js";
 import getEmailVerificationTemplateDystopia from "../templates/dystopia/email-verification.js";
@@ -14,26 +12,7 @@ const getTheme = (): string => {
 };
 
 /**
- * Initialize Brevo API instance
- */
-const getBrevoApi = (): TransactionalEmailsApi => {
-  const apiKey = process.env.BREVO_API_KEY;
-
-  if (!apiKey) {
-    throw new Error(
-      "BREVO_API_KEY is not configured. Please set BREVO_API_KEY in environment variables."
-    );
-  }
-
-  const emailAPI = new TransactionalEmailsApi();
-  // @ts-ignore — the SDK’s typings sometimes lag behind actual fields
-  emailAPI.authentications.apiKey.apiKey = apiKey;
-
-  return emailAPI;
-};
-
-/**
- * Send email using Brevo
+ * Send email using Brevo REST API (without NPM package)
  * @param receiver - Recipient email address
  * @param subject - Email subject
  * @param htmlContent - HTML content of the email
@@ -47,8 +26,10 @@ const sendEmail = async (
   textContent: string | null = null
 ): Promise<any> => {
   try {
+    const apiKey = process.env.BREVO_API_KEY;
+
     // Development mode fallback (no API key)
-    if (process.env.NODE_ENV === "development" && !process.env.BREVO_API_KEY) {
+    if (process.env.NODE_ENV === "development" && !apiKey) {
       console.log("=== EMAIL (Development Mode - Brevo Not Configured) ===");
       console.log("To:", receiver);
       console.log("Subject:", subject);
@@ -60,40 +41,61 @@ const sendEmail = async (
       return { messageId: "dev-mode" };
     }
 
-    const emailAPI = getBrevoApi();
-    const message = new SendSmtpEmail();
-
-    message.subject = subject;
-    message.htmlContent = htmlContent;
-
-    if (textContent) {
-      message.textContent = textContent;
+    if (!apiKey) {
+      throw new Error(
+        "BREVO_API_KEY is not configured. Please set BREVO_API_KEY in environment variables."
+      );
     }
 
-    message.sender = {
-      name: process.env.SENDER_NAME || "OJASS 2026",
-      email:
-        process.env.SENDER_EMAIL ||
-        process.env.BREVO_SENDER_EMAIL ||
-        "noreply@ojassfest.com",
+    const senderName = process.env.SENDER_NAME || "OJASS 2026";
+    const senderEmail = process.env.SENDER_EMAIL || process.env.BREVO_SENDER_EMAIL || "noreply@ojassfest.com";
+
+    // Prepare request body
+    const requestBody: any = {
+      sender: {
+        name: senderName,
+        email: senderEmail,
+      },
+      to: [
+        {
+          email: receiver,
+        },
+      ],
+      subject: subject,
+      htmlContent: htmlContent,
     };
 
-    message.to = [{ email: receiver }];
-
-    const response = await emailAPI.sendTransacEmail(message);
-
-    if (response) {
-      return response;
-    } else {
-      throw new Error("There was an error while sending an email!");
+    // Add text content if provided
+    if (textContent) {
+      requestBody.textContent = textContent;
     }
+
+    // Send email via Brevo REST API
+    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "api-key": apiKey,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        `Brevo API error: ${response.status} ${response.statusText}. ${JSON.stringify(errorData)}`
+      );
+    }
+
+    const responseData = await response.json();
+
+    return responseData;
   } catch (error: any) {
     console.error("Error sending email via Brevo:", error);
     if (process.env.NODE_ENV === "development") {
       console.error("Error details:", {
         message: error.message,
-        status: error.status,
-        response: error.response?.body,
       });
     }
     throw error;

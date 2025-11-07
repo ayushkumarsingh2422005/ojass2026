@@ -1,11 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { User, Code, Users, Zap, Mail, Phone, Shield } from "lucide-react";
+import { User, Code, Users, Zap, Mail, Phone, Shield, Upload, X, Image as ImageIcon, Check } from "lucide-react";
 
 export default function Profile({ profileData }: { profileData: any }) {
   const { theme } = useTheme();
+  const [idCardImageUrl, setIdCardImageUrl] = useState<string | null>(profileData?.idCardImageUrl || null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const isUtopia = theme === "utopia";
   const glow = isUtopia ? "#00ffff" : "#cc7722";
@@ -15,6 +20,156 @@ export default function Profile({ profileData }: { profileData: any }) {
   const bgGradient = isUtopia
     ? "linear-gradient(135deg, rgba(0,255,255,0.15), rgba(0,100,200,0.08))"
     : "linear-gradient(135deg, rgba(255,180,0,0.15), rgba(180,90,0,0.08))";
+
+  // Fetch ID card on mount
+  useEffect(() => {
+    const fetchIdCard = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        const res = await fetch('/api/user/id-card', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.idCardImageUrl) {
+            setIdCardImageUrl(data.idCardImageUrl);
+            // Update profileData in parent if needed
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching ID card:', err);
+      }
+    };
+    fetchIdCard();
+  }, []);
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setUploadError('Please select an image file');
+      return;
+    }
+
+    // Validate file size (10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      setUploadError('File size must be less than 10MB');
+      return;
+    }
+
+    setUploading(true);
+    setUploadError(null);
+    setUploadSuccess(false);
+
+    try {
+      const token = localStorage.getItem('token');
+      const userId = profileData?._id;
+
+      if (!token || !userId) {
+        throw new Error('Authentication required');
+      }
+
+      // Step 1: Upload file to media API
+      const formData = new FormData();
+      formData.append('files', file);
+      formData.append('userId', userId);
+      formData.append('isIdCard', 'true');
+
+      const uploadRes = await fetch('/api/media/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!uploadRes.ok) {
+        const errorData = await uploadRes.json();
+        throw new Error(errorData.error || 'Upload failed');
+      }
+
+      const uploadData = await uploadRes.json();
+      const uploadedFile = uploadData.files[0];
+
+      // Step 2: Update user's ID card fields
+      const updateRes = await fetch('/api/user/id-card', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          idCardImageUrl: uploadedFile.url,
+          idCardCloudinaryId: uploadedFile.cloudinaryId
+        })
+      });
+
+      if (!updateRes.ok) {
+        const errorData = await updateRes.json();
+        throw new Error(errorData.error || 'Failed to update ID card');
+      }
+
+      // Update local state
+      setIdCardImageUrl(uploadedFile.url);
+      setUploadSuccess(true);
+
+      // Update localStorage user data
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      user.idCardImageUrl = uploadedFile.url;
+      user.idCardCloudinaryId = uploadedFile.cloudinaryId;
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setUploadSuccess(false);
+      }, 3000);
+
+    } catch (err: any) {
+      console.error('ID card upload error:', err);
+      setUploadError(err.message || 'Failed to upload ID card');
+    } finally {
+      setUploading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const handleRemoveIdCard = async () => {
+    if (!confirm('Are you sure you want to remove your ID card?')) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const res = await fetch('/api/user/id-card', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          idCardImageUrl: '',
+          idCardCloudinaryId: ''
+        })
+      });
+
+      if (res.ok) {
+        setIdCardImageUrl(null);
+        // Update localStorage
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        user.idCardImageUrl = null;
+        user.idCardCloudinaryId = null;
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+    } catch (err) {
+      console.error('Error removing ID card:', err);
+    }
+  };
 
   return (
     <div className="space-y-5 relative px-3 pb-8 overflow-y-auto">
@@ -113,11 +268,13 @@ export default function Profile({ profileData }: { profileData: any }) {
         />
 
         {[
-          { icon: Code, label: "Branch", value: profileData.branch },
-          { icon: Users, label: "Year", value: profileData.year },
-          { icon: Zap, label: "College", value: profileData.college },
           { icon: Mail, label: "Email", value: profileData.email },
           { icon: Phone, label: "Phone", value: profileData.phone },
+          { icon: Zap, label: "College", value: profileData.college },
+          { icon: Code, label: "Gender", value: profileData.gender },
+          { icon: Users, label: "City", value: profileData.city },
+          { icon: Shield, label: "State", value: profileData.state },
+          { icon: Users, label: "Referrals", value: profileData.referralCount || 0 },
         ].map(({ icon: Icon, label, value }, i) => (
           <div
             key={i}
@@ -159,6 +316,106 @@ export default function Profile({ profileData }: { profileData: any }) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* ID Card Upload Section */}
+      <div
+        className={`p-5 rounded relative overflow-hidden border ${borderColor}`}
+        style={{
+          clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)",
+          background: bgGradient,
+          boxShadow: `0 0 30px ${glow}40, inset 0 0 20px ${glow}15`,
+        }}
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <ImageIcon size={20} className={textColor} />
+          <h3 className={`${textColor} font-semibold text-sm uppercase tracking-wider`}>
+            ID Card
+          </h3>
+        </div>
+
+        {uploadError && (
+          <div className="mb-3 p-2 text-xs rounded bg-red-500/20 text-red-300 border border-red-500">
+            {uploadError}
+          </div>
+        )}
+
+        {uploadSuccess && (
+          <div className="mb-3 p-2 text-xs rounded bg-green-500/20 text-green-300 border border-green-500 flex items-center gap-2">
+            <Check size={14} />
+            ID card uploaded successfully!
+          </div>
+        )}
+
+        {idCardImageUrl ? (
+          <div className="space-y-3">
+            <div className="relative rounded-lg overflow-hidden border-2" style={{ borderColor: `${glow}40` }}>
+              <img
+                src={idCardImageUrl}
+                alt="ID Card"
+                className="w-full h-auto max-h-48 object-contain bg-gray-900/50"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                className={`flex-1 py-2 px-4 border-2 ${borderColor} ${textColor} hover:bg-opacity-20 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs font-semibold`}
+                style={{
+                  clipPath: "polygon(5% 0, 95% 0, 100% 30%, 100% 70%, 95% 100%, 5% 100%, 0 70%, 0 30%)",
+                }}
+              >
+                {uploading ? 'UPLOADING...' : 'CHANGE ID CARD'}
+              </button>
+              <button
+                onClick={handleRemoveIdCard}
+                disabled={uploading}
+                className={`py-2 px-4 border-2 ${borderColor} text-red-400 hover:bg-red-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs font-semibold`}
+                style={{
+                  clipPath: "polygon(5% 0, 95% 0, 100% 30%, 100% 70%, 95% 100%, 5% 100%, 0 70%, 0 30%)",
+                }}
+              >
+                <X size={16} />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <div
+              className="border-2 border-dashed rounded-lg p-8 text-center transition-all hover:border-solid"
+              style={{
+                borderColor: `${glow}40`,
+                background: `${glow}05`,
+              }}
+            >
+              <Upload size={32} className={`${textColor} mx-auto mb-3 opacity-50`} />
+              <p className={`${subTextColor} text-xs mb-3`}>
+                Upload your ID card (College/University ID)
+              </p>
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                className={`py-2 px-6 border-2 ${borderColor} ${textColor} hover:bg-opacity-20 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs font-semibold`}
+                style={{
+                  clipPath: "polygon(5% 0, 95% 0, 100% 30%, 100% 70%, 95% 100%, 5% 100%, 0 70%, 0 30%)",
+                }}
+              >
+                {uploading ? 'UPLOADING...' : 'UPLOAD ID CARD'}
+              </button>
+              <p className={`${subTextColor} text-xs mt-3`}>
+                Max size: 10MB | Image formats only
+              </p>
+            </div>
+          </div>
+        )}
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileSelect}
+          className="hidden"
+        />
       </div>
     </div>
   );

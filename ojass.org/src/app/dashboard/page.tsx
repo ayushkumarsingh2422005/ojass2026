@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 import GlassyNeonBoard from "@/components/OverlayLayout/dashboard/GlassyNeonBorad";
 import Profile from "@/components/OverlayLayout/dashboard/Profile";
@@ -7,11 +8,18 @@ import Receipt from "@/components/OverlayLayout/dashboard/Reciept";
 import RegisteredEvent from "@/components/OverlayLayout/dashboard/RegisteredEvent";
 import Team from "@/components/OverlayLayout/dashboard/Team";
 import Certificate from "@/components/OverlayLayout/dashboard/Certificate";
+import EmailVerificationModal from "@/components/OverlayLayout/dashboard/EmailVerificationModal";
 
 export default function OjassDashboard() {
+  const router = useRouter();
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState("profile");
-  const currentUserId = "u1";
+  const [profileData, setProfileData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [showEmailVerificationModal, setShowEmailVerificationModal] = useState(false);
+  const [paymentData, setPaymentData] = useState<any>(null);
+  const [pricing, setPricing] = useState<any>(null);
+  const currentUserId = profileData?._id || "u1";
 
   // 🌗 Theme-based color mapping (same concept as StarfleetContact)
   const glow = theme === "utopia" ? "#00ffff" : "#cc7722";
@@ -28,15 +36,69 @@ export default function OjassDashboard() {
       ? "hover:border-cyan-400/60 hover:bg-cyan-400/10"
       : "hover:border-amber-500/60 hover:bg-amber-500/10";
 
-  const profileData = {
-    name: "Rahul Kumar",
-    email: "rahul@example.com",
-    college: "NIT Patna",
-    phone: "+91 9876543210",
-    ojassId: "OJASS2024-1234",
-    year: "3rd Year",
-    branch: "Computer Science",
-  };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = localStorage.getItem('user');
+      if (!user) {
+        router.push('/login');
+        return;
+      }
+      
+      try {
+        const userData = JSON.parse(user);
+        const userProfile = {
+          name: userData.name,
+          email: userData.email,
+          college: userData.collegeName,
+          phone: userData.phone,
+          ojassId: userData.ojassId,
+          gender: userData.gender,
+          city: userData.city,
+          state: userData.state,
+          isPaid: userData.isPaid,
+          isEmailVerified: userData.isEmailVerified,
+          referralCount: userData.referralCount || 0,
+          idCardImageUrl: userData.idCardImageUrl || null,
+          idCardCloudinaryId: userData.idCardCloudinaryId || null,
+          _id: userData._id
+        };
+        setProfileData(userProfile);
+
+        // Fetch payment status and pricing
+        const token = localStorage.getItem('token');
+        if (token) {
+          // Fetch payment status
+          const paymentRes = await fetch('/api/payment/status', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (paymentRes.ok) {
+            const payment = await paymentRes.json();
+            setPaymentData(payment);
+            // Update profile data with latest payment status
+            userProfile.isPaid = payment.isPaid;
+            userProfile.isEmailVerified = payment.isEmailVerified;
+            setProfileData({ ...userProfile });
+          }
+
+          // Fetch pricing
+          const pricingRes = await fetch('/api/pricing', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (pricingRes.ok) {
+            const pricingData = await pricingRes.json();
+            setPricing(pricingData);
+          }
+        }
+      } catch (err) {
+        console.error('Error parsing user data:', err);
+        router.push('/login');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [router]);
 
   const teamData = [
     {
@@ -97,6 +159,18 @@ export default function OjassDashboard() {
     []
   );
 
+  if (loading) {
+    return (
+      <div className="bg-black h-screen flex items-center justify-center">
+        <div className="text-cyan-400 text-2xl animate-pulse">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!profileData) {
+    return null;
+  }
+
   return (
     <div className="bg-black relative overflow-hidden">
       {/* ✨ Star Background */}
@@ -122,7 +196,23 @@ export default function OjassDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             {/* PROFILE CARD */}
-            <GlassyNeonBoard title="PROFILE">
+            <GlassyNeonBoard 
+              title="PROFILE" 
+              isEmailVerified={profileData?.isEmailVerified || false}
+              isPaid={paymentData?.isPaid || false}
+              pricing={pricing}
+              onPaymentClick={() => setActiveTab('receipt')}
+              onEmailVerificationClick={() => setShowEmailVerificationModal(true)}
+              onRegisterNow={() => {
+                // Navigate to events page for registration
+                setActiveTab('events');
+              }}
+              onDownloadReceipt={() => {
+                // Set flag to trigger receipt download
+                sessionStorage.setItem('downloadReceipt', 'true');
+                setActiveTab('receipt');
+              }}
+            >
               <div
                 className="
                   overflow-y-auto
@@ -169,7 +259,7 @@ export default function OjassDashboard() {
                   scrollbar-thin scrollbar-thumb-cyan-500/40 scrollbar-track-transparent
                 "
               >
-                {activeTab === "receipt" && <Receipt />}
+                {activeTab === "receipt" && <Receipt userData={profileData} />}
                 {activeTab === "events" && (
                   <RegisteredEvent registeredEvents={registeredEvents} />
                 )}
@@ -184,6 +274,24 @@ export default function OjassDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Email Verification Modal */}
+      {showEmailVerificationModal && profileData && (
+        <EmailVerificationModal
+          isOpen={showEmailVerificationModal}
+          onClose={() => setShowEmailVerificationModal(false)}
+          email={profileData.email}
+          onVerificationSuccess={() => {
+            // Refresh user data
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const updatedUser = { ...user, isEmailVerified: true };
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            setProfileData({ ...profileData, isEmailVerified: true });
+            // Reload page to refresh all data
+            window.location.reload();
+          }}
+        />
+      )}
     </div>
   );
 }
