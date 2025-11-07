@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Award, Users } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const Hero = () => {
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-blue-50 pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-blue-50 pt-10">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#FF8C00]/10 rounded-full blur-3xl"></div>
@@ -32,7 +33,7 @@ const Hero = () => {
             >
               <Award className="w-4 h-4 text-[#FF8C00]" />
               <span className="text-sm font-semibold text-[#FF8C00]">
-                Benefits worth 2 Lakhs+
+                ₹500 cashback on every 5 referrals
               </span>
             </motion.div>
 
@@ -80,13 +81,13 @@ const Hero = () => {
                 href="/dashboard"
                 className="group inline-flex items-center gap-2 bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300"
               >
-                Register for CA
+                Login for CA
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
 
             {/* Stats */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.5 }}
@@ -98,7 +99,7 @@ const Hero = () => {
                   <span className="font-bold text-gray-900">2000+</span> CAs in 2024
                 </span>
               </div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* Right Illustration */}
@@ -108,33 +109,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="relative hidden lg:block"
           >
-            <div className="relative">
-              {/* SVG Illustration */}
-              <svg
-                viewBox="0 0 500 500"
-                className="w-full h-auto"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Student figure */}
-                <circle cx="250" cy="180" r="60" fill="#FF8C00" opacity="0.2" />
-                <rect x="200" y="240" width="100" height="180" rx="50" fill="#FF8C00" opacity="0.3" />
-                
-                {/* Laptop */}
-                <rect x="150" y="280" width="200" height="120" rx="10" fill="#2563EB" opacity="0.3" />
-                <rect x="170" y="300" width="160" height="80" rx="5" fill="#1E40AF" opacity="0.4" />
-                
-                {/* Social icons */}
-                <circle cx="120" cy="320" r="25" fill="#FF8C00" opacity="0.4" />
-                <circle cx="380" cy="320" r="25" fill="#2563EB" opacity="0.4" />
-                <circle cx="250" cy="380" r="25" fill="#FF8C00" opacity="0.4" />
-                
-                {/* Decorative elements */}
-                <circle cx="100" cy="150" r="30" fill="#FF8C00" opacity="0.1" />
-                <circle cx="400" cy="200" r="40" fill="#2563EB" opacity="0.1" />
-                <circle cx="420" cy="380" r="35" fill="#FF8C00" opacity="0.1" />
-              </svg>
-            </div>
+            <Image src="/sponsor.svg" alt="Sponsor" width={1000} height={1000} />
           </motion.div>
         </div>
       </div>
