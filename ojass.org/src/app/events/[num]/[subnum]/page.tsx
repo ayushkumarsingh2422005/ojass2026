@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence, Transition } from "framer-motion";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -784,5 +784,77 @@ export function EventModal({
         </>
       )}
     </AnimatePresence>
+  );
+}
+
+// Default page component for /events/[num]/[subnum]
+export default function EventPage({
+  params,
+}: {
+  params: { num: string; subnum: string };
+}) {
+  const router = useRouter();
+  const [eventData, setEventData] = useState<EventData | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch event data based on params
+    fetch('/event.json')
+      .then(response => response.json())
+      .then((data: EventData[][]) => {
+        // Find the event based on num and subnum params
+        const numIndex = parseInt(params.num) - 1;
+        const subnumIndex = parseInt(params.subnum) - 1;
+        
+        if (data[numIndex] && data[numIndex][subnumIndex]) {
+          setEventData(data[numIndex][subnumIndex]);
+        } else {
+          // Event not found, redirect to events page
+          router.push('/events');
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching event data:", error);
+        router.push('/events');
+      });
+
+    // Fetch user data if available
+    const userStr = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    if (userStr && token) {
+      try {
+        const userData = JSON.parse(userStr);
+        setUser({
+          paid: userData.isPaid || false,
+          events: userData.events || [],
+        });
+      } catch (err) {
+        console.error('Error parsing user data:', err);
+      }
+    }
+  }, [params.num, params.subnum, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-cyan-400 text-xl">Loading event...</div>
+      </div>
+    );
+  }
+
+  if (!eventData) {
+    return null;
+  }
+
+  return (
+    <EventModal
+      isOpen={true}
+      onClose={() => router.push('/events')}
+      eventData={eventData}
+      user={user}
+      animationType="fade"
+    />
   );
 }
