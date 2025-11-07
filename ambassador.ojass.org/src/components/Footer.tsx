@@ -24,7 +24,7 @@ const Footer = () => {
               <span className="text-gray-400"> | CA</span>
             </h3>
             <p className="text-gray-400 leading-relaxed">
-              Connecting campuses with innovation. Join the OJASS Campus Ambassador Program and be part of India's premier tech fest.
+              Connecting campuses with innovation. Join the OJASS Campus Ambassador Program and be part of India&apos;s premier tech fest.
             </p>
           </div>
 

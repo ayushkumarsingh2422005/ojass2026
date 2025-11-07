@@ -43,14 +43,14 @@ const About = () => {
           className="max-w-4xl mx-auto mb-16"
         >
           <p className="text-lg text-gray-700 leading-relaxed text-center mb-6">
-            OJASS (Onlooker's Joint Annual Sports and Society) is one of India's most prestigious
+            OJASS (Onlooker&apos;s Joint Annual Sports and Society) is one of India&apos;s most prestigious
             technical and cultural festivals, organized by IIT Roorkee. Every year, thousands of
             students from across the country participate in competitions, workshops, and events
             that celebrate innovation and creativity.
           </p>
           <p className="text-lg text-gray-700 leading-relaxed text-center">
             The Campus Ambassador Program is our initiative to connect with colleges nationwide.
-            As a Campus Ambassador, you'll be the face of OJASS in your institution, helping us
+            As a Campus Ambassador, you&apos;ll be the face of OJASS in your institution, helping us
             reach more students and create a larger impact. This program offers incredible
             opportunities for personal growth, networking, and professional development.
           </p>

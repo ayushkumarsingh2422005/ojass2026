@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,6 +20,8 @@ const Navbar = () => {
   const navLinks = [
     { name: "About", href: "#about" },
     { name: "Why Sponsor", href: "#why-sponsor" },
+    { name: "Packages", href: "#packages" },
+    { name: "Past Sponsors", href: "#past-sponsors" },
     { name: "FAQ", href: "#faq" },
     { name: "Contact", href: "#contact" },
   ];
@@ -39,14 +42,17 @@ const Navbar = () => {
           {/* Logo */}
           <motion.a
             href="#"
-            className="flex items-center space-x-2 text-2xl font-bold"
+            className="flex items-center space-x-3"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] bg-clip-text text-transparent">
-              OJASS
-            </span>
-            <span className="text-gray-600">| Sponsorship</span>
+            <Image 
+              src="/logo.webp" 
+              alt="OJASS Logo" 
+              width={70} 
+              height={70}
+              className="object-contain invert"
+            />
           </motion.a>
 
           {/* Desktop Navigation */}
@@ -55,7 +61,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-gray-700 hover:text-[#FF8C00] font-medium transition-colors duration-200"
+                className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200"
               >
                 {link.name}
               </a>
@@ -63,7 +69,7 @@ const Navbar = () => {
             <motion.a
               href="/SCSE_brochure.pdf"
               download
-              className="bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg transition-all duration-200"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-lg transition-all duration-200"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -96,41 +102,11 @@ const Navbar = () => {
             className="md:hidden bg-white border-t"
           >
             <div className="px-4 pt-2 pb-4 space-y-3">
-              <div className="border-b border-gray-200 pb-3 mb-3">
-                <p className="text-xs font-semibold text-gray-500 uppercase mb-2">Quick Links</p>
-                <a
-                  href="https://admin.ojass.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block py-2 text-gray-700 hover:text-[#FF8C00] font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Admin
-                </a>
-                <a
-                  href="https://ambassador.ojass.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block py-2 text-gray-700 hover:text-[#FF8C00] font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Campus Ambassador
-                </a>
-                <a
-                  href="https://ojass.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block py-2 text-gray-700 hover:text-[#FF8C00] font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  OJASS Main
-                </a>
-              </div>
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="block py-2 text-gray-700 hover:text-[#FF8C00] font-medium"
+                  className="block py-2 text-gray-700 hover:text-blue-600 font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -139,7 +115,7 @@ const Navbar = () => {
               <a
                 href="/SCSE_brochure.pdf"
                 download
-                className="block w-full text-center bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] text-white px-6 py-2.5 rounded-full font-semibold mt-4"
+                className="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-full font-semibold mt-4"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Brochure
