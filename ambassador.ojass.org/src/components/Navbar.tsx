@@ -66,7 +66,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Register
+              Login
             </motion.a>
           </div>
 
@@ -110,7 +110,7 @@ const Navbar = () => {
                 className="block w-full text-center bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] text-white px-6 py-2.5 rounded-full font-semibold mt-4"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Register
+                Login
               </a>
             </div>
           </motion.div>

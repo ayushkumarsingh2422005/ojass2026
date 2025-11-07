@@ -5,7 +5,7 @@ import { ArrowRight, Mail } from "lucide-react";
 
 const RegisterSection = () => {
   return (
-    <section id="register" className="py-20 bg-gradient-to-br from-[#86EFAC] to-[#4ADE80] relative overflow-hidden">
+    <section id="register" className="py-20 bg-gradient-to-br from-blue-600 to-blue-700 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 -right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
@@ -29,7 +29,7 @@ const RegisterSection = () => {
           </p>
           <motion.a
             href="mailto:sponsorship@ojass.org"
-            className="inline-flex items-center gap-2 bg-white text-[#059669] px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300"
+            className="inline-flex items-center gap-2 bg-white text-blue-700 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

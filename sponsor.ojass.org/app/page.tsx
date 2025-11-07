@@ -1,11 +1,13 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import QuickLinksMenu from "@/components/QuickLinksMenu";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Perks from "@/components/Perks";
-import Responsibilities from "@/components/Responsibilities";
+import TitleSponsor from "@/components/TitleSponsor";
+import SponsorshipPackages from "@/components/SponsorshipPackages";
+import PastSponsors from "@/components/PastSponsors";
+import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import RegisterSection from "@/components/RegisterSection";
 import Footer from "@/components/Footer";
@@ -14,13 +16,15 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      <QuickLinksMenu />
       <Hero />
       <About />
       <Perks />
-      <Responsibilities />
+      <TitleSponsor />
+      <SponsorshipPackages />
+      <PastSponsors />
+      <Testimonials />
       <FAQ />
-      <RegisterSection/>
+      <RegisterSection />
       <Footer />
     </main>
   );

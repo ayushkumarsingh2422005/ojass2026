@@ -17,7 +17,7 @@ const ReferralCard = ({ name, phone, status }: ReferralCardProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      whileHover={{ y: -4, shadow: "lg" }}
+      whileHover={{ y: -4 }}
       className="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300"
     >
       <div className="flex items-start justify-between mb-4">

@@ -52,9 +52,9 @@ const FAQ = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Frequently Asked <span className="text-[#FF8C00]">Questions</span>
+            Frequently Asked <span className="text-blue-600">Questions</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] mx-auto mb-4"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-700 mx-auto mb-4"></div>
           <p className="text-lg text-gray-600">
             Got questions? We've got answers
           </p>
@@ -69,7 +69,7 @@ const FAQ = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="border border-gray-200 rounded-xl overflow-hidden hover:border-[#FF8C00] transition-colors duration-200"
+              className="border border-gray-200 rounded-xl overflow-hidden hover:border-blue-600 transition-colors duration-200"
             >
               <button
                 onClick={() => toggleFAQ(index)}
@@ -87,7 +87,7 @@ const FAQ = () => {
                   transition={{ duration: 0.3 }}
                   className="flex-shrink-0"
                 >
-                  <ChevronDown className="w-5 h-5 text-[#FF8C00]" />
+                  <ChevronDown className="w-5 h-5 text-blue-600" />
                 </motion.div>
               </button>
               <AnimatePresence>

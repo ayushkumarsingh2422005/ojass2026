@@ -43,7 +43,7 @@ const Responsibilities = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] mx-auto mb-4"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            As a Campus Ambassador, you'll play a crucial role in connecting your college with OJASS
+            As a Campus Ambassador, you&apos;ll play a crucial role in connecting your college with OJASS
           </p>
         </motion.div>
 
