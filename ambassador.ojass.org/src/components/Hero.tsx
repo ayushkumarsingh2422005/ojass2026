@@ -67,7 +67,7 @@ const Hero = () => {
               className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl"
             >
               Join the OJASS team and help us spread innovation across campuses.
-              Be the bridge between your college and India's premier tech fest.
+              Be the bridge between your college and India&apos;s premier tech fest.
             </motion.p>
 
             {/* CTA Button */}
