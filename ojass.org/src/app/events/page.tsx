@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
 
 import { EventModal } from './[num]/[subnum]/page';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface CardData {
   id: string;
@@ -23,6 +24,7 @@ interface CardData {
 type Props = {}
 
 export default function Page({ }: Props) {
+  const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null)
   const [allEvents, setAllEvents] = useState<CardData[][]>([]);
   const [selectedEventIndex, setSelectedEventIndex] = useState<number>(0);
@@ -237,20 +239,85 @@ export default function Page({ }: Props) {
 
         </div>
 
-        <button
-          className="events-prev absolute left-24 top-1/2 -translate-y-1/2 z-30 pointer-events-auto bg-black/50 text-white px-3 py-2 rounded-full hover:bg-black/70"
-          aria-label="Previous"
-        >
-          ◀
-        </button>
+       {theme === "utopia" ? (
+  <>
+    {/* 🌤 UTOPIA BUTTONS */}
+    <button
+      className="events-prev absolute left-60 top-1/2 -translate-y-1/2 z-30 
+                 pointer-events-auto text-white 
+                 px-3 py-2 rounded-full 
+                 bg-cyan-500/20 backdrop-blur-sm
+                 transition-all duration-300 ease-in-out
+                 hover:bg-cyan-500/40 hover:scale-105 active:scale-95"
+      aria-label="Previous"
+    >
+      <Image
+        width={40}
+        height={40}
+        src="/events/previousArrowButtonUtopia.svg"
+        alt="previous"
+      />
+    </button>
 
-        <button
-          className="events-next absolute right-24 top-1/2 -translate-y-1/2 z-30 pointer-events-auto bg-black/50 text-white px-3 py-2 rounded-full hover:bg-black/70"
-          aria-label="Next"
-        >
-          ▶
-        </button>
+    <button
+      className="events-next absolute right-50 top-1/2 -translate-y-1/2 z-30 
+                 pointer-events-auto text-white 
+                 px-3 py-2 rounded-full 
+                 bg-cyan-500/20 backdrop-blur-sm
+                 transition-all duration-300 ease-in-out
+                 hover:bg-cyan-500/40 hover:scale-105 active:scale-95"
+      aria-label="Next"
+    >
+      <Image
+        width={40}
+        height={40}
+        src="/events/nextArrowButtonUtopia.svg"
+        alt="next"
+      />
+    </button>
+  </>
+) : (
+  <>
+    {/* 🌒 DYSTOPIA BUTTONS */}
+    <button
+      className="events-prev absolute left-60 top-1/2 -translate-y-1/2 z-30 
+                 pointer-events-auto text-white 
+                 px-3 py-2 rounded-full 
+                 bg-[#ee8f59]/10 backdrop-blur-sm
+                 transition-all duration-300 ease-in-out
+                 hover:bg-[#ee8f59]/30 hover:scale-105 active:scale-95"
+      aria-label="Previous"
+    >
+      <Image
+        width={40}
+        height={40}
+        src="/events/previousArrowButtonDystopia.svg"
+        alt="previous"
+      />
+    </button>
 
+    <button
+      className="events-next absolute right-50 top-1/2 -translate-y-1/2 z-30 
+                 pointer-events-auto text-white 
+                 px-3 py-2 rounded-full 
+                 bg-[#ee8f59]/10 backdrop-blur-sm
+                 transition-all duration-300 ease-in-out
+                 hover:bg-[#ee8f59]/30 hover:scale-105 active:scale-95"
+      aria-label="Next"
+    >
+      <Image
+        width={40}
+        height={40}
+        src="/events/nextArrowButtonDystopia.svg"
+        alt="next"
+      />
+    </button>
+  </>
+)}
+
+
+        
+        
         <div className='absolute bottom-10 mx-auto flex items-center justify-center w-full h-1/2 z-10' style={{
           pointerEvents: 'none',
         }}>
@@ -261,7 +328,7 @@ export default function Page({ }: Props) {
             height={1000}
             className="h-[70vh] object-contain object-center-bottom"
             style={{ objectPosition: "center bottom" }}
-          />
+          /> 
         </div>
       </div>
       {selectedEvent && (
