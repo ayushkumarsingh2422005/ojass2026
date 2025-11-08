@@ -1,15 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-
-// Fake data hello
-const initialEvents = [
-  { id: 1, name: 'Tech Fest 2024', date: '2024-03-15', participants: 150, status: 'Active', description: 'A comprehensive technology festival showcasing the latest innovations in tech industry.' },
-  { id: 2, name: 'Hackathon', date: '2024-04-20', participants: 89, status: 'Active', description: '48-hour coding competition where teams build innovative solutions to real-world problems.' },
-  { id: 3, name: 'Workshop Series', date: '2024-05-10', participants: 234, status: 'Upcoming', description: 'Series of hands-on workshops covering various topics in software development and emerging technologies.' },
-  { id: 4, name: 'Coding Competition', date: '2024-03-01', participants: 67, status: 'Completed', description: 'Competitive programming contest challenging participants with algorithmic problems.' },
-];
+import { eventAPI, authAPI, Event, CreateEventData } from '@/lib/api';
+import EventForm from '@/components/EventForm';
 
 const fakeStudents = [
   { id: 1, name: 'John Doe', email: 'john@example.com', college: 'MIT', registeredAt: '2024-01-15', events: 3, ojassId: 'OJASS001', paymentStatus: 'paid' },
@@ -40,93 +34,120 @@ const fakeTeams = [
 export default function Dashboard() {
   const router = useRouter();
   const [activeSection, setActiveSection] = useState<'events' | 'students' | 'ambassadors' | 'team'>('events');
-  const [teamEventFilter, setTeamEventFilter] = useState<number | 'all'>('all');
-  const [events, setEvents] = useState(initialEvents);
+  const [events, setEvents] = useState<Event[]>([]);
   const [eventSearch, setEventSearch] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [mounted, setMounted] = useState(false);
+  const [showAddEventModal, setShowAddEventModal] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+  const [viewingEvent, setViewingEvent] = useState<Event | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [studentSearch, setStudentSearch] = useState('');
   const [paymentFilter, setPaymentFilter] = useState<'all' | 'paid' | 'unpaid'>('all');
-  const [selectedEventParticipants, setSelectedEventParticipants] = useState<number | null>(null);
+  const [teamEventFilter, setTeamEventFilter] = useState<string | 'all'>('all');
+  const [selectedEventParticipants, setSelectedEventParticipants] = useState<string | null>(null);
   const [selectedAmbassadorReferrals, setSelectedAmbassadorReferrals] = useState<number | null>(null);
   const [selectedStudentDetails, setSelectedStudentDetails] = useState<number | null>(null);
   const [selectedTeamDetails, setSelectedTeamDetails] = useState<number | null>(null);
-  const [showAddEventModal, setShowAddEventModal] = useState(false);
-  const [newEvent, setNewEvent] = useState({
-    name: '',
-    date: '',
-    description: '',
-    status: 'Upcoming' as 'Active' | 'Upcoming' | 'Completed',
-    participants: 0,
-  });
 
-  const handleLogout = () => {
-    router.push('/');
+  // Set mounted state after hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Load events on mount
+  useEffect(() => {
+    if (mounted) {
+      loadEvents();
+    }
+  }, [mounted]);
+
+  const loadEvents = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const data = await eventAPI.getAll();
+      setEvents(data);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load events');
+      console.error('Error loading events:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await authAPI.logout();
+    } catch (err) {
+      console.error('Logout error:', err);
+    } finally {
+      router.push('/');
+    }
   };
 
   const handleOpenAddEvent = () => {
+    setEditingEvent(null);
     setShowAddEventModal(true);
-    setNewEvent({
-      name: '',
-      date: '',
-      description: '',
-      status: 'Upcoming',
-      participants: 0,
-    });
   };
 
   const handleCloseAddEvent = () => {
     setShowAddEventModal(false);
-    setNewEvent({
-      name: '',
-      date: '',
-      description: '',
-      status: 'Upcoming',
-      participants: 0,
-    });
+    setEditingEvent(null);
   };
 
-  const handleSubmitEvent = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newId = Math.max(...events.map(e => e.id), 0) + 1;
-    const eventToAdd = {
-      id: newId,
-      ...newEvent,
-    };
-    setEvents([...events, eventToAdd]);
-    handleCloseAddEvent();
+  const handleEditEvent = (event: Event) => {
+    setEditingEvent(event);
+    setShowAddEventModal(true);
   };
 
-  const handleDeleteEvent = (eventId: number) => {
-    if (confirm('Are you sure you want to delete this event?')) {
-      setEvents(events.filter(event => event.id !== eventId));
+  const handleSubmitEvent = async (eventData: CreateEventData) => {
+    try {
+      setSubmitting(true);
+      setError('');
+      if (editingEvent) {
+        await eventAPI.update(editingEvent._id, eventData);
+      } else {
+        await eventAPI.create(eventData);
+      }
+      await loadEvents();
+      handleCloseAddEvent();
+    } catch (err: any) {
+      setError(err.message || 'Failed to save event');
+      throw err;
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  const handleViewEvent = (eventId: number) => {
-    alert(`View event ${eventId} - This would show event details`);
+  const handleDeleteEvent = async (eventId: string) => {
+    if (!confirm('Are you sure you want to delete this event?')) {
+      return;
+    }
+
+    try {
+      setError('');
+      await eventAPI.delete(eventId);
+      await loadEvents();
+    } catch (err: any) {
+      setError(err.message || 'Failed to delete event');
+      alert(err.message || 'Failed to delete event');
+    }
   };
 
-  const handleEditEvent = (eventId: number) => {
-    alert(`Edit event ${eventId} - This would open edit form`);
+  const handleViewEvent = (event: Event) => {
+    setViewingEvent(event);
   };
 
-  const getEventParticipants = (eventId: number) => {
-    const teams = fakeTeams.filter(team => team.eventId === eventId);
-    const participants: Array<{ student: typeof fakeStudents[0], teamName: string, teamOjassId: string }> = [];
-    
-    teams.forEach(team => {
-      team.studentIds?.forEach(studentId => {
-        const student = fakeStudents.find(s => s.id === studentId);
-        if (student) {
-          participants.push({
-            student,
-            teamName: team.name,
-            teamOjassId: team.ojassId
-          });
-        }
-      });
-    });
-    
-    return participants;
+  const handleCloseViewEvent = () => {
+    setViewingEvent(null);
+  };
+
+  const getEventParticipants = (eventId: string): Array<{ student: typeof fakeStudents[0], teamName: string, teamOjassId: string }> => {
+    // TODO: Fetch real participants from API
+    // For now, return empty array with proper type
+    return [] as Array<{ student: typeof fakeStudents[0], teamName: string, teamOjassId: string }>;
   };
 
   const getAmbassadorReferrals = (ambassadorId: number) => {
@@ -149,16 +170,29 @@ export default function Dashboard() {
   };
 
   const filteredEvents = events.filter((event) => {
-    const searchLower = eventSearch.toLowerCase();
-    return event.name.toLowerCase().includes(searchLower) ||
-           event.id.toString().includes(eventSearch) ||
-           event.date.includes(eventSearch);
+    if (!event || !event.name) return false;
+    
+    // If search is empty, show all events
+    const searchTerm = eventSearch || '';
+    if (searchTerm.trim() === '') {
+      return true;
+    }
+    
+    const searchLower = searchTerm.toLowerCase().trim();
+    return (event.name?.toLowerCase().includes(searchLower) ?? false) ||
+           (event._id?.toLowerCase().includes(searchLower) ?? false) ||
+           (event.description?.toLowerCase().includes(searchLower) ?? false);
   });
 
   const filteredStudents = fakeStudents.filter((student) => {
-    const searchLower = studentSearch.toLowerCase();
-    const matchesSearch = studentSearch === '' ||
-      student.name.toLowerCase().includes(searchLower) ||
+    const searchTerm = studentSearch || '';
+    if (searchTerm.trim() === '') {
+      // If no search term, only filter by payment status
+      return paymentFilter === 'all' || student.paymentStatus === paymentFilter;
+    }
+    
+    const searchLower = searchTerm.toLowerCase();
+    const matchesSearch = student.name.toLowerCase().includes(searchLower) ||
       student.ojassId.toLowerCase().includes(searchLower) ||
       student.email.toLowerCase().includes(searchLower);
     
@@ -170,7 +204,42 @@ export default function Dashboard() {
 
   const filteredTeams = teamEventFilter === 'all' 
     ? fakeTeams 
-    : fakeTeams.filter(team => team.eventId === teamEventFilter);
+    : fakeTeams.filter(team => {
+        // Since we're using fake data, we can't match with real event IDs
+        // This is a placeholder until we integrate real team data
+        return true;
+      });
+
+  // Prevent hydration mismatch by not rendering event-dependent content until mounted
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+        {/* Header */}
+        <header className="bg-white shadow-md border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center py-4">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                OJASS Admin Dashboard
+              </h1>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </header>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="text-center py-12">
+              <p className="text-gray-500">Loading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
@@ -231,6 +300,12 @@ export default function Dashboard() {
                 </button>
               </div>
               
+              {error && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                  {error}
+                </div>
+              )}
+
               {/* Search Bar */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -238,65 +313,69 @@ export default function Dashboard() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Search by name, ID, or email..."
+                  placeholder="Search by name, ID, or description..."
                   value={eventSearch}
                   onChange={(e) => setEventSearch(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredEvents.map((event) => (
-                  <div key={event.id} className="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow relative">
-                    <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-xl font-semibold text-gray-800">{event.name}</h3>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        event.status === 'Active' ? 'bg-green-100 text-green-700' :
-                        event.status === 'Upcoming' ? 'bg-blue-100 text-blue-700' :
-                        'bg-gray-100 text-gray-700'
-                      }`}>
-                        {event.status}
-                      </span>
+              {loading ? (
+                <div className="text-center py-12">
+                  <p className="text-gray-500">Loading events...</p>
+                </div>
+              ) : filteredEvents.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-gray-500">No events found.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {filteredEvents.map((event) => (
+                    <div key={event._id} className="border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow relative">
+                      {event.img && (
+                        <img src={event.img} alt={event.name} className="w-full h-32 object-cover rounded-lg mb-3" />
+                      )}
+                      <div className="flex justify-between items-start mb-3">
+                        <h3 className="text-xl font-semibold text-gray-800">{event.name}</h3>
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          event.isTeamEvent ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'
+                        }`}>
+                          {event.isTeamEvent ? 'Team' : 'Individual'}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 mb-2"><strong>Team Size:</strong> {event.teamSizeMin}-{event.teamSizeMax}</p>
+                      {event.organizer && (
+                        <p className="text-gray-600 mb-2"><strong>Organizer:</strong> {event.organizer}</p>
+                      )}
+                      {event.description && (
+                        <p className="text-gray-600 mb-4 text-sm line-clamp-2"><strong>Description:</strong> {event.description}</p>
+                      )}
+                      
+                      {/* Action Buttons */}
+                      <div className="flex gap-2 mb-2">
+                        <button
+                          onClick={() => handleViewEvent(event)}
+                          className="flex-1 px-3 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors"
+                        >
+                          View
+                        </button>
+                        <button
+                          onClick={() => handleEditEvent(event)}
+                          className="flex-1 px-3 py-2 bg-indigo-500 text-white rounded-lg text-sm font-medium hover:bg-indigo-600 transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDeleteEvent(event._id)}
+                          className="flex-1 px-3 py-2 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600 transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                    <p className="text-gray-600 mb-2"><strong>Date:</strong> {event.date}</p>
-                    <p className="text-gray-600 mb-2"><strong>Participants:</strong> {event.participants}</p>
-                    {event.description && (
-                      <p className="text-gray-600 mb-4 text-sm line-clamp-2"><strong>Description:</strong> {event.description}</p>
-                    )}
-                    
-                    {/* Action Buttons */}
-                    <div className="flex gap-2 mb-2">
-                      <button
-                        onClick={() => handleViewEvent(event.id)}
-                        className="flex-1 px-3 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors"
-                      >
-                        View
-                      </button>
-                      <button
-                        onClick={() => handleEditEvent(event.id)}
-                        className="flex-1 px-3 py-2 bg-indigo-500 text-white rounded-lg text-sm font-medium hover:bg-indigo-600 transition-colors"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteEvent(event.id)}
-                        className="flex-1 px-3 py-2 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600 transition-colors"
-                      >
-                        Delete
-                      </button>
-                      <button
-                        onClick={() => setSelectedEventParticipants(event.id)}
-                        className="px-3 py-2 bg-gray-500 text-white rounded-lg text-sm font-medium hover:bg-gray-600 transition-colors"
-                        title="View Participants"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
 
               {/* Participants Modal */}
               {selectedEventParticipants && (
@@ -304,7 +383,7 @@ export default function Dashboard() {
                   <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-between items-center mb-4">
                       <h3 className="text-2xl font-bold text-gray-800">
-                        Participants - {events.find(e => e.id === selectedEventParticipants)?.name}
+                        Participants - {events.find(e => e._id === selectedEventParticipants)?.name}
                       </h3>
                       <button
                         onClick={() => setSelectedEventParticipants(null)}
@@ -339,12 +418,189 @@ export default function Dashboard() {
                 </div>
               )}
 
-              {/* Add Event Modal */}
+              {/* View Event Modal */}
+              {viewingEvent && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={handleCloseViewEvent}>
+                  <div className="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex justify-between items-center mb-6">
+                      <h3 className="text-2xl font-bold text-gray-800">Event Details</h3>
+                      <button
+                        onClick={handleCloseViewEvent}
+                        className="text-gray-500 hover:text-gray-700"
+                      >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div className="space-y-6">
+                      {/* Event Image */}
+                      {viewingEvent.img && (
+                        <div>
+                          <img 
+                            src={viewingEvent.img} 
+                            alt={viewingEvent.name} 
+                            className="w-full h-64 object-cover rounded-lg"
+                          />
+                        </div>
+                      )}
+
+                      {/* Basic Information */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                          <p className="text-gray-900 font-semibold">{viewingEvent.name}</p>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Event Type</label>
+                          <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                            viewingEvent.isTeamEvent ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'
+                          }`}>
+                            {viewingEvent.isTeamEvent ? 'Team Event' : 'Individual Event'}
+                          </span>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Team Size</label>
+                          <p className="text-gray-900">{viewingEvent.teamSizeMin} - {viewingEvent.teamSizeMax} {viewingEvent.isTeamEvent ? 'members' : 'participant'}</p>
+                        </div>
+                        {viewingEvent.organizer && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Organizer</label>
+                            <p className="text-gray-900">{viewingEvent.organizer}</p>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Description */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <p className="text-gray-900 whitespace-pre-wrap">{viewingEvent.description}</p>
+                      </div>
+
+                      {/* Prizes */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Prizes</label>
+                        <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Total Prize:</span>
+                            <span className="text-gray-900 font-semibold">{viewingEvent.prizes?.total || 'N/A'}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Winner:</span>
+                            <span className="text-gray-900 font-semibold">{viewingEvent.prizes?.winner || 'N/A'}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">First Runner-up:</span>
+                            <span className="text-gray-900 font-semibold">{viewingEvent.prizes?.first_runner_up || 'N/A'}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Second Runner-up:</span>
+                            <span className="text-gray-900 font-semibold">{viewingEvent.prizes?.second_runner_up || 'N/A'}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Event Details */}
+                      {viewingEvent.details && viewingEvent.details.length > 0 && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Event Details</label>
+                          <ul className="list-disc list-inside space-y-1 bg-gray-50 rounded-lg p-4">
+                            {viewingEvent.details.map((detail, index) => (
+                              <li key={index} className="text-gray-900">{detail}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Rules */}
+                      {viewingEvent.rules && viewingEvent.rules.length > 0 && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Rules</label>
+                          <ul className="list-disc list-inside space-y-1 bg-gray-50 rounded-lg p-4">
+                            {viewingEvent.rules.map((rule, index) => (
+                              <li key={index} className="text-gray-900">{rule}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Event Head */}
+                      {viewingEvent.event_head && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Event Head</label>
+                          <div className="bg-gray-50 rounded-lg p-4">
+                            <p className="text-gray-900"><strong>Name:</strong> {viewingEvent.event_head.name}</p>
+                            <p className="text-gray-900"><strong>Phone:</strong> {viewingEvent.event_head.Phone}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Links */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {viewingEvent.rulebookurl && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Rulebook URL</label>
+                            <a 
+                              href={viewingEvent.rulebookurl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:text-blue-800 underline break-all"
+                            >
+                              {viewingEvent.rulebookurl}
+                            </a>
+                          </div>
+                        )}
+                        {viewingEvent.redirect && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Redirect Path</label>
+                            <p className="text-gray-900 break-all">{viewingEvent.redirect}</p>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Winners */}
+                      {viewingEvent.winners && viewingEvent.winners.length > 0 && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Winners</label>
+                          <div className="bg-gray-50 rounded-lg p-4">
+                            <p className="text-gray-600 text-sm">{viewingEvent.winners.length} winner(s) declared</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Action Buttons */}
+                      <div className="flex justify-end gap-3 pt-4 border-t">
+                        <button
+                          onClick={handleCloseViewEvent}
+                          className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                        >
+                          Close
+                        </button>
+                        <button
+                          onClick={() => {
+                            setViewingEvent(null);
+                            setEditingEvent(viewingEvent);
+                            setShowAddEventModal(true);
+                          }}
+                          className="px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors"
+                        >
+                          Edit Event
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Add/Edit Event Modal */}
               {showAddEventModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={handleCloseAddEvent}>
-                  <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+                  <div className="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-between items-center mb-6">
-                      <h3 className="text-2xl font-bold text-gray-800">Add New Event</h3>
+                      <h3 className="text-2xl font-bold text-gray-800">
+                        {editingEvent ? 'Edit Event' : 'Add New Event'}
+                      </h3>
                       <button
                         onClick={handleCloseAddEvent}
                         className="text-gray-500 hover:text-gray-700"
@@ -355,94 +611,12 @@ export default function Dashboard() {
                       </button>
                     </div>
 
-                    <form onSubmit={handleSubmitEvent} className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Event Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={newEvent.name}
-                          onChange={(e) => setNewEvent({ ...newEvent, name: e.target.value })}
-                          placeholder="Enter event name"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Event Date <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="date"
-                          required
-                          value={newEvent.date}
-                          onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Description <span className="text-red-500">*</span>
-                        </label>
-                        <textarea
-                          required
-                          value={newEvent.description}
-                          onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
-                          placeholder="Enter event description"
-                          rows={4}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Status <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                          required
-                          value={newEvent.status}
-                          onChange={(e) => setNewEvent({ ...newEvent, status: e.target.value as 'Active' | 'Upcoming' | 'Completed' })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        >
-                          <option value="Upcoming">Upcoming</option>
-                          <option value="Active">Active</option>
-                          <option value="Completed">Completed</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Initial Participants
-                        </label>
-                        <input
-                          type="number"
-                          min="0"
-                          value={newEvent.participants}
-                          onChange={(e) => setNewEvent({ ...newEvent, participants: parseInt(e.target.value) || 0 })}
-                          placeholder="Enter initial participant count"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        />
-                      </div>
-
-                      <div className="flex gap-3 pt-4">
-                        <button
-                          type="button"
-                          onClick={handleCloseAddEvent}
-                          className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="submit"
-                          className="flex-1 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all"
-                        >
-                          Add Event
-                        </button>
-                      </div>
-                    </form>
+                    <EventForm
+                      event={editingEvent || undefined}
+                      onSubmit={handleSubmitEvent}
+                      onCancel={handleCloseAddEvent}
+                      loading={submitting}
+                    />
                   </div>
                 </div>
               )}
@@ -708,16 +882,16 @@ export default function Dashboard() {
             <div>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-800">Teams</h2>
-                <select
-                  value={teamEventFilter}
-                  onChange={(e) => setTeamEventFilter(e.target.value === 'all' ? 'all' : Number(e.target.value))}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <option value="all">All Events</option>
-                  {events.map((event) => (
-                    <option key={event.id} value={event.id}>{event.name}</option>
-                  ))}
-                </select>
+                  <select
+                    value={teamEventFilter}
+                    onChange={(e) => setTeamEventFilter(e.target.value)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  >
+                    <option value="all">All Events</option>
+                    {events.map((event) => (
+                      <option key={event._id} value={event._id}>{event.name}</option>
+                    ))}
+                  </select>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
