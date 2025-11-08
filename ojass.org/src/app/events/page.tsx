@@ -242,12 +242,13 @@ useEffect(() => {
         </div>
 
         <button
-          className="events-next absolute left-60 top-1/2 -translate-y-1/2 z-30 
+          className="events-prev absolute left-60 top-1/2 -translate-y-1/2 z-30 
              pointer-events-auto text-white 
              px-3 py-2 rounded-full 
              bg-cyan-500/20 backdrop-blur-sm
              transition-all duration-300 ease-in-out
              hover:bg-cyan-500/40 hover:scale-105 active:scale-95"
+          aria-label="Previous"
         >
           <Image width={40} height={40} src={'/events/previousArrowButton.svg'} alt="previous"/>
         </button>
