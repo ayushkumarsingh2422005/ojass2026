@@ -59,7 +59,7 @@ const FAQ = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] mx-auto mb-4"></div>
           <p className="text-lg text-gray-600">
-            Got questions? We've got answers
+            Got questions? We&apos;ve got answers
           </p>
         </motion.div>
 

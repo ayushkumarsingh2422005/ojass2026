@@ -19,6 +19,44 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    
+    // Unique OJASS ID
+    ojassId: {
+        type: String,
+        unique: true,
+        required: true,
+        match: /^OJASS26[A-Z0-9]{4}$/
+    },
+    
+    // Additional User Information
+    gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other'],
+        required: true
+    },
+    collegeName: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
+    
+    // Referral System
+    referredBy: {
+        type: String, // OJASS ID of the referrer
+        match: /^OJASS26[A-Z0-9]{4}$/
+    },
+    referralCount: {
+        type: Number,
+        default: 0
+    },
+    
     idCardImageUrl: {
         type: String, // Cloudinary URL
     },
@@ -52,6 +90,16 @@ const userSchema = new mongoose.Schema({
     },
 
     // Transaction Related Fields
+    isPaid: {
+        type: Boolean,
+        default: false
+    },
+    paymentAmount: {
+        type: Number,
+    },
+    paymentDate: {
+        type: Date,
+    },
     orderId: {
         type: String,
     },

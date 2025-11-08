@@ -3,6 +3,7 @@ import connectToDatabase from "@/lib/mongodb";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { generateUniqueOjassId, isValidOjassId, ojassIdExists, incrementReferralCount } from "@/utils/ojassId.util";
 
 export async function POST(request: NextRequest) {
     try {
@@ -12,6 +13,11 @@ export async function POST(request: NextRequest) {
             email,
             phone,
             password,
+            gender,
+            collegeName,
+            city,
+            state,
+            referralCode, // OJASS ID of referrer
             idCardImageUrl,
             idCardCloudinaryId,
             isNitJsrStudent,
@@ -21,12 +27,17 @@ export async function POST(request: NextRequest) {
         name = (name || "").trim();
         email = (email || "").toLowerCase().trim();
         phone = (phone || "").replace(/\D/g, "").trim(); // keep digits only
+        gender = (gender || "").trim();
+        collegeName = (collegeName || "").trim();
+        city = (city || "").trim();
+        state = (state || "").trim();
+        referralCode = referralCode ? (referralCode || "").toUpperCase().trim() : undefined;
         isNitJsrStudent = Boolean(isNitJsrStudent);
 
         // Validate required fields
-        if (!name || !email || !phone || !password) {
+        if (!name || !email || !phone || !password || !gender || !city || !state) {
             return NextResponse.json(
-                { error: "Name, email, phone, and password are required" },
+                { error: "Name, email, phone, password, gender, city, and state are required" },
                 { status: 400 },
             );
         }
@@ -56,14 +67,59 @@ export async function POST(request: NextRequest) {
                 { status: 400 },
             );
         }
+
+        // Validate gender
+        if (!['Male', 'Female', 'Other'].includes(gender)) {
+            return NextResponse.json(
+                { error: "Gender must be Male, Female, or Other" },
+                { status: 400 },
+            );
+        }
+
+        // Auto-detect NIT JSR student based on email
+        const isNitJsrEmail = email.endsWith('@nitjsr.ac.in');
+        // Override isNitJsrStudent if provided, otherwise use auto-detected value
+        isNitJsrStudent = isNitJsrStudent || isNitJsrEmail;
+
+        // Set college name automatically for NIT JSR students
+        if (isNitJsrEmail) {
+            collegeName = "NIT Jamshedpur";
+        } else {
+            // For non-NIT JSR students, college name is required
+            if (!collegeName) {
+                return NextResponse.json(
+                    { error: "College name is required for students outside NIT Jamshedpur" },
+                    { status: 400 },
+                );
+            }
+        }
+
         try {
             await connectToDatabase();
         } catch (connErr) {
-            console.error("Forgot password: DB connection error", connErr);
+            console.error("Registration: DB connection error", connErr);
             return NextResponse.json(
                 { error: "Database connection error" },
                 { status: 500 },
             );
+        }
+
+        // Validate referral code if provided
+        if (referralCode) {
+            if (!isValidOjassId(referralCode)) {
+                return NextResponse.json(
+                    { error: "Invalid referral code format" },
+                    { status: 400 },
+                );
+            }
+
+            const referrerExists = await ojassIdExists(referralCode);
+            if (!referrerExists) {
+                return NextResponse.json(
+                    { error: "Referral code does not exist" },
+                    { status: 400 },
+                );
+            }
         }
 
         // DB connection is initialized on module import (see src/lib/mongodb.ts)
@@ -80,6 +136,18 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Generate unique OJASS ID
+        let ojassId: string;
+        try {
+            ojassId = await generateUniqueOjassId();
+        } catch (error) {
+            console.error("Error generating OJASS ID:", error);
+            return NextResponse.json(
+                { error: "Failed to generate OJASS ID. Please try again." },
+                { status: 500 },
+            );
+        }
+
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -89,6 +157,12 @@ export async function POST(request: NextRequest) {
             email: email,
             phone: phone,
             password: hashedPassword,
+            ojassId: ojassId,
+            gender: gender,
+            collegeName: collegeName,
+            city: city,
+            state: state,
+            referredBy: referralCode || undefined,
             idCardImageUrl: idCardImageUrl || undefined,
             idCardCloudinaryId: idCardCloudinaryId || undefined,
             isNitJsrStudent: isNitJsrStudent,
@@ -96,6 +170,16 @@ export async function POST(request: NextRequest) {
         });
 
         await newUser.save();
+
+        // Increment referral count for referrer if applicable
+        if (referralCode) {
+            try {
+                await incrementReferralCount(referralCode);
+            } catch (error) {
+                console.error("Error incrementing referral count:", error);
+                // Don't fail registration if referral count update fails
+            }
+        }
 
         // Create user object without password
         const userObject = newUser.toObject();

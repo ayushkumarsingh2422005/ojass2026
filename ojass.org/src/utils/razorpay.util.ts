@@ -26,15 +26,30 @@ const getRazorpayInstance = (): RazorpayInstance => {
         const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
         if (!keyId || !keySecret) {
-            throw new Error('Razorpay credentials are not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in environment variables.');
+            const missing = [];
+            if (!keyId) missing.push('RAZORPAY_KEY_ID');
+            if (!keySecret) missing.push('RAZORPAY_KEY_SECRET');
+            throw new Error(
+                `Razorpay credentials are not configured. Missing: ${missing.join(', ')}. ` +
+                `Please set these environment variables in your .env.local file.`
+            );
         }
 
-        // The Razorpay constructor returns an object that matches our RazorpayInstance interface.
-        // We cast it to ensure TypeScript knows its shape.
-        razorpayInstance = new Razorpay({
-            key_id: keyId,
-            key_secret: keySecret,
-        }) as unknown as RazorpayInstance; 
+        // Validate key format (basic check)
+        if (keyId.length < 10 || keySecret.length < 10) {
+            throw new Error('Razorpay API keys appear to be invalid. Please check your RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET.');
+        }
+
+        try {
+            // The Razorpay constructor returns an object that matches our RazorpayInstance interface.
+            // We cast it to ensure TypeScript knows its shape.
+            razorpayInstance = new Razorpay({
+                key_id: keyId,
+                key_secret: keySecret,
+            }) as unknown as RazorpayInstance;
+        } catch (initError: any) {
+            throw new Error(`Failed to initialize Razorpay client: ${initError.message || 'Unknown error'}`);
+        }
     }
 
     return razorpayInstance;
@@ -109,6 +124,16 @@ export const createOrder = async (
     options: OrderOptions = {}
 ): Promise<OrderResult> => {
     try {
+        // Validate amount
+        if (!amount || amount <= 0 || !Number.isInteger(amount)) {
+            throw new Error(`Invalid amount: ${amount}. Amount must be a positive integer in paise.`);
+        }
+
+        // Validate minimum amount (Razorpay minimum is 100 paise = ₹1)
+        if (amount < 100) {
+            throw new Error(`Amount ${amount} paise is below minimum of 100 paise (₹1)`);
+        }
+
         const razorpay = getRazorpayInstance();
 
         const orderData = {
@@ -118,7 +143,19 @@ export const createOrder = async (
             ...options,
         };
 
+        console.log('Creating Razorpay order with data:', {
+            amount,
+            currency,
+            receipt: orderData.receipt,
+            hasKeyId: !!process.env.RAZORPAY_KEY_ID,
+            hasKeySecret: !!process.env.RAZORPAY_KEY_SECRET,
+        });
+
         const order = await razorpay.orders.create(orderData);
+
+        if (!order || !order.id) {
+            throw new Error('Razorpay returned invalid order response');
+        }
 
         return {
             id: order.id as string,
@@ -130,7 +167,31 @@ export const createOrder = async (
         };
     } catch (error: any) {
         console.error('Error creating Razorpay order:', error);
-        throw new Error(`Failed to create Razorpay order: ${error.message || error.description}`);
+        console.error('Error details:', {
+            message: error.message,
+            description: error.description,
+            statusCode: error.statusCode,
+            error: error.error,
+        });
+
+        // Provide more specific error messages
+        let errorMessage = 'Failed to create Razorpay order';
+        
+        if (error.message?.includes('credentials') || error.message?.includes('RAZORPAY')) {
+            errorMessage = 'Razorpay credentials are not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in environment variables.';
+        } else if (error.statusCode === 401) {
+            errorMessage = 'Razorpay authentication failed. Please check your API keys.';
+        } else if (error.statusCode === 400) {
+            errorMessage = `Invalid request to Razorpay: ${error.error?.description || error.message || 'Bad request'}`;
+        } else if (error.message) {
+            errorMessage = error.message;
+        } else if (error.error?.description) {
+            errorMessage = error.error.description;
+        } else if (error.description) {
+            errorMessage = error.description;
+        }
+
+        throw new Error(errorMessage);
     }
 };
 

@@ -1,6 +1,4 @@
 "use client"
-import { register } from 'module';
-import { redirect } from 'next/dist/server/api-utils';
 import React, { useEffect } from 'react'
 import { useRef, useState } from 'react';
 import { useRouter } from "next/navigation"
@@ -24,9 +22,37 @@ export default function LoginPage({ }: Props) {
   const [forgotConfirmPassword, setForgotConfirmPassword] = useState('');
   const [showForgotPassword, setShowForgotPassword] = useState({ otp: false, new: false, confirm: false });
   const [forgotStep, setForgotStep] = useState(1);
-  const handleSendEmail = () => {
-    if (email.trim()) {
-      setForgotStep(2);
+  const [phone, setPhone] = useState('');
+  const [gender, setGender] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [collegeName, setCollegeName] = useState('');
+  const [referralCode, setReferralCode] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  
+  const handleSendEmail = async () => {
+    if (!email.trim()) return;
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setSuccess('OTP sent to your email!');
+        setForgotStep(2);
+      } else {
+        setError(data.error || 'Failed to send OTP');
+      }
+    } catch (err) {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,17 +62,36 @@ export default function LoginPage({ }: Props) {
     }
   };
 
-  const handleSetPassword = () => {
-    if (newPassword.trim() && forgotConfirmPassword.trim() && newPassword === forgotConfirmPassword) {
-      setForgotStep(4);
-      setTimeout(() => {
-        setEmail('');
-        setOtp('');
-        setNewPassword('');
-        setForgotConfirmPassword('');
-        setForgotStep(1);
-        setActiveForm('participant');
-      }, 2000);
+  const handleSetPassword = async () => {
+    if (!newPassword.trim() || !forgotConfirmPassword.trim() || newPassword !== forgotConfirmPassword) return;
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp: parseInt(otp), newPassword })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setSuccess('Password reset successful!');
+        setForgotStep(4);
+        setTimeout(() => {
+          setEmail('');
+          setOtp('');
+          setNewPassword('');
+          setForgotConfirmPassword('');
+          setForgotStep(1);
+          setActiveForm('participant');
+          setSuccess('');
+        }, 2000);
+      } else {
+        setError(data.error || 'Failed to reset password');
+      }
+    } catch (err) {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -70,14 +115,71 @@ export default function LoginPage({ }: Props) {
     };
   }, []);
 
-  const handleLogin = () => {
-    console.log('Login clicked', { username, password, type: activeForm });
-    router.push('/dashboard');
+  const handleLogin = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email: username.includes('@') ? username : undefined,
+          phone: !username.includes('@') ? username : undefined,
+          password 
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        router.push('/dashboard');
+      } else {
+        setError(data.error || 'Login failed');
+      }
+    } catch (err) {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleRegister = () => {
-    console.log('Register clicked', { username, email, password, confirmPassword });
-    router.push('/dashboard');
+  const handleRegister = async () => {
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          name: username,
+          email,
+          phone,
+          password,
+          gender,
+          city,
+          state,
+          collegeName: email.endsWith('@nitjsr.ac.in') ? undefined : collegeName,
+          referralCode: referralCode || undefined
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setSuccess('Registration successful! Redirecting...');
+        setTimeout(() => router.push('/dashboard'), 1500);
+      } else {
+        setError(data.error || 'Registration failed');
+      }
+    } catch (err) {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -121,7 +223,7 @@ export default function LoginPage({ }: Props) {
               boxShadow: '0 0 60px rgba(34, 211, 238, 0.4), inset 0 0 60px rgba(34, 211, 238, 0.05)',
               clipPath: 'polygon(3% 0, 97% 0, 100% 3%, 100% 97%, 97% 100%, 3% 100%, 0 97%, 0 3%)',
             }}
-            >
+          >
             <div className="flex gap-8">
 
 
@@ -131,7 +233,7 @@ export default function LoginPage({ }: Props) {
                     boxShadow: '0 0 30px rgba(34, 211, 238, 0.2), inset 0 0 30px rgba(34, 211, 238, 0.03)',
                     clipPath: 'polygon(8% 0, 92% 0, 100% 8%, 100% 100%, 0 100%, 0 8%)',
                   }}
-                  >
+                >
 
                   <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white/10 to-transparent"></div>
 
@@ -202,10 +304,13 @@ export default function LoginPage({ }: Props) {
                       {activeForm === 'participant' ? 'PARTICIPANT LOGIN' : 'AMBASSADOR LOGIN'}
                     </h2>
 
+                    {error && <div className="mb-4 p-3 bg-red-500/20 border border-red-500 text-red-300 text-sm">{error}</div>}
+                    {success && <div className="mb-4 p-3 bg-green-500/20 border border-green-500 text-green-300 text-sm">{success}</div>}
+
                     <div className="flex flex-col gap-4">
                       <input
                         type="text"
-                        placeholder="Username"
+                        placeholder="Email or Phone"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
@@ -250,13 +355,16 @@ export default function LoginPage({ }: Props) {
 
                       <button
                         onClick={handleLogin}
-                        className="relative mt-4 border-2 border-cyan-400 px-8 py-3 text-cyan-400 font-bold text-lg transition-all overflow-hidden group"
+                        disabled={loading}
+                        className="relative mt-4 border-2 border-cyan-400 px-8 py-3 text-cyan-400 font-bold text-lg transition-all overflow-hidden group disabled:opacity-50"
                         style={{
                           boxShadow: '0 0 30px rgba(34, 211, 238, 0.4)',
                           clipPath: 'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)',
                         }}>
                         <div className="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400 transition-all duration-300"></div>
-                        <span className="relative group-hover:text-slate-900 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">LOGIN</span>
+                        <span className="relative group-hover:text-slate-900 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
+                          {loading ? 'LOGGING IN...' : 'LOGIN'}
+                        </span>
                       </button>
 
                       <button
@@ -282,6 +390,9 @@ export default function LoginPage({ }: Props) {
                           Enter your email to receive reset instructions
                         </p>
 
+                        {error && <div className="mb-4 p-3 bg-red-500/20 border border-red-500 text-red-300 text-sm">{error}</div>}
+                        {success && <div className="mb-4 p-3 bg-green-500/20 border border-green-500 text-green-300 text-sm">{success}</div>}
+
                         <div className="flex flex-col gap-4">
                           <input
                             type="email"
@@ -299,7 +410,8 @@ export default function LoginPage({ }: Props) {
 
                           <button
                             onClick={handleSendEmail}
-                            className="relative mt-4 border-2 border-cyan-400 px-8 py-3 text-cyan-400 font-bold text-lg transition-all overflow-hidden group"
+                            disabled={loading}
+                            className="relative mt-4 border-2 border-cyan-400 px-8 py-3 text-cyan-400 font-bold text-lg transition-all overflow-hidden group disabled:opacity-50"
                             style={{
                               boxShadow: '0 0 30px rgba(34, 211, 238, 0.4)',
                               clipPath: 'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)',
@@ -307,7 +419,7 @@ export default function LoginPage({ }: Props) {
                           >
                             <div className="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400 transition-all duration-300"></div>
                             <span className="relative group-hover:text-slate-900 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
-                              SEND OTP
+                              {loading ? 'SENDING...' : 'SEND OTP'}
                             </span>
                           </button>
 
@@ -470,7 +582,7 @@ export default function LoginPage({ }: Props) {
 
                           <button
                             onClick={handleSetPassword}
-                            disabled={!newPassword || !forgotConfirmPassword || newPassword !== forgotConfirmPassword}
+                            disabled={loading || !newPassword || !forgotConfirmPassword || newPassword !== forgotConfirmPassword}
                             className="relative mt-4 border-2 border-cyan-400 px-8 py-3 text-cyan-400 font-bold text-lg transition-all overflow-hidden group disabled:opacity-50"
                             style={{
                               boxShadow: '0 0 30px rgba(34, 211, 238, 0.4)',
@@ -479,7 +591,7 @@ export default function LoginPage({ }: Props) {
                           >
                             <div className="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400 transition-all duration-300"></div>
                             <span className="relative group-hover:text-slate-900 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
-                              UPDATE PASSWORD
+                              {loading ? 'UPDATING...' : 'UPDATE PASSWORD'}
                             </span>
                           </button>
 
@@ -515,10 +627,13 @@ export default function LoginPage({ }: Props) {
                       CREATE ACCOUNT
                     </h2>
 
-                    <div className="flex flex-col gap-4">
+                    {error && <div className="mb-4 p-3 bg-red-500/20 border border-red-500 text-red-300 text-sm">{error}</div>}
+                    {success && <div className="mb-4 p-3 bg-green-500/20 border border-green-500 text-green-300 text-sm">{success}</div>}
+
+                    <div className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-cyan-500/40">
                       <input
                         type="text"
-                        placeholder="Username"
+                        placeholder="Full Name"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
@@ -535,6 +650,87 @@ export default function LoginPage({ }: Props) {
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
+                        style={{
+                          boxShadow: '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)',
+                          clipPath: 'polygon(3% 0, 97% 0, 100% 15%, 100% 85%, 97% 100%, 3% 100%, 0 85%, 0 15%)',
+                        }}
+                        onFocus={(e) => e.target.style.boxShadow = '0 0 25px rgba(34, 211, 238, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                        onBlur={(e) => e.target.style.boxShadow = '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                      />
+                      <input
+                        type="tel"
+                        placeholder="Phone (10 digits)"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                        className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
+                        style={{
+                          boxShadow: '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)',
+                          clipPath: 'polygon(3% 0, 97% 0, 100% 15%, 100% 85%, 97% 100%, 3% 100%, 0 85%, 0 15%)',
+                        }}
+                        onFocus={(e) => e.target.style.boxShadow = '0 0 25px rgba(34, 211, 238, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                        onBlur={(e) => e.target.style.boxShadow = '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                      />
+                      <select
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
+                        className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
+                        style={{
+                          boxShadow: '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)',
+                          clipPath: 'polygon(3% 0, 97% 0, 100% 15%, 100% 85%, 97% 100%, 3% 100%, 0 85%, 0 15%)',
+                        }}
+                      >
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <input
+                        type="text"
+                        placeholder="City"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
+                        style={{
+                          boxShadow: '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)',
+                          clipPath: 'polygon(3% 0, 97% 0, 100% 15%, 100% 85%, 97% 100%, 3% 100%, 0 85%, 0 15%)',
+                        }}
+                        onFocus={(e) => e.target.style.boxShadow = '0 0 25px rgba(34, 211, 238, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                        onBlur={(e) => e.target.style.boxShadow = '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                      />
+                      <input
+                        type="text"
+                        placeholder="State"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                        className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
+                        style={{
+                          boxShadow: '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)',
+                          clipPath: 'polygon(3% 0, 97% 0, 100% 15%, 100% 85%, 97% 100%, 3% 100%, 0 85%, 0 15%)',
+                        }}
+                        onFocus={(e) => e.target.style.boxShadow = '0 0 25px rgba(34, 211, 238, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                        onBlur={(e) => e.target.style.boxShadow = '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                      />
+                      {!email.endsWith('@nitjsr.ac.in') && (
+                        <input
+                          type="text"
+                          placeholder="College Name"
+                          value={collegeName}
+                          onChange={(e) => setCollegeName(e.target.value)}
+                          className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
+                          style={{
+                            boxShadow: '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)',
+                            clipPath: 'polygon(3% 0, 97% 0, 100% 15%, 100% 85%, 97% 100%, 3% 100%, 0 85%, 0 15%)',
+                          }}
+                          onFocus={(e) => e.target.style.boxShadow = '0 0 25px rgba(34, 211, 238, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                          onBlur={(e) => e.target.style.boxShadow = '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)'}
+                        />
+                      )}
+                      <input
+                        type="text"
+                        placeholder="Referral Code (Optional)"
+                        value={referralCode}
+                        onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
                         className="bg-slate-900/30 border-2 border-cyan-400/60 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-all backdrop-blur-sm"
                         style={{
                           boxShadow: '0 0 15px rgba(34, 211, 238, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.5)',
@@ -631,13 +827,16 @@ export default function LoginPage({ }: Props) {
 
                       <button
                         onClick={handleRegister}
-                        className="relative mt-4 border-2 border-cyan-400 px-8 py-3 text-cyan-400 font-bold text-lg transition-all overflow-hidden group"
+                        disabled={loading}
+                        className="relative mt-4 border-2 border-cyan-400 px-8 py-3 text-cyan-400 font-bold text-lg transition-all overflow-hidden group disabled:opacity-50"
                         style={{
                           boxShadow: '0 0 30px rgba(34, 211, 238, 0.4)',
                           clipPath: 'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)',
                         }}>
                         <div className="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400 transition-all duration-300"></div>
-                        <span className="relative group-hover:text-slate-900 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">REGISTER</span>
+                        <span className="relative group-hover:text-slate-900 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
+                          {loading ? 'REGISTERING...' : 'REGISTER'}
+                        </span>
                       </button>
                     </div>
                   </div>

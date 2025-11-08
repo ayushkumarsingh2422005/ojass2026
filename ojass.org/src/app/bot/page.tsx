@@ -1,430 +1,328 @@
-"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
 
-interface Message {
-  id: number;
-  text: string;
-  sender: 'user' | 'bot';
-  timestamp: Date;
-}
+'use client';
 
-export default function Bot() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      text: "Greetings, traveler! I'm your AI assistant. How may I assist you today?",
-      sender: 'bot',
-      timestamp: new Date()
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { useTheme } from "@/contexts/ThemeContext";
+
+export default function FuturisticHUD() {
+  const { theme } = useTheme();
+  const [scanProgress, setScanProgress] = useState(0);
+  const [coordinates, setCoordinates] = useState({ x: -73.99308, y: 40.75058 });
+  const [isScanning, setIsScanning] = useState(true);
+  const [input, setInput] = useState('');
+  const [chatState, setChatState] = useState<'idle' | 'typing' | 'generating'>('idle');
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Complete color configurations for both themes
+  const themeConfig = {
+    utopia: {
+      primary: 'cyan',
+      border: 'border-cyan-500',
+      borderLight: 'border-cyan-500/30',
+      borderMedium: 'border-cyan-500/40',
+      borderHeavy: 'border-cyan-500/50',
+      text: 'text-cyan',
+      text400: 'text-cyan-400',
+      text500: 'text-cyan-500',
+      text600: 'text-cyan-600',
+      text300: 'text-cyan-300',
+      text200: 'text-cyan-200',
+      bg: 'bg-cyan-900/50',
+      bgLight: 'bg-cyan-900/20',
+      shadow: 'shadow-cyan-500/20',
+      gradient: 'from-cyan-400 to-cyan-600',
+      gradientBg: 'from-blue-900/20',
+      gridColor: 'cyan',
+      // New properties for AI responses and threat level
+      aiResponse: 'text-cyan-400',
+      threatLevel: 'text-cyan-400',
+      threatText: 'LOW' // Added threat level text
+    },
+    dystopia: {
+      primary: 'red',
+      border: 'border-red-500',
+      borderLight: 'border-red-500/30',
+      borderMedium: 'border-red-500/40',
+      borderHeavy: 'border-red-500/50',
+      text: 'text-red',
+      text400: 'text-red-400',
+      text500: 'text-red-500',
+      text600: 'text-red-600',
+      text300: 'text-red-300',
+      text200: 'text-red-200',
+      bg: 'bg-red-900/50',
+      bgLight: 'bg-red-900/20',
+      shadow: 'shadow-red-500/20',
+      gradient: 'from-red-400 to-red-600',
+      gradientBg: 'from-red-900/20',
+      gridColor: 'red',
+      // New properties for AI responses and threat level
+      aiResponse: 'text-red-400',
+      threatLevel: 'text-red-400',
+      threatText: 'HIGH' // Added threat level text
     }
-  ]);
-  const [inputValue, setInputValue] = useState('');
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const starsRef = useRef<HTMLDivElement>(null);
-  const nebula1Ref = useRef<HTMLDivElement>(null);
-  const nebula2Ref = useRef<HTMLDivElement>(null);
-  const nebula3Ref = useRef<HTMLDivElement>(null);
-  const movingStarsRef = useRef<HTMLDivElement>(null);
+  };
 
-  // Enhanced star field and nebula animations - match OverlayLayout
+  const colors = theme === 'dystopia' ? themeConfig.dystopia : themeConfig.utopia;
+
   useEffect(() => {
-    if (!starsRef.current) return;
-    const stars = starsRef.current;
-    const starCount = 400;
-    stars.innerHTML = '';
-    // Two sizes/kinds: bright normal & tiny faint specks
-    for (let i = 0; i < starCount; i++) {
-      const star = document.createElement('div');
-      const size = i < 320 ? Math.random() * 1.7 + 0.4 : Math.random() * 0.7 + 0.2;
-      const x = Math.random() * 100;
-      const y = Math.random() * 100;
-      const brightness = i < 320 ? (Math.random() * 0.6 + 0.15) : (Math.random() * 0.20 + 0.05);
-      const color = i < 320 ? 'white' : 'rgba(180,210,255,0.7)';
-      star.style.cssText = `
-        position: absolute;
-        width: ${size}px;
-        height: ${size}px;
-        background: ${color};
-        border-radius: 50%;
-        left: ${x}%;
-        top: ${y}%;
-        opacity: ${brightness};
-        box-shadow: 0 0 ${(size*3).toFixed(1)}px ${color};
-        pointer-events: none;
-      `;
-      stars.appendChild(star);
+    if (isScanning) {
+      const interval = setInterval(() => {
+        setScanProgress((prev) => (prev >= 100 ? 0 : prev + 2));
+      }, 50);
+      return () => clearInterval(interval);
     }
+  }, [isScanning]);
 
-    // Create moving stars (shooting stars effect)
-    if (movingStarsRef.current) {
-      const movingStars = movingStarsRef.current;
-      movingStars.innerHTML = '';
-      
-      for (let i = 0; i < 20; i++) {
-        const movingStar = document.createElement('div');
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-        const distance = 30 + Math.random() * 40;
-        const angle = Math.random() * Math.PI * 2;
-        const duration = 3 + Math.random() * 4;
-        const delay = Math.random() * 5;
-
-        movingStar.style.cssText = `
-          position: absolute;
-          width: 2px;
-          height: 20px;
-          background: linear-gradient(to bottom, white, transparent);
-          left: ${startX}%;
-          top: ${startY}%;
-          opacity: 0;
-          transform-origin: center;
-          transform: rotate(${angle * 180 / Math.PI}deg);
-        `;
-
-        movingStars.appendChild(movingStar);
-
-        const timeline = gsap.timeline({ repeat: -1, delay: delay });
-        timeline.to(movingStar, {
-          opacity: 1,
-          x: Math.cos(angle) * distance + '%',
-          y: Math.sin(angle) * distance + '%',
-          duration: duration / 2,
-          ease: 'power1.in'
-        });
-        timeline.to(movingStar, {
-          opacity: 0,
-          duration: duration / 2,
-          ease: 'power1.out'
-        });
-      }
-    }
-
-    // Animate nebula effects with more movement
-    if (nebula1Ref.current) {
-      gsap.to(nebula1Ref.current, {
-        opacity: 0.7,
-        scale: 1.2,
-        x: '+=50',
-        y: '+=30',
-        duration: 6,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut'
+  useEffect(() => {
+    const coordInterval = setInterval(() => {
+      setCoordinates({
+        x: -73.99308 + (Math.random() - 0.5) * 0.001,
+        y: 40.75058 + (Math.random() - 0.5) * 0.001,
       });
-    }
-    
-    if (nebula2Ref.current) {
-      gsap.to(nebula2Ref.current, {
-        opacity: 0.7,
-        scale: 1.3,
-        x: '-=40',
-        y: '-=20',
-        duration: 8,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut'
-      });
-    }
-
-    if (nebula3Ref.current) {
-      gsap.to(nebula3Ref.current, {
-        opacity: 0.5,
-        scale: 1.15,
-        x: '+=30',
-        y: '+=50',
-        duration: 7,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut'
-      });
-    }
+    }, 100);
+    return () => clearInterval(coordInterval);
   }, []);
 
-  // Scroll to bottom when new messages arrive
+  // Auto-scroll chat
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   }, [messages]);
 
   const handleSend = () => {
-    if (!inputValue.trim()) return;
+    if (!input.trim()) return;
+    setChatState('generating');
+    setMessages((prev) => [...prev, { role: 'user', content: input }]);
+    setInput('');
 
-    // Add user message
-    const userMessage: Message = {
-      id: messages.length + 1,
-      text: inputValue,
-      sender: 'user',
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInputValue('');
-
-    // Simulate bot response
+    // Simulated AI delay
     setTimeout(() => {
-      const botMessage: Message = {
-        id: messages.length + 2,
-        text: "I understand your query. This is a simulated response. In a real implementation, this would connect to your AI backend.",
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, botMessage]);
-    }, 1000);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
+      setMessages((prev) => [
+        ...prev,
+        { role: 'assistant', content: 'This is an AI-generated response.' },
+      ]);
+      setChatState('idle');
+    }, 3000);
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full h-screen relative overflow-hidden"
-      style={{
-        fontFamily: 'monospace',
-        background: 'radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a1a 50%, #000000 100%)'
-      }}
-    >
-      {/* Deep space background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-950/20 via-blue-950/30 to-black" />
-      
-      {/* Animated stars background */}
-      <div ref={starsRef} className="absolute inset-0 w-full h-full z-0" />
-
-      {/* Moving stars (shooting stars) */}
-      <div ref={movingStarsRef} className="absolute inset-0 w-full h-full z-0" />
-
-      {/* Enhanced nebula effects */}
-      <div className="absolute inset-0 w-full h-full z-0">
-        <div ref={nebula1Ref} className="absolute top-1/4 left-1/5 w-[600px] h-[600px] bg-purple-500 rounded-full blur-[100px] opacity-40" />
-        <div ref={nebula2Ref} className="absolute bottom-1/4 right-1/5 w-[700px] h-[700px] bg-blue-500 rounded-full blur-[120px] opacity-40" />
-        <div ref={nebula3Ref} className="absolute top-1/2 right-1/3 w-[500px] h-[500px] bg-indigo-500 rounded-full blur-[90px] opacity-20" />
-      </div>
-
-      {/* Distant galaxy effect */}
-      <div className="absolute top-1/4 right-1/4 w-[800px] h-[800px] opacity-20 z-0">
-        <div className="absolute inset-0 bg-gradient-radial from-blue-400/10 via-purple-400/5 to-transparent rounded-full blur-3xl" />
-      </div>
-
-      {/* Main chatbot container - spaceship window style */}
-      <div className="relative z-10 w-full h-full flex items-center justify-center pt-24 pb-8 px-4 md:px-8">
+    <>
+      <div className="flex min-h-screen bg-black items-center justify-center p-2 sm:p-4 md:p-8">
         <div
-          className="w-full max-w-7xl h-[85vh] max-h-[800px] bg-[rgba(0,32,55,0.065)] border-2 rounded-lg backdrop-blur-[10px] relative overflow-hidden layout-panel"
+          className={`relative w-full max-w-[1500px] h-[95vh] sm:h-[92vh] md:h-[90vh] p-[2px] sm:p-1 ${theme === 'dystopia' ? 'bg-red-500' : 'bg-cyan-500'}`}
           style={{
-            borderColor: 'rgba(0, 200, 255, 0.09)',
-            boxShadow: `
-              0 0 20px 1px rgba(0,180,255,0.10),
-              0 0 50px 0px rgba(0,100,180,0.09),
-              0 2px 10px 1px rgba(0,200,255,0.09),
-              inset 0 0 18px rgba(80,160,220,0.04)
-            `,
-            display: 'flex',
-            flexDirection: 'column',
-            background: 'none'
+            clipPath:
+              'polygon(0% 20px, 20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px))',
           }}
         >
-          {/* Subtle blue tint overlay - very transparent */}
-          <div 
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: 'linear-gradient(180deg, rgba(0, 150, 255, 0.05) 0%, rgba(0, 102, 255, 0.08) 50%, rgba(0, 150, 255, 0.05) 100%)',
-              backdropFilter: 'blur(1px)'
-            }}
-          />
-          
-          {/* Subtle window reflection effects */}
-          <div 
-            className="absolute inset-0 pointer-events-none opacity-10"
-            style={{
-              background: `
-                linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%),
-                linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.03) 50%, transparent 70%)
-              `
-            }}
-          />
-          {/* Spaceship header panel - transparent */}
           <div
-            className="w-full p-4 border-b-4 relative z-10"
+            className="relative w-full h-full overflow-hidden"
             style={{
-              borderColor: 'rgba(0, 102, 255, 0.5)',
-              background: 'linear-gradient(180deg, rgba(0, 102, 255, 0.12) 0%, rgba(0, 150, 255, 0.06) 100%)',
-              boxShadow: '0 4px 20px rgba(0, 102, 255, 0.2), inset 0 1px 0 rgba(0, 200, 255, 0.2)',
-              backdropFilter: 'blur(8px)'
+              clipPath:
+                'polygon(0% 20px, 20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px))',
             }}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-3 h-3 rounded-full animate-pulse"
-                  style={{
-                    background: '#00ff00',
-                    boxShadow: '0 0 10px #00ff00'
-                  }}
-                />
-                <h1 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500">
-                  SPACESHIP AI ASSISTANT
-                </h1>
-              </div>
-              <div className="flex gap-2">
-                <div
-                  className="w-2 h-2 rounded-full"
-                  style={{
-                    background: '#ff0000',
-                    boxShadow: '0 0 8px #ff0000'
-                  }}
-                />
-                <div
-                  className="w-2 h-2 rounded-full"
-                  style={{
-                    background: '#ffff00',
-                    boxShadow: '0 0 8px #ffff00'
-                  }}
-                />
-                <div
-                  className="w-2 h-2 rounded-full"
-                  style={{
-                    background: '#00ff00',
-                    boxShadow: '0 0 8px #00ff00'
-                  }}
-                />
-              </div>
-            </div>
-            {/* Status bar */}
-            <div className="mt-2 text-xs text-blue-300/90 font-mono">
-              <span>STATUS: ONLINE</span>
-              <span className="mx-2">|</span>
-              <span>CONNECTION: ESTABLISHED</span>
-              <span className="mx-2">|</span>
-              <span>LATENCY: &lt;50ms</span>
-            </div>
-          </div>
+            <div className="relative w-full h-full bg-black overflow-hidden">
+              <div className={`relative w-full h-full bg-gradient-to-b ${colors.gradientBg} to-black ${colors.borderLight} shadow-2xl ${colors.shadow} p-2 sm:p-4`}>
+                <div className="absolute inset-0 bg-grid-pattern opacity-10 -z-10"></div>
 
-          {/* Messages container */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 relative z-10 scrollbar-thin scrollbar-thumb-blue-500/50 scrollbar-track-transparent max-h-[80vh]">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+                {/* Top Bar */}
+                <div className={`absolute top-0 left-0 right-0 h-10 sm:h-12 border-b ${colors.borderHeavy} bg-black/50 backdrop-blur-sm z-10 flex items-center justify-between px-4`}>
+                  <div className={`${colors.text500}/70 text-lg font-mono`}>OJASS 2026</div>
+                  <div className={`${colors.text400} text-xs font-mono tracking-wider`}>
+                    SYSTEM ONLINE
+                  </div>
+                </div>
+
+                {/* Left Panel */}
                 <div
-                  className={`max-w-[75%] p-4 rounded-lg border-2 ${
-                    message.sender === 'user'
-                      ? 'bg-gradient-to-br from-blue-500/20 to-blue-600/12 border-blue-400/40'
-                      : 'bg-gradient-to-br from-blue-700/20 to-blue-800/12 border-blue-500/40'
-                  }`}
+                  className={`hidden lg:block absolute left-4 xl:left-8 top-16 xl:top-20 bottom-20 w-52 xl:w-60 ${colors.borderLight} bg-black/50 backdrop-blur-sm rounded-lg p-4`}
                   style={{
-                    boxShadow: `0 0 15px ${
-                      message.sender === 'user'
-                        ? 'rgba(0, 150, 255, 0.3)'
-                        : 'rgba(0, 102, 255, 0.3)'
-                    }`,
-                    backdropFilter: 'blur(12px)'
+                    clipPath:
+                      'polygon(0% 20px, 20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px))',
                   }}
                 >
-                  <p className="text-white text-sm leading-relaxed whitespace-pre-wrap">
-                    {message.text}
-                  </p>
-                  <span
-                    className="text-xs mt-2 block opacity-60"
+                  <h3 className={`${colors.text400} text-sm font-bold mb-4 font-mono`}>
+                    OBJECT DATA
+                  </h3>
+                  <div className="space-y-10">
+                    <div>
+                      <div className={`${colors.text600} text-xs font-mono`}>STATUS</div>
+                      <div className="text-white text-sm">LOCKED</div>
+                    </div>
+                    <div>
+                      <div className={`${colors.text600} text-xs font-mono`}>DISTANCE</div>
+                      <div className="text-white text-sm">1.24 KM</div>
+                    </div>
+                    <div>
+                      <div className={`${colors.text600} text-xs font-mono`}>VELOCITY</div>
+                      <div className="text-white text-sm">0.00 M/S</div>
+                    </div>
+                    <div>
+                      <div className={`${colors.text600} text-xs font-mono`}>THREAT LEVEL</div>
+                      <div className={` text-white text-sm`}>
+                        {colors.threatText}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Panel */}
+                <div
+                  className={`hidden lg:block absolute right-4 xl:right-8 top-16 xl:top-20 bottom-20 w-52 xl:w-60 ${colors.borderLight} bg-black/50 backdrop-blur-sm rounded-lg p-4`}
+                  style={{
+                    clipPath:
+                      'polygon(0% 20px, 20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px))',
+                  }}
+                >
+                  <h3 className={`${colors.text400} text-sm font-bold mb-4 font-mono text-center`}>
+                    ANALYSIS
+                  </h3>
+                  <div className="space-y-10">
+                    <div>
+                      <div className={`${colors.text600} text-xs font-mono`}>
+                        SCAN PROGRESS
+                      </div>
+                      <div className={`w-full h-2 ${colors.bg} rounded-full mt-1 overflow-hidden border ${colors.borderMedium}`}>
+                        <motion.div
+                          className={`h-full bg-gradient-to-r ${colors.gradient}`}
+                          style={{ width: `${scanProgress}%` }}
+                        />
+                      </div>
+                      <div className="text-white text-xs mt-1">{scanProgress}%</div>
+                    </div>
+                    <div>
+                      <div className={`${colors.text600} text-xs font-mono`}>COORDINATES</div>
+                      <div className="text-white text-xs font-mono">
+                        X: {coordinates.x.toFixed(5)}
+                        <br />
+                        Y: {coordinates.y.toFixed(5)}
+                      </div>
+                    </div>
+                    <div>
+                      <div className={`${colors.text600} text-xs font-mono`}>SYSTEM LOAD</div>
+                      <div className="text-white text-sm">42%</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Center Scanner & Chat */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center pt-20 pb-24 px-4">
+                  {/* Scanner */}
+                  <div className="relative w-[420px] h-[420px] sm:w-[520px] sm:h-[520px] md:w-[580px] md:h-[600px] opacity-30">
+                    <motion.div
+                      className={`absolute inset-0 rounded-full border-2 ${colors.border}/50`}
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                    />
+                    <motion.div
+                      className={`absolute inset-8 rounded-full border ${colors.border}/30`}
+                      animate={{ rotate: -360 }}
+                      transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                    />
+                    <div className={`absolute inset-0 flex flex-col items-center justify-center ${colors.text300} font-mono text-base sm:text-lg tracking-widest`}>
+                      {chatState === 'typing' && <span>USER TYPING...</span>}
+                      {chatState === 'generating' && <span>GENERATING...</span>}
+                      {chatState === 'idle' && <span>IDLE</span>}
+                    </div>
+                  </div>
+
+                  {/* Chatbox */}
+                  <div
+                    className={`absolute bottom-16 w-[95%] max-w-3xl border-2 ${colors.borderMedium} bg-black/70 backdrop-blur-md p-6 rounded-xl ${colors.text200} font-mono`}
                     style={{
-                      color: message.sender === 'user' ? '#66b3ff' : '#0099ff'
+                      clipPath:
+                        'polygon(0% 10px, 10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px))',
                     }}
                   >
-                    {message.timestamp.toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+                    <div
+                      ref={chatContainerRef}
+                      className="h-95 sm:h-40 lg:h-90 overflow-y-auto mb-4 space-y-3 text-sm sm:text-base scrollbar-thin scrollbar-thumb-cyan-700/50 scrollbar-track-transparent"
+                    >
+                      {messages.map((msg, i) => (
+                        <div
+                          key={i}
+                          className={`${msg.role === 'user'
+                            ? `${colors.text300} text-right`
+                            : `${colors.aiResponse} text-left`
+                            }`}
+                        >
+                          {msg.content}
+                        </div>
+                      ))}
 
-          {/* Input area - spaceship control panel style - transparent */}
-          <div
-            className="w-full p-4 border-t-4 relative z-10"
-            style={{
-              borderColor: 'rgba(0, 102, 255, 0.5)',
-              background: 'linear-gradient(0deg, rgba(0, 102, 255, 0.12) 0%, rgba(0, 150, 255, 0.06) 100%)',
-              boxShadow: '0 -4px 20px rgba(0, 102, 255, 0.2), inset 0 1px 0 rgba(0, 200, 255, 0.2)',
-              backdropFilter: 'blur(8px)'
-            }}
-          >
-            <div className="flex gap-3 items-end">
-              <div className="flex-1 relative">
-                <textarea
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Type your message... (Press Enter to send)"
-                  className="w-full p-3 pr-12 bg-blue-950/25 border-2 border-blue-500/40 rounded-lg text-white placeholder:text-blue-300/50 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 resize-none font-mono text-sm"
-                  style={{
-                    boxShadow: 'inset 0 0 10px rgba(0, 102, 255, 0.15), 0 0 10px rgba(0, 150, 255, 0.15)',
-                    backdropFilter: 'blur(8px)'
-                  }}
-                  rows={1}
-                  onInput={(e) => {
-                    const target = e.target as HTMLTextAreaElement;
-                    target.style.height = 'auto';
-                    target.style.height = `${Math.min(target.scrollHeight, 120)}px`;
-                  }}
-                />
-                <div
-                  className="absolute right-2 bottom-2 text-xs text-blue-300/60 font-mono"
-                  style={{ pointerEvents: 'none' }}
-                >
-                  {inputValue.length}/500
+                      {/* Generating Animation */}
+                      {chatState === 'generating' && (
+                        <div className="flex justify-start items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full animate-ping ${theme === 'dystopia' ? 'bg-red-400' : 'bg-cyan-400'}`}></div>
+                          <div className={`w-2 h-2 rounded-full animate-pulse delay-100 ${theme === 'dystopia' ? 'bg-red-400' : 'bg-cyan-400'}`}></div>
+                          <div className={`w-2 h-2 rounded-full animate-pulse delay-200 ${theme === 'dystopia' ? 'bg-red-400' : 'bg-cyan-400'}`}></div>
+                          <span className={`text-xs ml-2 ${theme === 'dystopia' ? 'text-red-500' : 'text-cyan-500'}`}>AI is thinking...</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => {
+                          setInput(e.target.value);
+                          setChatState(e.target.value ? 'typing' : 'idle');
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleSend();
+                        }}
+                        placeholder="Type your message...."
+                        className={`flex-1 bg-black/60 ${colors.borderMedium} ${colors.text200} rounded-lg px-3 py-3 focus:outline-none focus:ring-1 ${theme === 'dystopia' ? 'focus:ring-red-400' : 'focus:ring-cyan-400'} ${theme === 'dystopia' ? 'placeholder-red-700' : 'placeholder-cyan-700'} text-sm`}
+                      />
+                      <button
+                        onClick={handleSend}
+                        className={`border ${colors.border}/50 px-5 py-3 text-sm rounded-lg ${theme === 'dystopia' ? 'hover:bg-red-500/20' : 'hover:bg-cyan-500/20'} transition-all`}
+                      >
+                        SEND
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Bar */}
+                <div className={`absolute bottom-0 left-0 right-0 h-12 sm:h-14 border-t ${colors.borderHeavy} bg-black/50 backdrop-blur-sm flex items-center justify-center ${colors.text400} text-xs font-mono tracking-widest animate-pulse`}>
+                  {chatState === 'generating'
+                    ? 'PROCESSING RESPONSE...'
+                    : 'READY FOR INPUT'}
                 </div>
               </div>
-              <button
-                onClick={handleSend}
-                disabled={!inputValue.trim()}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-bold rounded-lg border-2 border-blue-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-mono text-sm uppercase tracking-wider"
-                style={{
-                  boxShadow: inputValue.trim()
-                    ? '0 0 20px rgba(0, 102, 255, 0.6), inset 0 0 10px rgba(0, 150, 255, 0.3)'
-                    : 'none',
-                  textShadow: '0 0 10px rgba(255, 255, 255, 0.5)'
-                }}
-                onMouseEnter={(e) => {
-                  if (inputValue.trim()) {
-                    gsap.to(e.currentTarget, {
-                      scale: 1.05,
-                      duration: 0.2
-                    });
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  gsap.to(e.currentTarget, {
-                    scale: 1,
-                    duration: 0.2
-                  });
-                }}
-              >
-                SEND
-              </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Corner decorative elements - spaceship panels */}
-      <div
-        className="absolute top-8 left-8 w-32 h-32 border-2 border-blue-500/30 opacity-50 z-10"
-        style={{
-          clipPath: 'polygon(0 0, 100% 0, 85% 15%, 15% 85%, 0 100%)'
-        }}
-      />
-      <div
-        className="absolute bottom-8 right-8 w-32 h-32 border-2 border-blue-400/30 opacity-50 z-10"
-        style={{
-          clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 85%, 0 15%)'
-        }}
-      />
-    </div>
+      <style jsx>{`
+        .bg-grid-pattern {
+          background-image: linear-gradient(${colors.gridColor} 1px, transparent 1px),
+            linear-gradient(90deg, ${colors.gridColor} 1px, transparent 1px);
+          background-size: 30px 30px;
+        }
+        @media (min-width: 640px) {
+          .bg-grid-pattern {
+            background-size: 40px 40px;
+          }
+        }
+        @media (min-width: 1024px) {
+          .bg-grid-pattern {
+            background-size: 50px 50px;
+          }
+        }
+      `}</style>
+    </>
   );
 }
