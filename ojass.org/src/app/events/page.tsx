@@ -5,8 +5,11 @@ import { gsap } from 'gsap'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Navigation } from 'swiper/modules';
+// @ts-ignore: allow side-effect CSS import without type declarations
 import 'swiper/css';
+// @ts-ignore: allow side-effect CSS import without type declarations
 import 'swiper/css/pagination';
+// @ts-ignore: allow side-effect CSS import without type declarations
 import 'swiper/css/navigation';
 import EventCard from '@/components/OverlayLayout/EventCard';
 import Link from 'next/link';
@@ -239,17 +242,26 @@ useEffect(() => {
         </div>
 
         <button
-          className="events-prev absolute left-24 top-1/2 -translate-y-1/2 z-30 pointer-events-auto bg-black/50 text-white px-3 py-2 rounded-full hover:bg-black/70"
-          aria-label="Previous"
+          className="events-next absolute left-60 top-1/2 -translate-y-1/2 z-30 
+             pointer-events-auto text-white 
+             px-3 py-2 rounded-full 
+             bg-cyan-500/20 backdrop-blur-sm
+             transition-all duration-300 ease-in-out
+             hover:bg-cyan-500/40 hover:scale-105 active:scale-95"
         >
-          ◀
+          <Image width={40} height={40} src={'/events/previousArrowButton.svg'} alt="previous"/>
         </button>
 
         <button
-          className="events-next absolute right-24 top-1/2 -translate-y-1/2 z-30 pointer-events-auto bg-black/50 text-white px-3 py-2 rounded-full hover:bg-black/70"
+          className="events-next absolute right-50 top-1/2 -translate-y-1/2 z-30 
+             pointer-events-auto text-white 
+             px-3 py-2 rounded-full 
+             bg-cyan-500/20 backdrop-blur-sm
+             transition-all duration-300 ease-in-out
+             hover:bg-cyan-500/40 hover:scale-105 active:scale-95"
           aria-label="Next"
         >
-          ▶
+          <Image width={40} height={40} src={'/events/nextArrowButton.svg'} alt="next"/>
         </button>
         
         <div className='absolute bottom-10 mx-auto flex items-center justify-center w-full h-1/2 z-10' style={{
@@ -262,7 +274,7 @@ useEffect(() => {
             height={1000}
             className="h-[70vh] object-contain object-center-bottom"
             style={{ objectPosition: "center bottom" }}
-          />
+          /> 
         </div>
       </div>
       {selectedEvent && (
