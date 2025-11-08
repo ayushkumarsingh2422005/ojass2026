@@ -1,19 +1,14 @@
 "use client"
-import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
-import { gsap } from 'gsap'
+import { gsap } from 'gsap';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Navigation } from 'swiper/modules';
-// @ts-ignore: allow side-effect CSS import without type declarations
-import 'swiper/css';
-// @ts-ignore: allow side-effect CSS import without type declarations
-import 'swiper/css/pagination';
-// @ts-ignore: allow side-effect CSS import without type declarations
-import 'swiper/css/navigation';
 import EventCard from '@/components/OverlayLayout/EventCard';
-import Link from 'next/link';
-import Dropdown from '@/components/OverlayLayout/Dropdown';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation } from 'swiper/modules';
 
 import { EventModal } from './[num]/[subnum]/page';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -23,8 +18,8 @@ interface CardData {
   name: string;
   description: string;
   img: string;
-  redirect:string;
-  cardposition:string
+  redirect: string;
+  cardposition: string
 }
 type Props = {}
 
@@ -34,22 +29,22 @@ export default function Page({ }: Props) {
   const [allEvents, setAllEvents] = useState<CardData[][]>([]);
   const [selectedEventIndex, setSelectedEventIndex] = useState<number>(0);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
-const [selectedEvent, setSelectedEvent] = useState<CardData | null>(null);
-const [user, setUser] = useState<any>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CardData | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [cardPosition, setCardPosition] = useState<{ x: number; y: number; width: number; height: number } | undefined>();
   const [animationType, setAnimationType] = useState<'fade' | 'slide' | 'flip'>('fade');
-useEffect(() => {
-  let styleElement = document.getElementById('events-swiper-styles') as HTMLStyleElement;
-  
-  if (!styleElement) {
-    styleElement = document.createElement('style');
-    styleElement.id = 'events-swiper-styles';
-    document.head.appendChild(styleElement);
-  }
-  
-  const activeScale = 1.1;
+  useEffect(() => {
+    let styleElement = document.getElementById('events-swiper-styles') as HTMLStyleElement;
 
-  styleElement.textContent = `
+    if (!styleElement) {
+      styleElement = document.createElement('style');
+      styleElement.id = 'events-swiper-styles';
+      document.head.appendChild(styleElement);
+    }
+
+    const activeScale = 1.1;
+
+    styleElement.textContent = `
     .events-swiper .swiper-slide {
       transition: transform 300ms ease, opacity 300ms ease;
       transform: scale(0.6) !important;
@@ -66,11 +61,11 @@ useEffect(() => {
       z-index: 2;
     }
   `;
-   
-  return () => {
-    styleElement?.remove();
-  };
-}, [selectedEventIndex]);
+
+    return () => {
+      styleElement?.remove();
+    };
+  }, [selectedEventIndex]);
 
   useEffect(() => {
     fetch('/event.json')
@@ -171,74 +166,75 @@ useEffect(() => {
           className="w-full h-full object-cover object-center-bottom"
           style={{ objectPosition: "center bottom", pointerEvents: 'none', }}
         />
-        
-        <div  className='absolute inset-0 flex items-center justify-center w-full md:w-1/2 -top-[10vh] pointer-events-auto left-4 md:left-[calc(50%+65px)] md:-translate-x-1/2 z-20'>
 
-          <div  className="swiper-3d-container w-full h-full">
-        <Swiper
-          key={`swiper-${selectedEventIndex}-${currentEventCards.length}`}
-          spaceBetween={80}
-          slidesPerView={3}
-          centeredSlides={true}
-          initialSlide={1}
-          watchSlidesProgress={true}
-          onSwiper={(swiper) => {
-            setSwiperInstance(swiper);
-            console.log('✅ Swiper mounted! Active:', swiper.activeIndex);
-            
-            requestAnimationFrame(() => {
-              swiper.update();
-              swiper.updateSlides();
-              swiper.updateProgress();
-              swiper.updateSlidesClasses();
-              console.log('✅ Classes updated!');
-            });
-          }}
-          className="w-full h-full events-swiper"
-          style={{
-        borderRadius: '1rem',
-        width: '100%',
-        height: '100%',
-        background: 'transparent',
-        border: 'none',
-        padding: 0,
-          }}
-          breakpoints={{
-        0: { slidesPerView: 1, spaceBetween: 20 },
-        640: { slidesPerView: 1, spaceBetween: 40 },
-        1024: { slidesPerView: 3, spaceBetween: 80 },
-          }}
-          modules={[Navigation]}
-          navigation={{ nextEl: '.events-next', prevEl: '.events-prev' }}
-        >
+        <div className='absolute inset-0 flex items-center justify-center w-full md:w-1/2 -top-[10vh] pointer-events-auto left-4 md:left-[calc(50%+65px)] md:-translate-x-1/2 z-20'>
 
-          {currentEventCards.map((card) => (
-        <SwiperSlide key={card.id}>
-          <div className="w-full h-full flex items-center justify-center">
-        <div   onClick={(e) => {
-          // Card ki position capture karo
-          const rect = e.currentTarget.getBoundingClientRect();
-          setCardPosition({
-            x: rect.left,
-            y: rect.top,
-            width: rect.width,
-            height: rect.height,
-          });
-          setSelectedEvent(card);}}>
-          <div className="card-wrap w-[260px] md:w-[320px] lg:w-[360px] h-full">
-        <EventCard
-          id={card.id}
-          name={card.name}
-          description={card.description}
-          img={card.img}
-        />
-          </div>
-        </div>
-          </div>
-        </SwiperSlide>
-          ))}
+          <div className="swiper-3d-container w-full h-full">
+            <Swiper
+              key={`swiper-${selectedEventIndex}-${currentEventCards.length}`}
+              spaceBetween={80}
+              slidesPerView={3}
+              centeredSlides={true}
+              initialSlide={1}
+              watchSlidesProgress={true}
+              onSwiper={(swiper) => {
+                setSwiperInstance(swiper);
+                console.log('✅ Swiper mounted! Active:', swiper.activeIndex);
 
-        </Swiper>
+                requestAnimationFrame(() => {
+                  swiper.update();
+                  swiper.updateSlides();
+                  swiper.updateProgress();
+                  swiper.updateSlidesClasses();
+                  console.log('✅ Classes updated!');
+                });
+              }}
+              className="w-full h-full events-swiper"
+              style={{
+                borderRadius: '1rem',
+                width: '100%',
+                height: '100%',
+                background: 'transparent',
+                border: 'none',
+                padding: 0,
+              }}
+              breakpoints={{
+                0: { slidesPerView: 1, spaceBetween: 20 },
+                640: { slidesPerView: 1, spaceBetween: 40 },
+                1024: { slidesPerView: 3, spaceBetween: 80 },
+              }}
+              modules={[Navigation]}
+              navigation={{ nextEl: '.events-next', prevEl: '.events-prev' }}
+            >
+
+              {currentEventCards.map((card) => (
+                <SwiperSlide key={card.id}>
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div onClick={(e) => {
+                      // Card ki position capture karo
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      setCardPosition({
+                        x: rect.left,
+                        y: rect.top,
+                        width: rect.width,
+                        height: rect.height,
+                      });
+                      setSelectedEvent(card);
+                    }}>
+                      <div className="card-wrap w-[260px] md:w-[320px] lg:w-[360px] h-full">
+                        <EventCard
+                          id={card.id}
+                          name={card.name}
+                          description={card.description}
+                          img={card.img}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+
+            </Swiper>
           </div>
 
         </div>
@@ -336,15 +332,17 @@ useEffect(() => {
         </div>
       </div>
       {selectedEvent && (
-  <EventModal
-    isOpen={!!selectedEvent}
-    onClose={() => setSelectedEvent(null)}
-    eventData={selectedEvent as any} // Your event.json should have full data
-    user={user}
-        cardPosition={cardPosition}
-         animationType="flip"
-  />
-)}
+        <EventModal
+          isOpen={!!selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          eventData={selectedEvent as any} // Your event.json should have full data
+          user={user}
+          cardPosition={cardPosition}
+          animationType="flip"
+        />
+      )}
+
+
     </div>
   )
 }
