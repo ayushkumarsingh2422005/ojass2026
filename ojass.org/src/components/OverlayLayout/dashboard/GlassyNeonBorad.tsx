@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { CreditCard, Mail, Download, CheckCircle } from "lucide-react";
+import React, { useMemo, useState } from "react";
+import { CreditCard, Mail, Download, CheckCircle, Verified } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import Button from "@/components/general/button";
+import { useRouter } from "next/navigation";
 
 interface GlassyNeonBoardProps {
   children: React.ReactNode;
@@ -30,7 +32,12 @@ export default function GlassyNeonBoard({
   onDownloadReceipt,
 }: GlassyNeonBoardProps) {
   const { theme } = useTheme();
+  const user = localStorage.getItem('user');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
   const gridId = useMemo(() => `grid-${Math.random()}`, []);
+
 
   // 🌗 Theme-based dynamic colors
   const glow = theme === "utopia" ? "#00ffff" : "#cc7722";
@@ -67,6 +74,32 @@ export default function GlassyNeonBoard({
     theme === "utopia"
       ? "0 0 60px rgba(0,255,255,0.3), inset 0 0 60px rgba(0,255,255,0.08)"
       : "0 0 60px rgba(204,119,34,0.3), inset 0 0 60px rgba(204,119,34,0.08)";
+
+  const handleLogOut = async () => {
+    const token = localStorage.getItem('token');
+    console.log(token)
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', "null");
+        localStorage.setItem('user', "null");
+        router.push('/login');
+      } else {
+        setError(data.error || 'LogOut failed');
+      }
+    } catch (err) {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
     <div
@@ -108,12 +141,19 @@ export default function GlassyNeonBoard({
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 p-4">
-        {title && (
-          <div className={`${textAccent} text-sm font-mono mb-6 tracking-widest`}>
-            {title}
-          </div>
-        )}
+      <div className="relative z-10 p-4 ">
+        <div className="flex justify-between ">
+          {title && (
+            <div className={`${textAccent} text-sm font-mono mb-6 tracking-widest`}>
+              {title}
+            </div>
+          )}
+
+          {title === "PROFILE" && user && (
+            <Button content={loading ? "LOGGING OUT..." : "LOGOUT"} onClick={handleLogOut} />
+
+          )}
+        </div>
 
         {children}
 
@@ -129,7 +169,7 @@ export default function GlassyNeonBoard({
               border: `2px solid ${theme === "utopia"
                 ? "rgba(0,255,255,0.5)"
                 : "rgba(204,119,34,0.5)"
-              }`,
+                }`,
               boxShadow: buttonBoxShadow,
             }}
             onMouseEnter={(e) => {
@@ -181,7 +221,7 @@ export default function GlassyNeonBoard({
                 border: `2px solid ${theme === "utopia"
                   ? "rgba(0,255,255,0.5)"
                   : "rgba(204,119,34,0.5)"
-                }`,
+                  }`,
                 boxShadow: buttonBoxShadow,
               }}
               onMouseEnter={(e) => {
@@ -214,8 +254,7 @@ export default function GlassyNeonBoard({
 
         {/* Download Receipt Button (only under PROFILE, if email is verified AND paid) */}
         {title === "PROFILE" && isEmailVerified && isPaid && onDownloadReceipt && (
-          <button
-            onClick={onDownloadReceipt}
+          <div
             className="w-full py-4 px-6 rounded relative overflow-hidden group transition-all duration-300 mt-6 cursor-pointer"
             style={{
               clipPath:
@@ -224,18 +263,8 @@ export default function GlassyNeonBoard({
               border: `2px solid ${theme === "utopia"
                 ? "rgba(0,255,255,0.5)"
                 : "rgba(204,119,34,0.5)"
-              }`,
+                }`,
               boxShadow: buttonBoxShadow,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = buttonHoverShadow;
-              e.currentTarget.style.background = buttonHoverGradient;
-              e.currentTarget.style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = buttonBoxShadow;
-              e.currentTarget.style.background = buttonGradient;
-              e.currentTarget.style.transform = "translateY(0)";
             }}
           >
             <div
@@ -246,12 +275,12 @@ export default function GlassyNeonBoard({
               }}
             />
             <div className="relative flex items-center justify-center gap-3">
-              <Download size={20} className={`${textSoft}`} />
+              <Verified size={20} className={`${textSoft}`} />
               <span className="text-white font-bold text-xl tracking-wide uppercase">
-                Download Receipt
+                REGISTERED & VERIFIED
               </span>
             </div>
-          </button>
+          </div>
         )}
       </div>
     </div>

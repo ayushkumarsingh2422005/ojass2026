@@ -8,12 +8,13 @@ import Receipt from "@/components/OverlayLayout/dashboard/Reciept";
 import RegisteredEvent from "@/components/OverlayLayout/dashboard/RegisteredEvent";
 import Team from "@/components/OverlayLayout/dashboard/Team";
 import Certificate from "@/components/OverlayLayout/dashboard/Certificate";
+import Notification from "@/components/OverlayLayout/dashboard/Notification";
 import EmailVerificationModal from "@/components/OverlayLayout/dashboard/EmailVerificationModal";
 
 export default function OjassDashboard() {
   const router = useRouter();
   const { theme } = useTheme();
-  const [activeTab, setActiveTab] = useState("profile");
+  const [activeTab, setActiveTab] = useState("receipt");
   const [profileData, setProfileData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showEmailVerificationModal, setShowEmailVerificationModal] = useState(false);
@@ -209,8 +210,8 @@ export default function OjassDashboard() {
               }}
               onDownloadReceipt={() => {
                 // Set flag to trigger receipt download
-                sessionStorage.setItem('downloadReceipt', 'true');
-                setActiveTab('receipt');
+                // sessionStorage.setItem('downloadReceipt', 'true');
+                // setActiveTab('receipt');
               }}
             >
               <div
@@ -228,8 +229,8 @@ export default function OjassDashboard() {
             {/* DASHBOARD CARD */}
             <GlassyNeonBoard title="DASHBOARD">
               {/* Tabs */}
-              <div className="flex gap-3 mb-8 flex-wrap">
-                {["RECIEPT", "EVENTS", "TEAMS", "CERTIFICATES"].map((tab) => {
+              <div className="flex gap-3 py-6 flex-wrap">
+                {["RECEIPT", "EVENTS", "TEAMS", "CERTIFICATES","NOTIFICATIONS"].map((tab) => {
                   const isActive = activeTab === tab.toLowerCase();
                   return (
                     <button
@@ -254,9 +255,9 @@ export default function OjassDashboard() {
               <div
                 className="
                   overflow-y-auto
-                  h-[55vh] sm:h-[60vh] md:h-[65vh] lg:h-[70vh]
-                  xl:h-[73vh] 2xl:h-[75vh] 4xl:h-[77vh]
-                  scrollbar-thin scrollbar-thumb-cyan-500/40 scrollbar-track-transparent
+                  h-[55vh] sm:h-[60vh] md:h-[65vh] lg:h-[75vh]
+                  xl:h-[78vh] 2xl:h-[75vh] 4xl:h-[77vh]
+                  scrollbar-thin scrollbar-thumb-cyan-500/40 scrollbar-track-transparent py-4
                 "
               >
                 {activeTab === "receipt" && <Receipt userData={profileData} />}
@@ -268,6 +269,9 @@ export default function OjassDashboard() {
                 )}
                 {activeTab === "certificates" && (
                   <Certificate certificates={certificates} />
+                )}
+                {activeTab==="notifications" && (
+                  <Notification />
                 )}
               </div>
             </GlassyNeonBoard>

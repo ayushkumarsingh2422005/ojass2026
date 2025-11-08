@@ -26,6 +26,8 @@ const TimelinePage = () => {
     const [angle, setAngle] = useState(0);
     const [isThrottled, setIsThrottled] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
+    const [showTransition, setShowTransition] = useState(false);
+
     const { theme } = useTheme();
 
     const startAngleRef = useRef(0);
@@ -158,25 +160,29 @@ const TimelinePage = () => {
 
     // Handle rotation
     const rotate = (dir: number) => {
-        if (isAnimating) return;
+    if (isAnimating) return;
 
-        const newAngle = angle + dir * 120;
-        setAngle(newAngle);
-        currentAngleRef.current = newAngle;
+    // ✅ Play the transition video
+    setShowTransition(true);
 
-        const normalizedAngle = ((newAngle % 360 + 360) % 360);
-        const newDay = normalizedAngle === 0 ? 1 : normalizedAngle === 120 ? 2 : 3;
+    const newAngle = angle + dir * 120;
+    setAngle(newAngle);
+    currentAngleRef.current = newAngle;
 
-        if (newDay !== selectedDay) {
-            setIsAnimating(true);
+    const normalizedAngle = ((newAngle % 360 + 360) % 360);
+    const newDay = normalizedAngle === 0 ? 1 : normalizedAngle === 120 ? 2 : 3;
+
+    if (newDay !== selectedDay) {
+        setIsAnimating(true);
+        setTimeout(() => {
+            setSelectedDay(newDay);
             setTimeout(() => {
-                setSelectedDay(newDay);
-                setTimeout(() => {
-                    setIsAnimating(false);
-                }, 600);
-            }, 100);
-        }
-    };
+                setIsAnimating(false);
+            }, 600);
+        }, 300); // slight delay to sync with video
+    }
+};
+
 
     const handleWheel = (e: any) => {
         e.preventDefault();
@@ -278,7 +284,52 @@ const TimelinePage = () => {
 
     return (
         <div className="min-h-screen relative overflow-hidden ">
+             <AnimatePresence>
+                {showTransition && (
+                    <motion.div
+                        className="fixed inset-0  pointer-events-none"
+                        initial={{
+                            x: direction === "left" ? "100%" : "-100%",
+                            opacity: 1
+                        }}
+                        animate={{
+                            x: 0,
+                            opacity: 1,
+                            transition: {
+                                duration: 0.45,
+                                ease: "easeInOut"
+                            }
+                        }}
+                        exit={{
+                            x: direction === "left" ? "-100%" : "100%",
+                            opacity: 0,
+                            transition: {
+                                duration: 0.3,
+                                ease: "easeIn"
+                            }
+                        }}
+                        onAnimationComplete={() => {
+                            setTimeout(() => setShowTransition(false), 100);
+                        }}
+                    >
+                        <video
+                            src="/timeline/AdobeStock_976822303_Video_HD_Preview.mov"
+                            autoPlay
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                                console.error("Video failed to load:", e);
+                                setShowTransition(false);
+                            }}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Animated Background and Content */}
+            
+
             <AnimatePresence mode="wait" custom={{ direction }}>
                 <motion.div
                     key={selectedDay}
@@ -307,6 +358,7 @@ const TimelinePage = () => {
                             </h2>
 
                             <div className="relative">
+                                
                                 {/* Timeline line */}
                                 <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-400 via-blue-400 to-purple-400"></div>
 
@@ -580,12 +632,16 @@ const TimelinePage = () => {
                                 </div>
                             );
                         })}
+
+                        
                     </div>
 
                     {/* Invisible interaction zones */}
                     <div className='absolute top-0 left-0 h-full w-full flex'>
-                        <div className='w-1/2' onClick={() => rotate(-1)}></div>
+                        <div className='w-1/2' onClick={() => rotate(-1)}>
+                        </div>
                         <div className='w-1/2' onClick={() => rotate(1)}></div>
+
                     </div>
                 </div>
 
@@ -624,3 +680,5 @@ const TimelinePage = () => {
 };
 
 export default TimelinePage;
+
+
