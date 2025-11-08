@@ -1,0 +1,120 @@
+[
+  {
+    "id": "1",
+    "name": "Adarsh Kumar",
+    "title": "Lead Developer",
+    "img": "/team/adarsh.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+
+  },
+  {
+    "id": "2",
+    "name": "Priya Sharma",
+    "title": "UI/UX Designer",
+    "img": "/team/priya.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+  {
+    "id": "3",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+   {
+    "id": "4",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+   {
+    "id": "5",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+   {
+    "id": "6",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+   {
+    "id": "7",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+   {
+    "id": "8",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+   {
+    "id": "9",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+  {
+    "id": "10",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+  {
+    "id": "11",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+  {
+    "id": "12",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  },
+  {
+    "id": "13",
+    "name": "Arjun Mehta",
+    "title": "Project Manager",
+    "img": "/team/arjun.png",
+    "phone":"1234567891",
+    "email":"rtyghjnm",
+    "linkdin":"rtfghjbmn"
+  }
+]

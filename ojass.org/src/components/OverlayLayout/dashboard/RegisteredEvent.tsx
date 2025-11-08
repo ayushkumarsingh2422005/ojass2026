@@ -14,15 +14,15 @@ export default function RegisteredEvent({
   // 🎨 Theme-based glow and colors
   const glow = theme === "utopia" ? "#00ffff" : "#cc7722";
   const borderColor =
-    theme === "utopia" ? "border-cyan-400/30" : "border-amber-500/30";
+    theme === "utopia" ? "border-cyan-400/30" : "border-red-500";
   const gradientFrom =
     theme === "utopia"
       ? "from-cyan-500/10 to-blue-500/5"
-      : "from-amber-700/15 to-orange-900/10";
+      : "from-amber-700/15 to-amber-900/10";
   const hoverGradient =
     theme === "utopia"
       ? "hover:from-cyan-500/20 hover:to-blue-500/10"
-      : "hover:from-amber-700/25 hover:to-orange-900/15";
+      : "hover:from-amber-700/25 hover:to-red-900/15";
   const textColor =
     theme === "utopia" ? "text-cyan-300" : "text-amber-400";
   const boxShadow = `0 0 15px ${glow}22, inset 0 0 12px ${glow}18`;
