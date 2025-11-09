@@ -68,8 +68,8 @@ const Hero = () => {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl"
             >
-              Amplify your brand with OJASS 2026 through national student reach,
-              on-ground activations, digital campaigns, and recruitment touchpoints.
+              Go big with OJASS 2026 — nationwide reach, student
+              buzz, and powerful brand impact!
             </motion.p>
 
             {/* CTA Button */}

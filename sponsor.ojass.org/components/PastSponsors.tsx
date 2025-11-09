@@ -82,51 +82,49 @@ const PastSponsors = () => {
   ];
 
   return (
-    <section id="past-sponsors" className="py-20 bg-white">
+    <section id="past-sponsors" className="py-12 md:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4 }}
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
             Our <span className="text-blue-600">Past Sponsors</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-700 mx-auto mb-4"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-700 mx-auto mb-3 md:mb-4"></div>
+          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
             Trusted by leading brands across industries
           </p>
         </motion.div>
 
         {/* All Sponsors Grid */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.4 }}
         >
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
-            {sponsors.map((sponsor, index) => (
-              <motion.div
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8">
+            {sponsors.map((sponsor) => (
+              <div
                 key={sponsor.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center border border-gray-100 hover:border-blue-600/30 group"
+                className="bg-white rounded-lg p-4 sm:p-6 shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center border border-gray-100 hover:border-blue-600/30 group"
               >
-                <div className="relative w-full h-12 grayscale group-hover:grayscale-0 transition-all duration-300">
+                <div className="relative w-full h-10 sm:h-12 grayscale group-hover:grayscale-0 transition-all duration-300">
                   <Image
                     src={sponsor.logo}
                     alt={sponsor.name}
                     fill
                     className="object-contain"
+                    loading="lazy"
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 16vw"
                   />
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.div>

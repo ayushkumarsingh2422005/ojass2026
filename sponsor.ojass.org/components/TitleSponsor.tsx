@@ -8,32 +8,32 @@ const TitleSponsor = () => {
     {
       icon: Crown,
       title: "Exclusive Naming Rights",
-      description: "Festival officially branded as 'OJASS presented by [Your Brand]' across all touchpoints.",
+      description: "It’s official — “OJASS powered by [Your Brand]” steals the spotlight everywhere!",
     },
     {
       icon: Megaphone,
-      title: "Maximum Brand Recall",
-      description: "Dominant visibility through stage takeovers, LED screens, and venue-wide branding.",
+      title: "Maximum Brand Buzz",
+      description: "Own the vibe with stage domination, LED magic, and campus-wide takeover.",
     },
     {
       icon: Users,
-      title: "VIP Engagement",
-      description: "Exclusive access to opening/closing ceremonies, pro-shows, and high-traffic flagship events.",
+      title: "VIP Access",
+      description: "Get the red-carpet treatment at pro-shows, ceremonies, and flagship events.",
     },
     {
       icon: Target,
-      title: "Strategic Positioning",
-      description: "Position your brand as the primary supporter of innovation and student empowerment.",
+      title: "Power Positioning",
+      description: "Stand tall as the ultimate champion of innovation and youth energy.",
     },
     {
       icon: TrendingUp,
-      title: "Media Amplification",
-      description: "Co-branded press releases, news coverage, and influencer partnerships for extended reach.",
+      title: "Media Hype",
+      description: "Go viral with co-branded reels, press buzz, and influencer collabs.",
     },
     {
       icon: Award,
-      title: "Legacy Recognition",
-      description: "Permanent recognition in OJASS history and alumni network engagement opportunities.",
+      title: "Legacy Vibes",
+      description: "Leave your mark — forever repping in OJASS history and alumni circles.",
     },
   ];
 
@@ -70,8 +70,8 @@ const TitleSponsor = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-300 to-blue-400 mx-auto mb-6"></div>
           <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-            Own the narrative. Be the primary brand behind one of India's most anticipated student festivals,
-            reaching 25,000+ on-ground attendees and 5M+ digital impressions.
+          Own the spotlight — be the leading brand behind India’s most
+          awaited student festival, reaching 25K+ on-ground and 5M+ online.
           </p>
         </motion.div>
 
