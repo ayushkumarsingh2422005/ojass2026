@@ -25,8 +25,8 @@ const RegisterSection = () => {
             Ready to Join the Team?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Become a Campus Ambassador and help spread innovation across campuses.
-            Register now and be part of OJASS 2026!
+          Be a Campus Ambassador, ignite innovation, and represent OJASS
+          2026 — register today!
           </p>
           <motion.a
             href="/dashboard"
