@@ -10,7 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
 
-import { EventModal } from './[num]/[subnum]/page';
+
 
 interface CardData {
   id: string;
@@ -208,17 +208,17 @@ export default function Page({ }: Props) {
               {currentEventCards.map((card) => (
                 <SwiperSlide key={card.id}>
                   <div className="w-full h-full flex items-center justify-center">
-                    <div onClick={(e) => {
-                      // Card ki position capture karo
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      setCardPosition({
-                        x: rect.left,
-                        y: rect.top,
-                        width: rect.width,
-                        height: rect.height,
-                      });
-                      setSelectedEvent(card);
-                    }}>
+                    <div
+                      onClick={(e) => {
+                        // only navigate if this slide is active
+                        if (swiperInstance?.slides[swiperInstance.activeIndex] === e.currentTarget.closest('.swiper-slide')) {
+                          if (card.redirect) {
+                            window.location.href = card.redirect; // 👈 redirect to URL
+                          }
+                        }
+                      }}
+                      className="cursor-pointer"
+                    >
                       <div className="card-wrap w-[260px] md:w-[320px] lg:w-[360px] h-full">
                         <EventCard
                           id={card.id}
@@ -228,6 +228,7 @@ export default function Page({ }: Props) {
                         />
                       </div>
                     </div>
+
                   </div>
                 </SwiperSlide>
               ))}
@@ -264,16 +265,6 @@ export default function Page({ }: Props) {
           />
         </div>
       </div>
-      {selectedEvent && (
-        <EventModal
-          isOpen={!!selectedEvent}
-          onClose={() => setSelectedEvent(null)}
-          eventData={selectedEvent as any} // Your event.json should have full data
-          user={user}
-          cardPosition={cardPosition}
-          animationType="flip"
-        />
-      )}
 
 
     </div>
