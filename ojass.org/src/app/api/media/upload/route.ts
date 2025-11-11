@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import connectToDatabase, { connectPromise } from '@/lib/mongodb';
+import connectToDatabase from '@/lib/mongodb';
 import Media from '@/models/Media';
 import { uploadFilesToCloudinary } from '@/utils/cloudinary.util';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Configure max file size (10MB)
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes

@@ -67,8 +67,8 @@ const Hero = () => {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="text-lg sm:text-xl text-gray-600 leading-relaxed max-w-xl"
             >
-              Join the OJASS team and help us spread innovation across campuses.
-              Be the bridge between your college and India&apos;s premier tech fest.
+              Be the spark on your campus! Represent OJASS, India’s
+              premier tech fest, and drive innovation forward.
             </motion.p>
 
             {/* CTA Button */}

@@ -1,68 +1,109 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 
-export interface IPrizeWorth {
-  Total: string;
-  Winner: string;
-  FirstRunnerUp: string;
-  SecondRunnerUp: string;
-  [key: string]: string;
+export interface IPrizes {
+  total: string;
+  winner: string;
+  first_runner_up: string;
+  second_runner_up: string;
+  [key: string]: string | undefined;
+}
+
+export interface IEventHead {
+  name: string;
+  Phone: string;
 }
 
 export interface IEvent extends Document {
-  title: string;
-  bannerImage: string;
-  maxTeamSize: number;
-  isIndividual: boolean;
-  description: string[];
-  prizeWorth: IPrizeWorth;
+  name: string;
+  teamSizeMin: number;
+  teamSizeMax: number;
+  isTeamEvent: boolean; // flag for team or individual event
+  img: string;
+  rulebookurl: string;
+  redirect: string;
+  organizer?: string;
+  description: string;
+  prizes: IPrizes;
   details: string[];
   rules: string[];
-  eventHeads: string[];
-  contactNo: string[];
+  event_head: IEventHead;
   winners: mongoose.Types.ObjectId[];
 }
 
-const prizeWorthSchema = new Schema<IPrizeWorth>(
+const prizesSchema = new Schema<IPrizes>(
   {
-    Total: { type: String, required: true },
-    Winner: { type: String, required: true },
-    FirstRunnerUp: { type: String, required: true },
-    SecondRunnerUp: { type: String, required: true },
+    total: { type: String, required: true },
+    winner: { type: String, required: true },
+    first_runner_up: { type: String, required: true },
+    second_runner_up: { type: String, required: true }
+  },
+  { _id: false }
+);
+
+const eventHeadSchema = new Schema<IEventHead>(
+  {
+    name: { type: String, required: true },
+    Phone: { type: String, required: true },
   },
   { _id: false }
 );
 
 const eventSchema = new Schema<IEvent>(
   {
-    title: {
+    name: {
       type: String,
-      required: [true, "Event title is required"],
+      required: [true, "Event name is required"],
       trim: true,
     },
-    bannerImage: {
-      type: String,
-      required: [true, "Banner image is required"],
-      trim: true,
-    },
-    maxTeamSize: {
+    teamSizeMin: {
       type: Number,
-      required: [true, "Team size is required"],
+      required: [true, "Minimum team size is required"],
+      min: [1, "Minimum team size must be at least 1"],
     },
-    isIndividual: {
-      type: Boolean,
-      required:[true, "Specify if the event is an individual or team event"],
-    },
-    description: {
-      type: [String],
-      required: [true, "Description is required"],
+    teamSizeMax: {
+      type: Number,
+      required: [true, "Maximum team size is required"],
+      min: [1, "Maximum team size must be at least 1"],
       validate: {
-        validator: (v: string[]) => v.length > 0,
-        message: "Description must have at least one item",
+        validator: function (this: IEvent, v: number) {
+          return v >= this.teamSizeMin;
+        },
+        message: "Maximum team size must be greater than or equal to minimum team size",
       },
     },
-    prizeWorth: {
-      type: prizeWorthSchema,
-      required: [true, "Prize worth information is required"],
+    isTeamEvent: {
+      type: Boolean,
+      required: [true, "Event type flag (isTeamEvent) is required"],
+      // Optionally, add a default: false for backward-compatibility if needed
+    },
+    img: {
+      type: String,
+      required: [true, "Event image is required"],
+      trim: true,
+    },
+    rulebookurl: {
+      type: String,
+      required: [true, "Rulebook URL is required"],
+      trim: true,
+    },
+    redirect: {
+      type: String,
+      required: [true, "Redirect path is required"],
+      trim: true,
+    },
+    organizer: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+      trim: true,
+    },
+    prizes: {
+      type: prizesSchema,
+      required: [true, "Prize information is required"],
     },
     details: {
       type: [String],
@@ -80,21 +121,9 @@ const eventSchema = new Schema<IEvent>(
         message: "Rules must have at least one item",
       },
     },
-    eventHeads: {
-      type: [String],
-      required: [true, "Event heads are required"],
-      validate: {
-        validator: (v: string[]) => v.length > 0,
-        message: "At least one event head is required",
-      },
-    },
-    contactNo: {
-      type: [String],
-      required: [true, "Contact numbers are required"],
-      validate: {
-        validator: (v: string[]) => v.length > 0,
-        message: "At least one contact number is required",
-      },
+    event_head: {
+      type: eventHeadSchema,
+      required: [true, "Event head information is required"],
     },
     winners: {
       type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
@@ -110,7 +139,8 @@ const eventSchema = new Schema<IEvent>(
   }
 );
 
-eventSchema.index({ title: 1 });
+eventSchema.index({ id: 1 });
+eventSchema.index({ name: 1 });
 
 const Event: Model<IEvent> =
   mongoose.models.Event || mongoose.model<IEvent>("Event", eventSchema);

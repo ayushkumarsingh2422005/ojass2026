@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { authAPI } from '@/lib/api';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,11 +11,36 @@ export default function AuthPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/dashboard');
+    setError('');
+    setLoading(true);
+
+    try {
+      if (isLogin) {
+        // Login - use username or email field as email
+        const loginEmail = username.trim() || email.trim();
+        if (!loginEmail || !password) {
+          setError('Please enter email and password');
+          setLoading(false);
+          return;
+        }
+
+        await authAPI.login(loginEmail, password);
+        router.push('/dashboard');
+      } else {
+        // Signup is not supported for admin panel
+        setError('Admin signup is not available. Please contact system administrator.');
+        setLoading(false);
+      }
+    } catch (err: any) {
+      setError(err.message || 'Login failed. Please check your credentials.');
+      setLoading(false);
+    }
   };
 
   const isFormValid = isLogin
@@ -148,60 +174,20 @@ export default function AuthPage() {
               Login
             </h1>
             <p className="text-gray-400 text-sm">
-              {isLogin ? 'Sign in to your account' : 'Create your account'}
+              Sign in to your admin account
             </p>
           </div>
 
-          {/* Toggle Button with Neon Accent */}
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <span className={`text-sm font-medium transition-colors ${isLogin ? 'text-cyan-400' : 'text-gray-500'}`}>
-              Log In
-            </span>
-            <button
-              type="button"
-              onClick={() => {
-                setIsLogin(!isLogin);
-                setUsername('');
-                setEmail('');
-                setPassword('');
-                setShowPassword(false);
-              }}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
-                isLogin ? 'bg-cyan-500/30 border border-cyan-400/50' : 'bg-gray-700 border border-gray-600'
-              }`}
-              aria-label="Toggle between login and signup"
-            >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  isLogin ? 'translate-x-6 shadow-[0_0_8px_cyan]' : 'translate-x-1'
-                }`}
-              />
-            </button>
-            <span className={`text-sm font-medium transition-colors ${!isLogin ? 'text-pink-400' : 'text-gray-500'}`}>
-              Sign Up
-            </span>
-          </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm">
+              {error}
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            {!isLogin && (
-              <div className="relative">
-                <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <svg className="w-5 h-5 text-cyan-400/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-3 pr-12 bg-gray-800/70 border-b-2 border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-colors"
-                  required={!isLogin}
-                />
-              </div>
-            )}
-
             <div className="relative">
               <div className="absolute right-3 top-1/2 -translate-y-1/2">
                 <svg className="w-5 h-5 text-cyan-400/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,18 +195,13 @@ export default function AuthPage() {
                 </svg>
               </div>
               <input
-                type={isLogin ? 'text' : 'email'}
-                placeholder={isLogin ? 'Email or Username' : 'Email'}
-                value={isLogin ? username : email}
-                onChange={(e) => {
-                  if (isLogin) {
-                    setUsername(e.target.value);
-                  } else {
-                    setEmail(e.target.value);
-                  }
-                }}
+                type="text"
+                placeholder="Email or Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="w-full px-4 py-3 pr-12 bg-gray-800/70 border-b-2 border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-colors"
                 required
+                disabled={loading}
               />
             </div>
 
@@ -237,6 +218,7 @@ export default function AuthPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 pr-20 bg-gray-800/70 border-b-2 border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-colors"
                 required
+                disabled={loading}
               />
               {password && (
                 <button
@@ -282,32 +264,19 @@ export default function AuthPage() {
 
             <button
               type="submit"
-              disabled={!isFormValid}
+              disabled={loading || !isFormValid}
               className={`w-full py-3 rounded-lg text-sm font-semibold mt-6 transition-all relative overflow-hidden ${
-                isFormValid
+                isFormValid && !loading
                   ? 'bg-gradient-to-r from-cyan-500/80 to-blue-500/80 text-white hover:from-cyan-500 hover:to-blue-500 border border-cyan-400/50 shadow-[0_0_20px_rgba(34,211,238,0.3)]'
                   : 'bg-gray-800 text-gray-600 cursor-not-allowed border border-gray-700'
               }`}
             >
-              <span className="relative z-10">{isLogin ? 'Login' : 'Sign Up'}</span>
+              <span className="relative z-10">
+                {loading ? 'Logging in...' : 'Login'}
+              </span>
             </button>
           </form>
 
-          {/* Sign Up Link */}
-          {isLogin && (
-            <div className="text-center mt-6">
-              <p className="text-sm text-gray-400">
-                Don't have an account?{' '}
-                <button
-                  type="button"
-                  onClick={() => setIsLogin(false)}
-                  className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
-                >
-                  Register
-                </button>
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>

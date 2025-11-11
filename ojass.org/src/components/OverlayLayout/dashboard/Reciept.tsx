@@ -51,22 +51,22 @@ export default function Receipt({ userData }: { userData?: any }) {
   }, []);
 
   // Listen for download trigger from parent
-  useEffect(() => {
-    const checkDownloadTrigger = () => {
-      const shouldDownload = sessionStorage.getItem('downloadReceipt');
-      if (shouldDownload === 'true' && paymentData?.isPaid && userData) {
-        // Use setTimeout to ensure paymentData is available
-        setTimeout(() => {
-          handleDownloadReceipt();
-          sessionStorage.removeItem('downloadReceipt');
-        }, 100);
-      }
-    };
+  // useEffect(() => {
+  //   const checkDownloadTrigger = () => {
+  //     // const shouldDownload = sessionStorage.getItem('downloadReceipt');
+  //     if ( paymentData?.isPaid && userData) {
+  //       // Use setTimeout to ensure paymentData is available
+  //       setTimeout(() => {
+  //         handleDownloadReceipt();
+  //         // sessionStorage.removeItem('downloadReceipt');
+  //       }, 100);
+  //     }
+  //   };
     
-    if (paymentData && userData) {
-      checkDownloadTrigger();
-    }
-  }, [paymentData, userData]); // eslint-disable-line react-hooks/exhaustive-deps
+  //   if (paymentData && userData) {
+  //     checkDownloadTrigger();
+  //   }
+  // }, [paymentData, userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePayNow = async () => {
     setPaymentLoading(true);
@@ -175,7 +175,6 @@ export default function Receipt({ userData }: { userData?: any }) {
 
   const handleDownloadReceipt = () => {
     if (!paymentData || !userData) return;
-    
     const paymentDate = paymentData.paymentDate 
       ? new Date(paymentData.paymentDate).toLocaleDateString('en-IN', { 
           year: 'numeric', 
@@ -432,6 +431,8 @@ export default function Receipt({ userData }: { userData?: any }) {
   const isEmailVerified = userData?.isEmailVerified || paymentData?.isEmailVerified || false;
   const isPaid = paymentData?.isPaid || false;
 
+  console.log(isEmailVerified, isPaid)
+
   // If email not verified, show message
   if (!isEmailVerified) {
     return (
@@ -507,7 +508,8 @@ export default function Receipt({ userData }: { userData?: any }) {
     : 'N/A';
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col h-full overflow-hidden content-center">
+    <div className="overflow-y-auto space-y-4">
       {/* 🎫 Receipt Header */}
       <div
         className={`p-6 border-2 ${borderColor} bg-gradient-to-br ${gradientFrom} backdrop-blur-md transition-all duration-300 text-center`}
@@ -676,20 +678,28 @@ export default function Receipt({ userData }: { userData?: any }) {
           Thank you for your registration!
         </p>
       </div>
-
-      {/* Download Receipt Button */}
-      <div className="mt-4">
-        <button
-          onClick={handleDownloadReceipt}
-          className={`w-full py-3 px-4 border-2 ${borderColor} ${textColor} hover:bg-opacity-20 transition-all font-bold`}
-          style={{ 
-            clipPath: "polygon(5% 0, 95% 0, 100% 25%, 100% 75%, 95% 100%, 5% 100%, 0 75%, 0 25%)",
-            boxShadow: `0 0 20px ${glow}40`
-          }}
-        >
-          DOWNLOAD RECEIPT (PDF)
-        </button>
-      </div>
     </div>
+    {/* Download Receipt Button */}
+      <div className="mt-7 text-center ">
+  <button
+    onClick={handleDownloadReceipt}
+    className="relative border-2 px-8 py-1 font-bold text-lg transition-all overflow-hidden group
+               border-cyan-400 text-cyan-400 disabled:opacity-50"
+    style={{
+      boxShadow: '0 0 30px rgba(34, 211, 238, 0.4)',
+      clipPath: 'polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%)',
+    }}
+  >
+    <div className="absolute inset-0 bg-cyan-400/0 group-hover:bg-cyan-400 transition-all duration-300"></div>
+
+    <span className="relative group-hover:text-slate-900 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]">
+      DOWNLOAD RECEIPT (PDF)
+    </span>
+  </button>
+</div>
+
+      </div>
+
+
   );
 }

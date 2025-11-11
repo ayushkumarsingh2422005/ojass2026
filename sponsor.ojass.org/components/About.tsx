@@ -12,7 +12,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="relative py-20 bg-gradient-to-b from-blue-50 to-white overflow-hidden">
+    <section id="about" className="relative py-12 md:py-20 bg-gradient-to-b from-blue-50 to-white overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full" style={{
@@ -27,17 +27,10 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <Image 
-              src="/logo.webp" 
-              alt="OJASS Logo" 
-              width={60} 
-              height={60}
-              className="object-contain"
-            />
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
+          <div className="flex items-center justify-center gap-2 md:gap-4 mb-3 md:mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
               ABOUT <span className="text-blue-600">OJASS</span>
             </h2>
           </div>
@@ -50,21 +43,25 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-4xl mx-auto mb-16"
+          className="max-w-4xl mx-auto mb-8 md:mb-16"
         >
-          <p className="text-lg text-gray-700 leading-relaxed text-center mb-6">
-            OJASS is one of India’s leading techno-cultural festivals, uniting students, creators,
-            and innovators through flagship competitions, workshops, exhibitions, and pro-shows.
+          <p className="text-base md:text-lg text-gray-700 leading-relaxed text-center mb-4 md:mb-6">
+          OJASS — India's premier techno-management festival, where
+innovation meets celebration — unites brilliant minds, creators, and
+innovators through electrifying competitions, immersive workshops,
+vibrant exhibitions, and spectacular pro-shows.
+
           </p>
-          <p className="text-lg text-gray-700 leading-relaxed text-center">
-            As a sponsor, your brand engages directly with a high-intent student audience through
-            on-ground visibility, stage integrations, digital campaigns, product showcases, and
-            recruitment touchpoints.
+          <p className="text-base md:text-lg text-gray-700 leading-relaxed text-center">
+          Put your brand in the spotlight — engage high-intent students
+through on-ground buzz, digital reach, stage presence, product
+showcases, and recruitment touchpoints.
+
           </p>
         </motion.div>
 
         {/* Stats Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -74,15 +71,15 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                className="bg-white rounded-2xl p-5 md:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
               >
-                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl mb-4 mx-auto">
-                  <Icon className="w-8 h-8 text-white" />
+                <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl mb-3 md:mb-4 mx-auto">
+                  <Icon className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-2">{stat.year}</p>
-                  <h3 className="text-4xl font-bold text-gray-900 mb-1">{stat.count}</h3>
-                  <p className="text-gray-600">{stat.label}</p>
+                  <p className="text-xs md:text-sm text-gray-600 mb-1 md:mb-2">{stat.year}</p>
+                  <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">{stat.count}</h3>
+                  <p className="text-sm md:text-base text-gray-600">{stat.label}</p>
                 </div>
               </motion.div>
             );

@@ -15,32 +15,32 @@ const Perks = () => {
     {
       icon: Gift,
       title: "Free Workshops & Merchandise",
-      description: "Get access to exclusive workshops and receive official OJASS merchandise and goodies.",
+      description: "Access exclusive workshops and grab official OJASS goodies.",
     },
     {
       icon: Award,
       title: "Internship Certificate",
-      description: "Receive a certified internship certificate from OJASS upon successful completion.",
+      description: "Earn a certified internship certificate upon completion.",
     },
     {
       icon: Briefcase,
       title: "Sponsor Internships",
-      description: "Opportunities for internships with our prestigious sponsors and partners.",
+      description: "Unlock opportunities with OJASS’s prestigious partners.",
     },
     {
       icon: Network,
       title: "Networking & Endorsements",
-      description: "Connect with alumni, industry leaders, and get LinkedIn endorsements.",
+      description: "Connect with alumni, industry leaders, and gain LinkedIn endorsements.",
     },
     {
       icon: MessageSquare,
       title: "Monthly Shoutouts",
-      description: "Get featured on our social media channels for your contributions and achievements.",
+      description: "Get featured on OJASS social media for your contributions.",
     },
     {
       icon: FileText,
       title: "Letter of Recommendation",
-      description: "Receive a personalized LOR based on your performance and dedication to the program.",
+      description: "Receive a personalized LOR recognizing your dedication and performance.",
     },
   ];
 
@@ -60,7 +60,8 @@ const Perks = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] mx-auto mb-4"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Unlock incredible benefits and opportunities as part of the OJASS Campus Ambassador Program
+          Become a PART OJASS Campus Ambassador Program — unlock
+          perks, opportunities, and growth!
           </p>
         </motion.div>
 

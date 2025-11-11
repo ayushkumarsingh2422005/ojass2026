@@ -7,23 +7,23 @@ const Responsibilities = () => {
   const responsibilities = [
     {
       icon: Megaphone,
-      title: "Promote OJASS in Your College",
-      description: "Spread awareness about OJASS events, competitions, and opportunities among your peers and college community.",
+      title: "Promote OJASS in your Campus",
+      description: "Spread awareness about OJASS events, competitions, and opportunities.",
     },
     {
       icon: Users,
-      title: "Work as Our Extension",
-      description: "Act as the official representative of OJASS in your college, bridging the gap between your institution and us.",
+      title: "Be Our Campus Extension",
+      description: "Act as the official OJASS representative at your college.",
     },
     {
       icon: Building2,
       title: "Coordinate with Administration",
-      description: "Help coordinate with your college administration and student bodies to facilitate OJASS events and activities.",
+      description: "Work with your college authorities and student bodies to facilitate events.",
     },
     {
       icon: Database,
       title: "Provide Data & Feedback",
-      description: "Share relevant data, insights, and feedback to help us improve and reach more students effectively.",
+      description: "Share insights and feedback to help us reach more students effectively.",
     },
   ];
 
@@ -43,7 +43,8 @@ const Responsibilities = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#FF8C00] to-[#FF6B00] mx-auto mb-4"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            As a Campus Ambassador, you&apos;ll play a crucial role in connecting your college with OJASS
+          Be the link between our college and OJASS — driving innovation
+and engagement!
           </p>
         </motion.div>
 

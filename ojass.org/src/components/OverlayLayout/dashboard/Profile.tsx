@@ -172,7 +172,7 @@ export default function Profile({ profileData }: { profileData: any }) {
   };
 
   return (
-    <div className="space-y-5 relative px-3 pb-8 overflow-y-auto">
+    <div className="space-y-5 relative px-3 pb-8 overflow-y-auto ">
       {/* Background Glow */}
       <div
         className="absolute inset-0 opacity-30 blur-3xl"
@@ -278,7 +278,7 @@ export default function Profile({ profileData }: { profileData: any }) {
         ].map(({ icon: Icon, label, value }, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 p-2 rounded transition-all duration-200 hover:bg-opacity-10"
+            className="flex items-center gap-3 p-2 rounded transition-all duration-200 hover:bg-opacity-10 overflow-x-auto"
             style={{
               background: `${glow}10`,
               borderLeft: `2px solid transparent`,

@@ -15,32 +15,32 @@ const Perks = () => {
     {
       icon: Gift,
       title: "High-Impact Brand Visibility",
-      description: "Stage mentions, logo placements, and venue branding across high-footfall zones.",
+      description: "Own the spotlight — from stage mentions to logo placements and prime venue branding.",
     },
     {
       icon: Award,
       title: "Flagship Stage Integrations",
-      description: "Integrate with headliner events, pro-shows, and competitions for maximum recall.",
+      description: "Own the spotlight with headline events that wow.",
     },
     {
       icon: Briefcase,
       title: "Recruitment & Talent Access",
-      description: "Run challenges, hackathons, or placement touchpoints to identify top talent.",
+      description: "Host challenges and hackathons to spot top talent",
     },
     {
       icon: Network,
       title: "Digital Reach & Content",
-      description: "Leverage multi-platform campaigns, reels, and email pushes to 5M+ impressions.",
+      description: "Go viral — 5M+ impressions through dynamic campaigns and reels.",
     },
     {
       icon: MessageSquare,
       title: "Product Demos & Booths",
-      description: "Engage audiences with booths, trials, and sampling during prime hours.",
+      description: "Boost brand interaction with booths, demos, and prime-hour sampling.",
     },
     {
       icon: FileText,
       title: "Customized Packages",
-      description: "Tailored benefits that match your brand objectives and budget tiers.",
+      description: "Brand-focused plans that fit every budget.",
     },
   ];
 
@@ -60,7 +60,8 @@ const Perks = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-700 mx-auto mb-4"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Drive awareness, engagement, and conversions with India’s most energetic student audience.
+          CONNECT . ENGAGE . DOMINATE – with unmatched youth energy and
+          nationwide reach
           </p>
         </motion.div>
 
