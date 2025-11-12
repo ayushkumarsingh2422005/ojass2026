@@ -3,15 +3,14 @@ import { gsap } from 'gsap';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { useTheme } from "@/contexts/ThemeContext";
 import EventCard from '@/components/OverlayLayout/EventCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
 
-import { EventModal } from './[num]/[subnum]/page';
-import { useTheme } from '@/contexts/ThemeContext';
+
 
 interface CardData {
   id: string;
@@ -210,17 +209,17 @@ export default function Page({ }: Props) {
               {currentEventCards.map((card) => (
                 <SwiperSlide key={card.id}>
                   <div className="w-full h-full flex items-center justify-center">
-                    <div onClick={(e) => {
-                      // Card ki position capture karo
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      setCardPosition({
-                        x: rect.left,
-                        y: rect.top,
-                        width: rect.width,
-                        height: rect.height,
-                      });
-                      setSelectedEvent(card);
-                    }}>
+                    <div
+                      onClick={(e) => {
+                        // only navigate if this slide is active
+                        if (swiperInstance?.slides[swiperInstance.activeIndex] === e.currentTarget.closest('.swiper-slide')) {
+                          if (card.redirect) {
+                            window.location.href = card.redirect; // 👈 redirect to URL
+                          }
+                        }
+                      }}
+                      className="cursor-pointer"
+                    >
                       <div className="card-wrap w-[260px] md:w-[320px] lg:w-[360px] h-full">
                         <EventCard
                           id={card.id}
@@ -230,6 +229,7 @@ export default function Page({ }: Props) {
                         />
                       </div>
                     </div>
+
                   </div>
                 </SwiperSlide>
               ))}
@@ -239,85 +239,85 @@ export default function Page({ }: Props) {
 
         </div>
 
-       {theme === "utopia" ? (
-  <>
-    {/* 🌤 UTOPIA BUTTONS */}
-    <button
-      className="events-prev absolute left-60 top-1/2 -translate-y-1/2 z-30 
+        {theme === "utopia" ? (
+          <>
+            {/* 🌤 UTOPIA BUTTONS */}
+            <button
+              className="events-prev absolute left-60 top-1/2 -translate-y-1/2 z-30 
                  pointer-events-auto text-white 
                  px-3 py-2 rounded-full 
                  bg-cyan-500/20 backdrop-blur-sm
                  transition-all duration-300 ease-in-out
                  hover:bg-cyan-500/40 hover:scale-105 active:scale-95"
-      aria-label="Previous"
-    >
-      <Image
-        width={40}
-        height={40}
-        src="/events/previousArrowButtonUtopia.svg"
-        alt="previous"
-      />
-    </button>
+              aria-label="Previous"
+            >
+              <Image
+                width={40}
+                height={40}
+                src="/events/previousArrowButtonUtopia.svg"
+                alt="previous"
+              />
+            </button>
 
-    <button
-      className="events-next absolute right-50 top-1/2 -translate-y-1/2 z-30 
+            <button
+              className="events-next absolute right-50 top-1/2 -translate-y-1/2 z-30 
                  pointer-events-auto text-white 
                  px-3 py-2 rounded-full 
                  bg-cyan-500/20 backdrop-blur-sm
                  transition-all duration-300 ease-in-out
                  hover:bg-cyan-500/40 hover:scale-105 active:scale-95"
-      aria-label="Next"
-    >
-      <Image
-        width={40}
-        height={40}
-        src="/events/nextArrowButtonUtopia.svg"
-        alt="next"
-      />
-    </button>
-  </>
-) : (
-  <>
-    {/* 🌒 DYSTOPIA BUTTONS */}
-    <button
-      className="events-prev absolute left-60 top-1/2 -translate-y-1/2 z-30 
+              aria-label="Next"
+            >
+              <Image
+                width={40}
+                height={40}
+                src="/events/nextArrowButtonUtopia.svg"
+                alt="next"
+              />
+            </button>
+          </>
+        ) : (
+          <>
+            {/* 🌒 DYSTOPIA BUTTONS */}
+            <button
+              className="events-prev absolute left-60 top-1/2 -translate-y-1/2 z-30 
                  pointer-events-auto text-white 
                  px-3 py-2 rounded-full 
                  bg-[#ee8f59]/10 backdrop-blur-sm
                  transition-all duration-300 ease-in-out
                  hover:bg-[#ee8f59]/30 hover:scale-105 active:scale-95"
-      aria-label="Previous"
-    >
-      <Image
-        width={40}
-        height={40}
-        src="/events/previousArrowButtonDystopia.svg"
-        alt="previous"
-      />
-    </button>
+              aria-label="Previous"
+            >
+              <Image
+                width={40}
+                height={40}
+                src="/events/previousArrowButtonDystopia.svg"
+                alt="previous"
+              />
+            </button>
 
-    <button
-      className="events-next absolute right-50 top-1/2 -translate-y-1/2 z-30 
+            <button
+              className="events-next absolute right-50 top-1/2 -translate-y-1/2 z-30 
                  pointer-events-auto text-white 
                  px-3 py-2 rounded-full 
                  bg-[#ee8f59]/10 backdrop-blur-sm
                  transition-all duration-300 ease-in-out
                  hover:bg-[#ee8f59]/30 hover:scale-105 active:scale-95"
-      aria-label="Next"
-    >
-      <Image
-        width={40}
-        height={40}
-        src="/events/nextArrowButtonDystopia.svg"
-        alt="next"
-      />
-    </button>
-  </>
-)}
+              aria-label="Next"
+            >
+              <Image
+                width={40}
+                height={40}
+                src="/events/nextArrowButtonDystopia.svg"
+                alt="next"
+              />
+            </button>
+          </>
+        )}
 
 
-        
-        
+
+
         <div className='absolute bottom-10 mx-auto flex items-center justify-center w-full h-1/2 z-10' style={{
           pointerEvents: 'none',
         }}>
@@ -328,19 +328,9 @@ export default function Page({ }: Props) {
             height={1000}
             className="h-[70vh] object-contain object-center-bottom"
             style={{ objectPosition: "center bottom" }}
-          /> 
+          />
         </div>
       </div>
-      {selectedEvent && (
-        <EventModal
-          isOpen={!!selectedEvent}
-          onClose={() => setSelectedEvent(null)}
-          eventData={selectedEvent as any} // Your event.json should have full data
-          user={user}
-          cardPosition={cardPosition}
-          animationType="flip"
-        />
-      )}
 
 
     </div>
